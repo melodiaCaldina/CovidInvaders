@@ -66,6 +66,14 @@ class Humain extends ElementMobile
 		this.ajouterTexture(textureHumainLeftShield2);
 		this.ajouterTexture(textureHumainLeftShield3);
 		this.ajouterTexture(textureHumainLeftImmune);
+		this.ajouterTexture(textureHumainLeftImmune2);
+		this.ajouterTexture(textureHumainLeftImmune3);
+		this.ajouterTexture(textureHumainFrontImmune2);
+		this.ajouterTexture(textureHumainFrontImmune3);
+		this.ajouterTexture(textureHumainRightImmune2);
+		this.ajouterTexture(textureHumainRightImmune3);
+		this.ajouterTexture(textureHumainBackImmune2);
+		this.ajouterTexture(textureHumainBackImmune3);
 		this.activerTexture(1);
 
 		//Définit la taille du joueur (pour détecter les collisions)
