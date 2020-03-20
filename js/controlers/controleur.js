@@ -60,7 +60,7 @@ class Controleur extends Observateur
 		this._isMoving = true;
 		this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
 		setInterval(function () { controleur.updateWeaponLevel(); }, 100);
-		document.querySelector("#bgvid").volume = 0;
+		document.querySelector("#bgvid").volume = 1;
 		document.querySelector("#bgvid").play();
 		
 	}
@@ -215,6 +215,8 @@ class Controleur extends Observateur
 	 */
 	commencerNouveauJeu()
 	{
+		document.querySelector("#bgvid").volume =0;
+		document.querySelector("#bgvid").pause();
 		this._vue.masquerBandeaux();
 		this._jeu.nouveau();
 		this.animer();

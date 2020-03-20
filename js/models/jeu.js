@@ -75,10 +75,10 @@ class Jeu extends Sujet
 		this._bossPDV = 50;
         this._bossMaxPDV = 50;
 
-        this.musicIntro.volume = 1;
-        this.musicIntro.currentTime = 0;
-        this.musicIntro.play();
-		this.letIntro();
+        // this.musicIntro.volume = 0;
+        // this.musicIntro.currentTime = 0;
+        // this.musicIntro.play();
+		// this.letIntro();
 		
 	}
 
@@ -105,11 +105,13 @@ class Jeu extends Sujet
         setTimeout(function () { that.musicIntro.volume = 0.5; }, 1200);
     }
     removePDV() {
+
         if (!this._bless) {
             this._bless = true;
             if (this._shield == 0) {
                 this._nbPDV--;
                 this._weapon--;
+                this.animeWeaponLevel();
                 if (this._weapon < 0)
                     this._weapon = 0;
             }
@@ -126,6 +128,7 @@ class Jeu extends Sujet
             if (this._shield == 0) {
                 this._nbPDV--;
                 this._weapon--;
+				this.animeWeaponLevel();
                 if (this._weapon < 0)
                     this._weapon = 0;
             }
@@ -133,6 +136,7 @@ class Jeu extends Sujet
                 this._shield--;
                 this._nbPDV--;
                 this._weapon--;
+				this.animeWeaponLevel();
                 if (this._weapon < 0)
                     this._weapon = 0;
                 if (this._shield == 0)
@@ -142,6 +146,7 @@ class Jeu extends Sujet
                 this._joueur.setHasShield(false);
             }
         }
+
         setTimeout(function () { controleur.bless(); }, 3000);
     }
     
@@ -160,16 +165,20 @@ class Jeu extends Sujet
     }
 
     animeWeaponLevel() {
-        for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
-            var element = this._elementsGraphiques.get(iElement);
-            if (element instanceof (weaponLevel)) {
-                this._elementsGraphiques.remove(iElement);
-            }
-        }
-        if (this.weaponLevel instanceof weaponLevel) {
-            this.weaponLevel.setTexture(this._weapon);
-            this._elementsGraphiques.add(this.weaponLevel);
-        }
+		if(this.weaponLevel instanceof  weaponLevel)
+			this.weaponLevel.setTexture(this._weapon);
+
+
+        // for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
+        //     var element = this._elementsGraphiques.get(iElement);
+        //     if (element instanceof (weaponLevel)) {
+        //         this._elementsGraphiques.remove(iElement);
+        //     }
+        // }
+        // if (this.weaponLevel instanceof weaponLevel) {
+        //     this.weaponLevel.setTexture(this._weapon);
+        //     this._elementsGraphiques.add(this.weaponLevel);
+        // }
     }
 
     scream() {
@@ -348,6 +357,9 @@ class Jeu extends Sujet
 		this._joueur = this._fabriqueElement.create('humain');
 		this._cutBoss = this._fabriqueElement.create('cutSceneBoss');
 		this._cutBoss.setTexture(0);
+		this._cutBoss.setXY((this._largeurPlateau / 20) * 4, (this._hauteurPlateau / 20) * 7);
+
+		this._elementsGraphiques.add(this._cutBoss);
 		this.weaponLevel = this._fabriqueElement.create('weaponLevel');
 		this.weaponLevel.setXY((this._largeurPlateau / 20) * 19, (this._hauteurPlateau / 20) * 10);
 		this._elementsGraphiques.add(this.weaponLevel);
@@ -365,46 +377,46 @@ class Jeu extends Sujet
 		    this._joueur.setVitesse(0);
 		    this._joueur.setIsInCT(true);
 		    var inter = setInterval(function () { that._joueur.setVitesse(0); }, 20);
-		    setTimeout(function () { that._joueur.setVitesse(8); }, 14000);
-		    setTimeout(function () { that._joueur.setIsInCT(false); }, 14000);
-		    setTimeout(function () { clearInterval(inter); }, 13500);
+		    setTimeout(function () { that._joueur.setVitesse(8); }, 12000);
+		    setTimeout(function () { that._joueur.setIsInCT(false); }, 12000);
+		    setTimeout(function () { clearInterval(inter); }, 11500);
 		    this._bossMaxPDV = 1300;
 		    this._bossPDV = this._bossMaxPDV;
 		    this.ajouterUltime(this._bossMaxPDV);
-		    setTimeout(function () { that.musicTrash.volume = 0.04; }, 1000);
-		    setTimeout(function () { that.musicTrash.volume = 0.03; }, 2000);
-		    setTimeout(function () { that.musicTrash.volume = 0.02; }, 3000);
-		    setTimeout(function () { that.musicTrash.volume = 0.01; }, 4000);
+		    setTimeout(function () { that.musicTrash.volume = 0.4; }, 1000);
+		    setTimeout(function () { that.musicTrash.volume = 0.3; }, 2000);
+		    setTimeout(function () { that.musicTrash.volume = 0.2; }, 3000);
+		    setTimeout(function () { that.musicTrash.volume = 0.1; }, 4000);
 		    setTimeout(function () { that.musicTrash.volume = 0; }, 4500);
 		    setTimeout(function () { that.musicTrash.pause(); }, 5000);
-		    setTimeout(function () { that.musicBoss.volume = 0.04; }, 1000);
-		    setTimeout(function () { that.musicBoss.volume = 0.03; }, 2000);
-		    setTimeout(function () { that.musicBoss.volume = 0.02; }, 3000);
-		    setTimeout(function () { that.musicBoss.volume = 0.01; }, 4000);
+		    setTimeout(function () { that.musicBoss.volume = 0.4; }, 1000);
+		    setTimeout(function () { that.musicBoss.volume = 0.3; }, 2000);
+		    setTimeout(function () { that.musicBoss.volume = 0.2; }, 3000);
+		    setTimeout(function () { that.musicBoss.volume = 0.1; }, 4000);
 		    setTimeout(function () { that.musicBoss.volume = 0; }, 4500);
 		    setTimeout(function () { that.musicBoss.pause(); }, 5000);
 		    clearInterval(this.timerTrash);
 		    that.musicFinalBoss.volume = 0;
 		    this.musicFinalBoss.play();
 		    this.timerBoss = setInterval(function () {
-		        setTimeout(function () { that.musicFinalBoss.volume = 0.04; }, 1000);
-		        setTimeout(function () { that.musicFinalBoss.volume = 0.03; }, 2000);
-		        setTimeout(function () { that.musicFinalBoss.volume = 0.02; }, 3000);
-		        setTimeout(function () { that.musicFinalBoss.volume = 0.01; }, 4000);
+		        setTimeout(function () { that.musicFinalBoss.volume = 0.4; }, 1000);
+		        setTimeout(function () { that.musicFinalBoss.volume = 0.3; }, 2000);
+		        setTimeout(function () { that.musicFinalBoss.volume = 0.2; }, 3000);
+		        setTimeout(function () { that.musicFinalBoss.volume = 0.1; }, 4000);
 		        setTimeout(function () { that.musicFinalBoss.volume = 0; }, 4500);
 		        setTimeout(function () { that.musicFinalBoss.currentTime = 0; }, 4500);
-		        setTimeout(function () { that.musicFinalBoss.volume = 0.01; }, 5000);
-		        setTimeout(function () { that.musicFinalBoss.volume = 0.02; }, 5800);
-		        setTimeout(function () { that.musicFinalBoss.volume = 0.03; }, 6500);
-		        setTimeout(function () { that.musicFinalBoss.volume = 0.04; }, 7200);
-		        setTimeout(function () { that.musicFinalBoss.volume = 0.05; }, 8000);
+		        setTimeout(function () { that.musicFinalBoss.volume = 0.1; }, 5000);
+		        setTimeout(function () { that.musicFinalBoss.volume = 0.2; }, 5800);
+		        setTimeout(function () { that.musicFinalBoss.volume = 0.3; }, 6500);
+		        setTimeout(function () { that.musicFinalBoss.volume = 0.4; }, 7200);
+		        setTimeout(function () { that.musicFinalBoss.volume = 0.5; }, 8000);
 
 		    }, 300000);
-		    setTimeout(function () { that.musicFinalBoss.volume = 0.01; }, 1000);
-		    setTimeout(function () { that.musicFinalBoss.volume = 0.02; }, 2000);
-		    setTimeout(function () { that.musicFinalBoss.volume = 0.03; }, 3000);
-		    setTimeout(function () { that.musicFinalBoss.volume = 0.04; }, 4000);
-		    setTimeout(function () { that.musicFinalBoss.volume = 0.05; }, 5000);
+		    setTimeout(function () { that.musicFinalBoss.volume = 0.1; }, 1000);
+		    setTimeout(function () { that.musicFinalBoss.volume = 0.2; }, 2000);
+		    setTimeout(function () { that.musicFinalBoss.volume = 0.3; }, 3000);
+		    setTimeout(function () { that.musicFinalBoss.volume = 0.4; }, 4000);
+		    setTimeout(function () { that.musicFinalBoss.volume = 0.5; }, 5000);
 		    setTimeout(function () { that.musicTrash.currentTime = 0; }, 6000);
 		    setTimeout(function () { controleur.tirBegin(); }, 14000);
 		    
@@ -448,35 +460,29 @@ class Jeu extends Sujet
 		    }
 
 
-		    setTimeout(function () { that.musicTrash.volume = 0.04; }, 1000);
-		    setTimeout(function () { that.musicTrash.volume = 0.03; }, 2000);
-		    setTimeout(function () { that.musicTrash.volume = 0.02; }, 3000);
-		    setTimeout(function () { that.musicTrash.volume = 0.01; }, 4000);
-		    setTimeout(function () { that.musicTrash.volume = 0; }, 4500);
-		    setTimeout(function () { that.musicTrash.pause(); }, 5000);
+		    setTimeout(function () { that.musicTrash.volume = 0.4; }, 1000);
+		    setTimeout(function () { that.musicTrash.volume = 0; }, 8500);
+		    setTimeout(function () { that.musicTrash.pause(); }, 8500);
 		    clearInterval(this.timerTrash);
 		    that.musicBoss.volume = 0;
-		    this.musicBoss.play();
+			this.musicBoss.play();
 		    this.timerBoss = setInterval(function () {
-		        setTimeout(function () { that.musicBoss.volume = 0.04; }, 1000);
-		        setTimeout(function () { that.musicBoss.volume = 0.03; }, 2000);
-		        setTimeout(function () { that.musicBoss.volume = 0.02; }, 3000);
-		        setTimeout(function () { that.musicBoss.volume = 0.01; }, 4000);
+		        setTimeout(function () { that.musicBoss.volume = 0.4; }, 1000);
+		        setTimeout(function () { that.musicBoss.volume = 0.3; }, 2000);
+		        setTimeout(function () { that.musicBoss.volume = 0.2; }, 3000);
+		        setTimeout(function () { that.musicBoss.volume = 0.1; }, 4000);
 		        setTimeout(function () { that.musicBoss.volume = 0; }, 4500);
 		        setTimeout(function () { that.musicBoss.currentTime = 0; }, 4500);
-		        setTimeout(function () { that.musicBoss.volume = 0.01; }, 5000);
-		        setTimeout(function () { that.musicBoss.volume = 0.02; }, 5800);
-		        setTimeout(function () { that.musicBoss.volume = 0.03; }, 6500);
-		        setTimeout(function () { that.musicBoss.volume = 0.04; }, 7200);
-		        setTimeout(function () { that.musicBoss.volume = 0.05; }, 8000);
+		        setTimeout(function () { that.musicBoss.volume = 0.1; }, 5000);
+		        setTimeout(function () { that.musicBoss.volume = 0.2; }, 5800);
+		        setTimeout(function () { that.musicBoss.volume = 0.3; }, 6500);
+		        setTimeout(function () { that.musicBoss.volume = 0.4; }, 7200);
+		        setTimeout(function () { that.musicBoss.volume = 0.5; }, 8000);
 
 		    }, 150000);
-		    setTimeout(function () { that.musicBoss.volume = 0.01; }, 1000);
-		    setTimeout(function () { that.musicBoss.volume = 0.02; }, 2000);
-		    setTimeout(function () { that.musicBoss.volume = 0.03; }, 3000);
-		    setTimeout(function () { that.musicBoss.volume = 0.04; }, 4000);
-		    setTimeout(function () { that.musicBoss.volume = 0.05; }, 5000);
-		    setTimeout(function () { that.musicTrash.currentTime = 0; }, 6000);
+			setTimeout(function () { that.musicBoss.currentTime = 0;  }, 8400);
+			setTimeout(function () { that.musicBoss.volume = 0.5; }, 8400);
+			setTimeout(function () { that.musicTrash.currentTime = 0; }, 8500);
 		    setTimeout(function () { controleur.tirBegin(); }, 14000);
 		    
 
@@ -545,34 +551,34 @@ class Jeu extends Sujet
 
 		        var that = this;
 		        setTimeout(function () { controleur.tirBossEnd(); }, 0);
-		        setTimeout(function () { that.musicBoss.volume = 0.04; }, 1000);
-		        setTimeout(function () { that.musicBoss.volume = 0.03; }, 2000);
-		        setTimeout(function () { that.musicBoss.volume = 0.02; }, 3000);
-		        setTimeout(function () { that.musicBoss.volume = 0.01; }, 4000);
+		        setTimeout(function () { that.musicBoss.volume = 0.4; }, 1000);
+		        setTimeout(function () { that.musicBoss.volume = 0.3; }, 2000);
+		        setTimeout(function () { that.musicBoss.volume = 0.2; }, 3000);
+		        setTimeout(function () { that.musicBoss.volume = 0.1; }, 4000);
 		        setTimeout(function () { that.musicBoss.volume = 0; }, 4500);
 		        setTimeout(function () { that.musicBoss.pause(); }, 5000);
 		        clearInterval(this.timerBoss);
 		        that.musicTrash.volume = 0;
 		        this.musicTrash.play();
 		        this.timerTrash = setInterval(function () {
-		            setTimeout(function () { that.musicTrash.volume = 0.04; }, 1000);
-		            setTimeout(function () { that.musicTrash.volume = 0.03; }, 2000);
-		            setTimeout(function () { that.musicTrash.volume = 0.02; }, 3000);
-		            setTimeout(function () { that.musicTrash.volume = 0.01; }, 4000);
+		            setTimeout(function () { that.musicTrash.volume = 0.4; }, 1000);
+		            setTimeout(function () { that.musicTrash.volume = 0.3; }, 2000);
+		            setTimeout(function () { that.musicTrash.volume = 0.2; }, 3000);
+		            setTimeout(function () { that.musicTrash.volume = 0.1; }, 4000);
 		            setTimeout(function () { that.musicTrash.volume = 0; }, 4500);
 		            setTimeout(function () { that.musicTrash.currentTime = 0; }, 4500);
-		            setTimeout(function () { that.musicTrash.volume = 0.01; }, 5000);
-		            setTimeout(function () { that.musicTrash.volume = 0.02; }, 5800);
-		            setTimeout(function () { that.musicTrash.volume = 0.03; }, 6500);
-		            setTimeout(function () { that.musicTrash.volume = 0.04; }, 7200);
-		            setTimeout(function () { that.musicTrash.volume = 0.05; }, 8000);
+		            setTimeout(function () { that.musicTrash.volume = 0.1; }, 5000);
+		            setTimeout(function () { that.musicTrash.volume = 0.2; }, 5800);
+		            setTimeout(function () { that.musicTrash.volume = 0.3; }, 6500);
+		            setTimeout(function () { that.musicTrash.volume = 0.4; }, 7200);
+		            setTimeout(function () { that.musicTrash.volume = 0.5; }, 8000);
 
 		        }, 240000);
-		        setTimeout(function () { that.musicTrash.volume = 0.01; }, 1000);
-		        setTimeout(function () { that.musicTrash.volume = 0.02; }, 2000);
-		        setTimeout(function () { that.musicTrash.volume = 0.03; }, 3000);
-		        setTimeout(function () { that.musicTrash.volume = 0.04; }, 4000);
-		        setTimeout(function () { that.musicTrash.volume = 0.05; }, 5000);
+		        setTimeout(function () { that.musicTrash.volume = 0.1; }, 1000);
+		        setTimeout(function () { that.musicTrash.volume = 0.2; }, 2000);
+		        setTimeout(function () { that.musicTrash.volume = 0.3; }, 3000);
+		        setTimeout(function () { that.musicTrash.volume = 0.4; }, 4000);
+		        setTimeout(function () { that.musicTrash.volume = 0.5; }, 5000);
 		        setTimeout(function () { that.musicBoss.currentTime = 0; }, 5200);
 		    }
 		    for (var iPampmousse = 0; iPampmousse < nombrePampmousses; ++iPampmousse) {
@@ -662,11 +668,12 @@ class Jeu extends Sujet
 	            element.setPDV(value);
 	            element.setXY(0, Math.floor(this._hauteurPlateau / 2));
 	            element.setVitesse(1);
-	            var cutScene = this._cutBoss;
-	            setTimeout(function () { element.setVitesse(0); }, 8000);
-	            setTimeout(function () { element.activerTexture(11); }, 8500);
-	            setTimeout(function () { element.setVitesse(3); }, 14000);
-	            setTimeout(function () { element.activerTexture(0); }, 14000);
+				var cutScene = this._cutBoss;
+				setTimeout(function () { element.setVitesse(0); }, 8000);
+				setTimeout(function () { cutScene.setTexture(3); }, 8500);
+				setTimeout(function () { element.setVitesse(3); }, 12000);
+				setTimeout(function () { cutScene.setTexture(0); }, 12000);
+				setTimeout(function () { element.activerTexture(0); }, 12000);
 	            element.setDirection(0);
 	        }
 
@@ -685,10 +692,12 @@ class Jeu extends Sujet
 	            element.setPDV(value);
 	            element.setXY(0, Math.floor(this._hauteurPlateau / 2));
 	            element.setVitesse(1);
-	            setTimeout(function () { element.setVitesse(0); }, 8000);
-	            setTimeout(function () { element.activerTexture(11); }, 8500);
-	            setTimeout(function () { element.setVitesse(3); }, 14000);
-	            setTimeout(function () { element.activerTexture(0); }, 14000);
+				var cutScene = this._cutBoss;
+				setTimeout(function () { element.setVitesse(0); }, 8000);
+				setTimeout(function () { cutScene.setTexture(5); }, 8500);
+				setTimeout(function () { element.setVitesse(3); }, 12000);
+				setTimeout(function () { cutScene.setTexture(0); }, 12000);
+				setTimeout(function () { element.activerTexture(0); }, 12000);
 	            element.setDirection(0);
 	        }
 
@@ -706,10 +715,12 @@ class Jeu extends Sujet
 	            element.setPDV(value);
 	            element.setXY(0, Math.floor(this._hauteurPlateau / 2));
 	            element.setVitesse(1);
-	            setTimeout(function () { element.setVitesse(0); }, 8000);
-	            setTimeout(function () { element.activerTexture(11); }, 8500);
-	            setTimeout(function () { element.setVitesse(3); }, 14000);
-	            setTimeout(function () { element.activerTexture(0); }, 14000);
+				var cutScene = this._cutBoss;
+				setTimeout(function () { element.setVitesse(0); }, 8000);
+				setTimeout(function () { cutScene.setTexture(4); }, 8500);
+				setTimeout(function () { element.setVitesse(3); }, 12000);
+				setTimeout(function () { cutScene.setTexture(0); }, 12000);
+				setTimeout(function () { element.activerTexture(0); }, 12000);
 	            element.setDirection(0);
 	        }
 
@@ -726,10 +737,12 @@ class Jeu extends Sujet
 	            element.setPDV(value);
 	            element.setXY(0, Math.floor(this._hauteurPlateau / 2));
 	            element.setVitesse(1);
-	            setTimeout(function () { element.setVitesse(0); }, 8000);
-	            setTimeout(function () { element.activerTexture(11); }, 8500);
-	            setTimeout(function () { element.setVitesse(3); }, 14000);
-	            setTimeout(function () { element.activerTexture(0); }, 14000);
+				var cutScene = this._cutBoss;
+				setTimeout(function () { element.setVitesse(0); }, 8000);
+				setTimeout(function () { cutScene.setTexture(6); }, 8500);
+				setTimeout(function () { element.setVitesse(3); }, 12000);
+				setTimeout(function () { cutScene.setTexture(0); }, 12000);
+				setTimeout(function () { element.activerTexture(0); }, 12000);
 	            element.setDirection(0);
 	        }
 
@@ -750,9 +763,9 @@ class Jeu extends Sujet
 				var cutScene = this._cutBoss;
 	            setTimeout(function () { element.setVitesse(0); }, 8000);
 	            setTimeout(function () { cutScene.setTexture(1); }, 8500);
-	            setTimeout(function () { element.setVitesse(3); }, 14000);
-				setTimeout(function () { cutScene.setTexture(0); }, 14000);
-	            setTimeout(function () { element.activerTexture(0); }, 14000);
+	            setTimeout(function () { element.setVitesse(3); }, 12000);
+				setTimeout(function () { cutScene.setTexture(0); }, 12000);
+	            setTimeout(function () { element.activerTexture(0); }, 12000);
 	            element.setDirection(0);
 	        }
 
@@ -769,16 +782,19 @@ class Jeu extends Sujet
 	            element.setPDV(value);
 	            element.setXY(0, Math.floor(this._hauteurPlateau / 2));
 	            element.setVitesse(1);
+				this._cutBoss.setXY((this._largeurPlateau / 20) * 10, (this._hauteurPlateau / 20) * 4);
+				var cutScene = this._cutBoss;
+				setTimeout(function () { cutScene.setTexture(7); }, 8500);
+				setTimeout(function () { cutScene.setTexture(0); }, 12000);
 	            setTimeout(function () { element.setVitesse(0); }, 8000);
-	            setTimeout(function () { element.activerTexture(37); }, 8500);
-	            setTimeout(function () { element.setVitesse(2); }, 14000);
-	            setTimeout(function () { element.setDirection(90*0.0174533); }, 13000);
-	            setTimeout(function () { element.activerTexture(0); }, 14000);
+	            setTimeout(function () { element.setVitesse(2); }, 12000);
+	            setTimeout(function () { element.setDirection(90*0.0174533); }, 11000);
+	            setTimeout(function () { element.activerTexture(0); }, 12000);
 	        }
 
 	    }
 	    var that = this;
-	    setTimeout(function () { that.cineBoss = false }, 14000);
+	    setTimeout(function () { that.cineBoss = false }, 12000);
 	}
 
 	ajouterAnanas(value) {
@@ -790,10 +806,12 @@ class Jeu extends Sujet
 	            element.setPDV(value);
 	            element.setXY(0, Math.floor(6*this._hauteurPlateau / 10));
 	            element.setVitesse(1);
-	            setTimeout(function () { element.setVitesse(0); }, 8000);
-	            setTimeout(function () { element.activerTexture(11); }, 8500);
-	            setTimeout(function () { element.setVitesse(3); }, 14000);
-	            setTimeout(function () { element.activerTexture(0); }, 14000);
+				var cutScene = this._cutBoss;
+				setTimeout(function () { element.setVitesse(0); }, 8000);
+				setTimeout(function () { cutScene.setTexture(4); }, 8500);
+				setTimeout(function () { element.setVitesse(3); }, 12000);
+				setTimeout(function () { cutScene.setTexture(0); }, 12000);
+				setTimeout(function () { element.activerTexture(0); }, 12000);
 	            element.setDirection(0);
 	        }
 
@@ -810,10 +828,12 @@ class Jeu extends Sujet
 	        if (element instanceof (Boss)) {
 	            element.setXY(0, Math.floor(this._hauteurPlateau / 2));
 	            element.setVitesse(1);
-	            setTimeout(function () { element.setVitesse(0); }, 8000);
-	            setTimeout(function () { element.activerTexture(42); }, 8500);
-	            setTimeout(function () { element.setVitesse(3); }, 14000);
-	            setTimeout(function () { element.activerTexture(0); }, 14000);
+				var cutScene = this._cutBoss;
+				setTimeout(function () { element.setVitesse(0); }, 8000);
+				setTimeout(function () { cutScene.setTexture(2); }, 8500);
+				setTimeout(function () { element.setVitesse(3); }, 12000);
+				setTimeout(function () { cutScene.setTexture(0); }, 12000);
+				setTimeout(function () { element.activerTexture(0); }, 12000);
 	            element.setDirection(0);
 	        }
 
@@ -840,7 +860,7 @@ class Jeu extends Sujet
 		this._timerBonus = setTimeout(function ()
 		{
 			that.distribuerBonus();
-		}, Math.floor(Math.random() * 2000) + 3000);
+		}, Math.floor(Math.random() * 2000) + 30000);
 		
 	}
 
@@ -851,8 +871,24 @@ class Jeu extends Sujet
 	{
 	    this.ajouterMunition();
 	    var alea = Math.floor(Math.random() * 32);
-	    if (alea == 1 || alea == 5) {
-	        this.ajouterElement(this._fabriqueElement.create('BoostSpeed'));
+	    if (alea != 1) {
+
+
+			var that = this;
+			that.musicTrash.pause();
+			that.musicBoss.pause();
+			document.querySelector('#audioIntroAlpacino').currentTime = 0;
+			document.querySelector('#audioIntroAlpacino').volume = 1;
+			document.querySelector('#audioIntroAlpacino').play();
+			setTimeout(function () {document.querySelector('#audioIntroAlpacino').pause();if((that._niveau+1) %10 != 0) {that.musicTrash.play();	}else{that.musicBoss.play();} }, 1500);
+
+
+			setTimeout(function () {that.ajouterElement(that._fabriqueElement.create('BoostSpeed'));
+			for (var iElement = 0; iElement < that._elementsGraphiques.length() ; ++iElement) {
+				var element = that._elementsGraphiques.get(iElement);
+				if (element instanceof (BoostSpeed)) {
+					element.setXY(that._largeurPlateau + 200, Math.floor(Math.random() * that._hauteurPlateau));
+				}}}, 2000);
 	    } else if (alea == 2 || alea == 6 || alea == 7 ) {
 	        this.ajouterElement(this._fabriqueElement.create('BoostWeapon'));
 	    } else if (alea == 3) {
@@ -2012,6 +2048,12 @@ class Jeu extends Sujet
 	            //Teste la collision des éléments avec les murs
 	            if (this.testerCollisionsMurs(element))
 	            {
+					if (element instanceof BoostSpeed){
+						if(element.getX() < 100){
+							this._elementsGraphiques.remove(iElement);
+							--iElement;
+						}
+					}
 	                //Si un pampmousse mutant touche un mur, il change de direction
 	                if (element instanceof Framboise || element instanceof Mure || element instanceof PampmousseMutant || element instanceof Peche || element instanceof Cassis || element instanceof Cerises || element instanceof miniCerise)
 	                {
@@ -2120,8 +2162,21 @@ class Jeu extends Sujet
 	                        else if (element2 instanceof BoostSpeed) {
 	                            this._elementsGraphiques.remove(iElement2);
 	                            this._joueur.setVitesse(20);
+								this._weapon = 5;
+								this._bless = true;
+	                            this._joueur.immuniserBoost();
 	                            var that = this;
-	                            setTimeout(function () { that._joueur.setVitesse(12); }, 6000);
+								setTimeout(function () { that._joueur.setVitesse(12); }, 15000);
+								setTimeout(function () { that._weapon = 4;}, 15000);
+								setTimeout(function () { that._bless = false;}, 15000);
+								setTimeout(function () { that._joueur.desimmuniser(); }, 15000);
+								document.querySelector('#audioAlpacino').currentTime = 0;
+								document.querySelector('#audioAlpacino').volume = 1;
+								document.querySelector('#audioAlpacino').play();
+								this.musicTrash.pause();
+								this.musicBoss.pause();
+								setTimeout(function () {document.querySelector('#audioAlpacino').pause();if((that._niveau+1) %10 != 0) {that.musicTrash.play();	}else{that.musicBoss.play();} }, 15000);
+
 	                        }
 	                        else if (element2 instanceof BoostLife) {
 	                            this._elementsGraphiques.remove(iElement2);
@@ -2131,6 +2186,7 @@ class Jeu extends Sujet
 	                        else if (element2 instanceof BoostWeapon) {
 	                            this._elementsGraphiques.remove(iElement2);
 	                            this._weapon++;
+	                            this.animeWeaponLevel();
 	                            if (this._weapon > 4)
 	                                this._weapon = 4;
 	                        }
@@ -2234,6 +2290,11 @@ class Jeu extends Sujet
 	                            element2.activerTexture(2);
 	                        }
 	                        if (element2.getPDV() <= (this._bossMaxPDV / 2)) {
+
+								this._joueur.setIsInCT(true);
+								var inter = setInterval(function () { that._joueur.setVitesse(0); }, 20);
+								setTimeout(function () { that._joueur.setVitesse(12); }, 12000);
+								setTimeout(function () { that._joueur.setIsInCT(false); }, 12000);
 	                            element2.activerTexture(4);
 	                        }
 	                        if (element2.getPDV() <= (this._bossMaxPDV / 4)) {

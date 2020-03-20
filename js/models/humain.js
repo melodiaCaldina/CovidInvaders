@@ -182,6 +182,18 @@ class Humain extends ElementMobile
 		this._timerImmunisation = setTimeout(function () { that.desimmuniser(); }, 3000);
 	}
 
+	immuniserBoost()
+	{
+		clearInterval(this._timerClignotement);
+		clearTimeout(this._timerImmunisation);
+
+		this._immunise = true;
+
+		var that = this;
+		this._timerClignotement = setInterval(function () { that.clignoter(); }, 100);
+		this._timerImmunisation = setTimeout(function () { that.desimmuniser(); }, 15000);
+	}
+
 	/**
 	 * Termine la phase d'immunité du joueur
 	 */

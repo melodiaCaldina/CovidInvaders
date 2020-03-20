@@ -14,9 +14,15 @@ class cutSceneBoss extends ElementMobile {
 		this.mustDisappear = false;
 		this.isWin = false;
 		this.ajouterTexture(textureVide);
-		this.ajouterTexture(texteSangrine);
+		this.ajouterTexture(sangrineSpeech);
+		this.ajouterTexture(BossAppearTexture);
+		this.ajouterTexture(AbricotSpeech);
+		this.ajouterTexture(fraiseSpeech);
+		this.ajouterTexture(mangueSpeech);
+		this.ajouterTexture(orangeSpeech);
+		this.ajouterTexture(UltimeSpeech);
 		this.activerTexture(0);
-		this.setTaille(0);
+		this.setTaille(200);
 		this.setDirection(0);
 	}
 
