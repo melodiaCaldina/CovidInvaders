@@ -56,41 +56,92 @@ class ElementMobile extends ElementGraphique
 
 		this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
 	}
-	animerHumainUp()
+
+	animerHumain(rotation)
 	{
 		//Déplacement selon la direction et la vitesse de l'élément
 		var newCoordonnees = new Point();
 		newCoordonnees.copier(this.getCoordonnees());
 		newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
-		newCoordonnees.tourner(this.getCoordonnees(), 4.71239);
+		newCoordonnees.tourner(this.getCoordonnees(), rotation);
 		this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
 	}
-	animerHumainLeft()
-	{
-		//Déplacement selon la direction et la vitesse de l'élément
-		var newCoordonnees = new Point();
-		newCoordonnees.copier(this.getCoordonnees());
-		newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
-		newCoordonnees.tourner(this.getCoordonnees(), 3.14159);
-		this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
-	}
-	animerHumainRight()
-	{
-		//Déplacement selon la direction et la vitesse de l'élément
-		var newCoordonnees = new Point();
-		newCoordonnees.copier(this.getCoordonnees());
-		newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
-		newCoordonnees.tourner(this.getCoordonnees(), 0);
-		this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
-	}
-	animerHumainDown()
-	{
-		//Déplacement selon la direction et la vitesse de l'élément
-		var newCoordonnees = new Point();
-		newCoordonnees.copier(this.getCoordonnees());
-		newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
-		newCoordonnees.tourner(this.getCoordonnees(), 1.5708);
-		this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
-	}
+
+	// animerHumainUp()
+	// {
+	// 	//Déplacement selon la direction et la vitesse de l'élément
+	// 	var newCoordonnees = new Point();
+	// 	newCoordonnees.copier(this.getCoordonnees());
+	// 	newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
+	// 	newCoordonnees.tourner(this.getCoordonnees(), 4.71239);
+	// 	this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
+	// }
+	// animerHumainLeft()
+	// {
+	// 	//Déplacement selon la direction et la vitesse de l'élément
+	// 	var newCoordonnees = new Point();
+	// 	newCoordonnees.copier(this.getCoordonnees());
+	// 	newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
+	// 	newCoordonnees.tourner(this.getCoordonnees(), 3.14159);
+	// 	this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
+	// }
+	// animerHumainRight()
+	// {
+	// 	//Déplacement selon la direction et la vitesse de l'élément
+	// 	var newCoordonnees = new Point();
+	// 	newCoordonnees.copier(this.getCoordonnees());
+	// 	newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
+	// 	newCoordonnees.tourner(this.getCoordonnees(), 0);
+	// 	this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
+	// }
+	// animerHumainDown()
+	// {
+	// 	//Déplacement selon la direction et la vitesse de l'élément
+	// 	var newCoordonnees = new Point();
+	// 	newCoordonnees.copier(this.getCoordonnees());
+	// 	newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
+	// 	newCoordonnees.tourner(this.getCoordonnees(), 1.5708);
+	// 	this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
+	// }
+	//
+	// animerHumainLowerRight()
+	// {
+	// 	//Déplacement selon la direction et la vitesse de l'élément
+	// 	var newCoordonnees = new Point();
+	// 	newCoordonnees.copier(this.getCoordonnees());
+	// 	newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
+	// 	newCoordonnees.tourner(this.getCoordonnees(), 0.7853);
+	// 	this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
+	// }
+	//
+	// animerHumainLowerLeft()
+	// {
+	// 	//Déplacement selon la direction et la vitesse de l'élément
+	// 	var newCoordonnees = new Point();
+	// 	newCoordonnees.copier(this.getCoordonnees());
+	// 	newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
+	// 	newCoordonnees.tourner(this.getCoordonnees(), 2.3561);
+	// 	this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
+	// }
+	//
+	// animerHumainUpperRight()
+	// {
+	// 	//Déplacement selon la direction et la vitesse de l'élément
+	// 	var newCoordonnees = new Point();
+	// 	newCoordonnees.copier(this.getCoordonnees());
+	// 	newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
+	// 	newCoordonnees.tourner(this.getCoordonnees(), 3.9269);
+	// 	this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
+	// }
+	//
+	// animerHumainUpperLeft()
+	// {
+	// 	//Déplacement selon la direction et la vitesse de l'élément
+	// 	var newCoordonnees = new Point();
+	// 	newCoordonnees.copier(this.getCoordonnees());
+	// 	newCoordonnees.setX(newCoordonnees.getX() + this.getVitesse());
+	// 	newCoordonnees.tourner(this.getCoordonnees(), 5.4977);
+	// 	this.setXY(newCoordonnees.getX(), newCoordonnees.getY());
+	// }
 	
 }

@@ -24,6 +24,9 @@ class FabriqueElement
 			case 'humain':
 				element = new Humain();
 				break;
+			case 'cutSceneBoss':
+				element = new cutSceneBoss();
+				break;
 			case 'pampmousse mutant':
 				element = new PampmousseMutant();
 				break;

@@ -10,9 +10,9 @@ class BoostSpeed extends ElementMobile {
     constructor() {
         super();
         this.ajouterTexture(BoostSpeedTexture);
-        this.setVitesse(0);
-        this.setTaille(15);
-        this.setDirection(0);
+        this.setVitesse(40);
+        this.setTaille(50);
+        this.setDirection(3.1459);
     }
 
 }
