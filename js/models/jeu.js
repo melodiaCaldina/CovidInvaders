@@ -48,6 +48,9 @@ class Jeu extends Sujet
 		//Elément graphique symbolisant le joueur
 		this._joueur = null;
 
+		//affiche le texte des boss
+		this._cutBoss = null;
+
 		//Indique que le niveau est terminé
 		this._termine = true;
 
@@ -146,9 +149,14 @@ class Jeu extends Sujet
         this._bless = false;
     }
 
-    animePlayer() {
-        if (this._joueur != null)
-            this._joueur.anime();
+    animePlayer(isMoving) {
+		if(!isMoving){
+			if (this._joueur != null && this._joueur.estImmunise())
+				this._joueur.anime();
+		}else{
+			if (this._joueur != null)
+				this._joueur.anime();
+		}
     }
 
     animeWeaponLevel() {
@@ -338,6 +346,8 @@ class Jeu extends Sujet
 		//Suppression des précédents éléments graphiques
 	    this._elementsGraphiques.clear();
 		this._joueur = this._fabriqueElement.create('humain');
+		this._cutBoss = this._fabriqueElement.create('cutSceneBoss');
+		this._cutBoss.setTexture(0);
 		this.weaponLevel = this._fabriqueElement.create('weaponLevel');
 		this.weaponLevel.setXY((this._largeurPlateau / 20) * 19, (this._hauteurPlateau / 20) * 10);
 		this._elementsGraphiques.add(this.weaponLevel);
@@ -652,12 +662,14 @@ class Jeu extends Sujet
 	            element.setPDV(value);
 	            element.setXY(0, Math.floor(this._hauteurPlateau / 2));
 	            element.setVitesse(1);
+	            var cutScene = this._cutBoss;
 	            setTimeout(function () { element.setVitesse(0); }, 8000);
 	            setTimeout(function () { element.activerTexture(11); }, 8500);
 	            setTimeout(function () { element.setVitesse(3); }, 14000);
 	            setTimeout(function () { element.activerTexture(0); }, 14000);
 	            element.setDirection(0);
 	        }
+
 
 	    }
 	    var that = this;
@@ -735,9 +747,11 @@ class Jeu extends Sujet
 	            element.setPDV(value);
 	            element.setXY(0, Math.floor(this._hauteurPlateau / 2));
 	            element.setVitesse(1);
+				var cutScene = this._cutBoss;
 	            setTimeout(function () { element.setVitesse(0); }, 8000);
-	            setTimeout(function () { element.activerTexture(11); }, 8500);
+	            setTimeout(function () { cutScene.setTexture(1); }, 8500);
 	            setTimeout(function () { element.setVitesse(3); }, 14000);
+				setTimeout(function () { cutScene.setTexture(0); }, 14000);
 	            setTimeout(function () { element.activerTexture(0); }, 14000);
 	            element.setDirection(0);
 	        }
@@ -1953,14 +1967,25 @@ class Jeu extends Sujet
 	animerHumain(dir)
 	{
 		if(dir==0){
-			this._elementsGraphiques.animerHumainUp(this._largeurPlateau, this._hauteurPlateau);
+			this._elementsGraphiques.animerHumain("Up");
 			} else if(dir==1){
-				this._elementsGraphiques.animerHumainLeft(this._largeurPlateau, this._hauteurPlateau);
+			this._elementsGraphiques.animerHumain("Left");
 			} else if (dir==2){
-				this._elementsGraphiques.animerHumainDown(this._largeurPlateau, this._hauteurPlateau);
+			this._elementsGraphiques.animerHumain("Down");
 			} else if(dir==3){
-				this._elementsGraphiques.animerHumainRight(this._largeurPlateau, this._hauteurPlateau);
-			}
+			this._elementsGraphiques.animerHumain("Right");
+		} else if(dir==4){
+			this._elementsGraphiques.animerHumain("UpperRight");
+		} else if(dir==5){
+			this._elementsGraphiques.animerHumain("UpperLeft");
+		} else if(dir==6){
+			this._elementsGraphiques.animerHumain("LowerRight");
+		} else if(dir==7){
+			this._elementsGraphiques.animerHumain("LowerLeft");
+		}
+		// else if(dir==3){
+		// 	this._elementsGraphiques.animerHumainRight(this._largeurPlateau, this._hauteurPlateau);
+		// }
 		this.gererCollissions();
 
 		if (this._elementsGraphiques.getNombrePampmoussesMutants() == 0)

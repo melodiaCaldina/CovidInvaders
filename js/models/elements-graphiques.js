@@ -50,7 +50,7 @@ class ElementsGraphiques extends Collection
 		}
 	}
 
-	animerHumainLeft()
+	animerHumain(Direction)
 	{
 		for(var iElement = 0; iElement < this.length(); ++iElement)
 		{
@@ -58,50 +58,40 @@ class ElementsGraphiques extends Collection
 
 			if (element instanceof Humain)
 			{
-				element.animerHumainLeft();
-			}
-			
-		}
-	}
-	animerHumainUp()
-	{
-		for(var iElement = 0; iElement < this.length(); ++iElement)
-		{
-			var element = this.get(iElement);
+				var rotation = 0;
+				switch (Direction) {
+					case "Left":
+						rotation = 3.14159;
+					break;
+					case "Right":
+						rotation = 0;
+					break;
+					case "Up":
+						rotation = 4.71239;
+					break;
+					case "Down":
+						rotation = 1.5708;
+					break;
+					case "LowerLeft":
+						rotation = 2.3561;
+					break;
+					case "LowerRight":
+						rotation = 0.7853;
+					break;
+					case "UpperLeft":
+						rotation = 3.9269;
+					break;
+					case "UpperRight":
+						rotation = 5.4977;
+					break;
+				}
 
-			if (element instanceof Humain)
-			{
-				element.animerHumainUp();
+				element.animerHumain(rotation);
 			}
 			
 		}
 	}
-	animerHumainRight()
-	{
-		for(var iElement = 0; iElement < this.length(); ++iElement)
-		{
-			var element = this.get(iElement);
 
-			if (element instanceof Humain)
-			{
-				element.animerHumainRight();
-			}
-			
-		}
-	}
-	animerHumainDown()
-	{
-		for(var iElement = 0; iElement < this.length(); ++iElement)
-		{
-			var element = this.get(iElement);
-
-			if (element instanceof Humain)
-			{
-				element.animerHumainDown();
-			}
-			
-		}
-	}
 
 	/**
 	 * Dessine l'ensemble des élements de la collection

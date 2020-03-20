@@ -36,17 +36,20 @@ class Controleur extends Observateur
 		this._tirUltime = null;
 		this._tirBoss = null;
 		this._AnimeUp = null;
-		this._animeUpb = false;
-		this._animeUpVar = 0;
 		this._AnimeDown = null;
-		this._animeDownb = false;
-		this._animeDownVar = 0;
 		this._AnimeLeft = null;
-		this._animeLeftb = false;
-		this._animeLeftVar = 0;
 		this._AnimeRight = null;
-		this._animeRightb = false;
-		this._animeRightVar = 0;
+		this._AnimeUpperRight = null;
+		this._AnimeUpperLeft = null;
+		this._AnimeLowerRight = null;
+		this._AnimeLowerLeft = null;
+		this._animePlayer = null;
+		this._isMoving = false;
+		this._keyDown = false;
+		this._keyUp = false;
+		this._keyRight = false;
+		this._keyLeft = false;
+
 		this._Move = 0;
 		//Affiche l'écran de démarrage
 		this._vue.afficherDebutPartie();
@@ -54,7 +57,8 @@ class Controleur extends Observateur
 		setInterval(function () { controleur.updatePampmousseDir(); }, 500);
 		setInterval(function () { controleur.updateBossDir(); }, 500);
 		setInterval(function () { controleur.updateBossUltimeDir(); }, 500);
-		setInterval(function () { controleur.updatePlayer(); }, 60);
+		this._isMoving = true;
+		this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
 		setInterval(function () { controleur.updateWeaponLevel(); }, 100);
 		document.querySelector("#bgvid").volume = 0;
 		document.querySelector("#bgvid").play();
@@ -67,8 +71,8 @@ class Controleur extends Observateur
     updateWeaponLevel() {
         this._jeu.animeWeaponLevel();
     }
-    updatePlayer() {
-        this._jeu.animePlayer();
+    updatePlayer(isMoving) {
+        this._jeu.animePlayer(isMoving);
     }
     updatePampmousse() {
         this._jeu.updatePampmousse();
@@ -267,9 +271,30 @@ class Controleur extends Observateur
 	}
 	animerHumainRight()
 	{
-		
+
 		this._jeu.animerHumain(3);
 	}
+	animerHumainUpperRight()
+	{
+
+		this._jeu.animerHumain(4);
+	}
+	animerHumainUpperLeft()
+	{
+
+		this._jeu.animerHumain(5);
+	}
+	animerHumainLowerRight()
+	{
+
+		this._jeu.animerHumain(6);
+	}
+	animerHumainLowerLeft()
+	{
+
+		this._jeu.animerHumain(7);
+	}
+
 
 	/**
 	 * Gestionnaire d'événement appelé lorsque l'utilisateur clique sur le canvas
@@ -290,6 +315,111 @@ class Controleur extends Observateur
 			this._jeu.orienterJoueurVers(coordonnees);
 	}
 
+	updateDirection(){
+		var countDir = 0;
+
+		clearInterval(this._animeDown);
+		clearInterval(this._animeLeft);
+		clearInterval(this._animeRight);
+		clearInterval(this._animeUp);
+		clearInterval(this._AnimeUpperRight);
+		clearInterval(this._AnimeUpperLeft);
+		clearInterval(this._AnimeLowerRight);
+		clearInterval(this._AnimeLowerLeft);
+
+		if(this._keyDown === true) {
+			countDir ++;
+		}
+		if(this._keyLeft === true) {
+			countDir ++;
+		}
+		if(this._keyRight === true) {
+			countDir ++;
+		}
+		if(this._keyUp === true) {
+			countDir ++;
+		}
+
+		if (countDir == 0) {
+			clearInterval(this._animePlayer);
+			this._isMoving = false;
+			this._animePlayer = setInterval(function () { controleur.updatePlayer(false); }, 60);
+		}
+		else if (countDir == 1){
+			if(this._isMoving == false) {
+				this._isMoving = true;
+				this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
+			}
+
+
+			if(this._keyDown === true) {
+				this._animeDown = setInterval(function () { controleur.animerHumainDown(); }, 30);
+			}
+			else if(this._keyLeft === true) {
+				this._animeLeft = setInterval(function () { controleur.animerHumainLeft(); }, 30);
+			}
+			else if(this._keyRight === true) {
+				this._animeRight = setInterval(function () { controleur.animerHumainRight(); }, 30);
+			}
+			else if(this._keyUp === true) {
+				this._animeUp = setInterval(function () { controleur.animerHumainUp(); }, 30);
+			}
+		}
+		else if (countDir == 2){
+			if(this._keyDown === true && this._keyRight) {
+				this._AnimeLowerRight = setInterval(function () { controleur.animerHumainLowerRight(); }, 30);
+			}
+			else if(this._keyDown === true && this._keyLeft) {
+				this._AnimeLowerLeft = setInterval(function () { controleur.animerHumainLowerLeft(); }, 30);
+			}
+			else if(this._keyUp === true && this._keyRight) {
+				this._AnimeUpperRight = setInterval(function () { controleur.animerHumainUpperRight(); }, 30);
+			}
+			else if(this._keyUp === true && this._keyLeft) {
+				this._AnimeUpperLeft = setInterval(function () { controleur.animerHumainUpperLeft(); }, 30);
+			}
+			else if(this._keyUp === true && this._keyDown) {
+				this._keyUp = false;
+				this._keyDown = false;
+				this.updateDirection();
+			}
+			else if(this._keyRight === true && this._keyRight) {
+				this._keyRight = false;
+				this._keyRight = false;
+				this.updateDirection();
+			}
+		}
+
+		else if (countDir == 3) {
+			if(this._keyUp === true && this._keyDown) {
+				this._keyUp = false;
+				this._keyDown = false;
+				this.updateDirection();
+			}
+			else if(this._keyRight === true && this._keyRight) {
+				this._keyRight = false;
+				this._keyRight = false;
+				this.updateDirection();
+			}
+		}
+		else {
+			if(this._keyUp === true && this._keyDown) {
+				this._keyUp = false;
+				this._keyDown = false;
+				this.updateDirection();
+			}
+			else if(this._keyRight === true && this._keyRight) {
+				this._keyRight = false;
+				this._keyRight = false;
+				this.updateDirection();
+			}
+		}
+
+
+
+	}
+
+
 	onKeyDown(event) 
 	{
 	    if (this._jeu instanceof Jeu && event.keyCode == 80)
@@ -300,126 +430,53 @@ class Controleur extends Observateur
 	        this._jeu.Weapon();
 	    if (this._jeu instanceof Jeu && event.keyCode == 67)
 	        this._jeu.Cheat();
-	    if (this._jeu instanceof Jeu && event.keyCode == 83){
-	    	if(this._animeDownb == false)
-	    		{
-	    			this._animeDown = setInterval(function () { controleur.animerHumainDown(); }, 30);
-	    			this._animeDownb = true;
-	    			if(this._animeUpb)
-	    				{
-	    					this._animeUpb = false;
-	    					clearInterval(this._animeUp);
-	    				}
-	    			if(this._animeLeftb)
-	    				{
-	    					this._animeLeftb = false;
-	    					clearInterval(this._animeLeft);
-	    				}
-	    			if(this._animeRightb)
-	    				{
-	    					this._animeRightb = false;
-	    					clearInterval(this._animeRight);
-	    				}
-	    		}
+
+
+
+	    if (this._jeu instanceof Jeu && event.keyCode == 83){ //down
+	    	if(this._keyDown == false) {
+				this._keyDown = true;
+				this.updateDirection();
+			}
 	    }
-	    if (this._jeu instanceof Jeu && event.keyCode == 81){
-	    	if(this._animeLeftb == false)
-	    		{
-	    			this._animeLeft = setInterval(function () { controleur.animerHumainLeft(); }, 30);
-	    			this._Move = 2;
-	    			this.ModifOrderMove();
-	    			this._animeLeftb = true;
-	    			if(this._animeUpb)
-	    				{
-	    					this._animeUpb = false;
-	    					clearInterval(this._animeUp);
-	    				}
-	    			if(this._animeDownb)
-	    				{
-	    					this._animeDownb = false;
-	    					clearInterval(this._animeDown);
-	    				}
-	    			if(this._animeRightb)
-	    				{
-	    					this._animeRightb = false;
-	    					clearInterval(this._animeRight);
-	    				}
-	    		}
+	    if (this._jeu instanceof Jeu && event.keyCode == 81){ //left
+			if(this._keyLeft == false) {
+			this._keyLeft = true;
+			this.updateDirection();
+			}
 	    }
-	    if (this._jeu instanceof Jeu && event.keyCode == 90){
-	    	if(this._animeUpb == false)
-	    		{
-	    			this._animeUp = setInterval(function () { controleur.animerHumainUp(); }, 30);
-	    			this._Move = 1;
-	    			this.ModifOrderMove();
-	    			this._animeUpb = true;
-	    			if(this._animeLeftb)
-	    				{
-	    					this._animeLeftb = false;
-	    					clearInterval(this._animeLeft);
-	    				}
-	    			if(this._animeDownb)
-	    				{
-	    					this._animeDownb = false;
-	    					clearInterval(this._animeDown);
-	    				}
-	    			if(this._animeRightb)
-	    				{
-	    					this._animeRightb = false;
-	    					clearInterval(this._animeRight);
-	    				}
-	    		}
+	    if (this._jeu instanceof Jeu && event.keyCode == 90){ //up
+			if(this._keyUp == false) {
+			this._keyUp = true;
+			this.updateDirection();
+			}
 	    }
-	    if (this._jeu instanceof Jeu && event.keyCode == 68){
-	    	if(this._animeRightb == false)
-	    		{
-	    			this._animeRight = setInterval(function () { controleur.animerHumainRight(); }, 30);
-	    			this._animeRightb = true;
-	    			if(this._animeUpb)
-	    				{
-	    					this._animeUpb = false;
-	    					clearInterval(this._animeUp);
-	    				}
-	    			if(this._animeDownb)
-	    				{
-	    					this._animeDownb = false;
-	    					clearInterval(this._animeDown);
-	    				}
-	    			if(this._animeLeftb)
-	    				{
-	    					this._animeLeftb = false;
-	    					clearInterval(this._animeLeftb);
-	    				}
-	    		}
+	    if (this._jeu instanceof Jeu && event.keyCode == 68){ //right
+			if(this._keyRight == false) {
+			this._keyRight = true;
+			this.updateDirection();
+			}
 	    }
 	    
 	}
 
 	onKeyUp(evt) {
-	    if (this._jeu instanceof Jeu && evt.keyCode == 83)
-	        {
-	    	this._animeDownb = false;
-	    	clearInterval(this._animeDown);
-	    	this.testNewDir(3);
-	    	}
-	    if (this._jeu instanceof Jeu && evt.keyCode == 81)
-	        {
-	    	this._animeLeftb = false;
-	    	clearInterval(this._animeLeft);
-	    	this.testNewDir(2);
-	    	}
-	    if (this._jeu instanceof Jeu && evt.keyCode == 90)
-	    	{
-	    	this._animeUpb = false;
-	    	clearInterval(this._animeUp);
-	    	this.testNewDir(1);
-	    	}
-	    if (this._jeu instanceof Jeu && evt.keyCode == 68)
-	        {
-	    	this._animeRightb = false;
-	    	clearInterval(this._animeRight);
-	    	this.testNewDir(4);
-	    	}
+		if (this._jeu instanceof Jeu && event.keyCode == 83){ //down
+			this._keyDown = false;
+			this.updateDirection();
+		}
+		if (this._jeu instanceof Jeu && event.keyCode == 81){ //left
+			this._keyLeft = false;
+			this.updateDirection();
+		}
+		if (this._jeu instanceof Jeu && event.keyCode == 90){ //up
+			this._keyUp = false;
+			this.updateDirection();
+		}
+		if (this._jeu instanceof Jeu && event.keyCode == 68){ //right
+			this._keyRight = false;
+			this.updateDirection();
+		}
 	}
 	
 	testNewDir(val) {

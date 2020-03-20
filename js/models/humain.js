@@ -48,7 +48,7 @@ class Humain extends ElementMobile
 		this.ajouterTexture(textureHumainRight);
 		this.ajouterTexture(textureHumainRight2);
 		this.ajouterTexture(textureHumainRight3);
-		this.ajouterTexture(textureHumainRightShield);
+		this.ajouterTexture(textureHumainRightShield);//10
 		this.ajouterTexture(textureHumainRightShield2);
 		this.ajouterTexture(textureHumainRightShield3);
 		this.ajouterTexture(textureHumainRightImmune);
@@ -58,7 +58,7 @@ class Humain extends ElementMobile
 		this.ajouterTexture(textureHumainBackShield);
 		this.ajouterTexture(textureHumainBackShield2);
 		this.ajouterTexture(textureHumainBackShield3);
-		this.ajouterTexture(textureHumainBackImmune);
+		this.ajouterTexture(textureHumainBackImmune);//20
 		this.ajouterTexture(textureHumainLeft);
 		this.ajouterTexture(textureHumainLeft2);
 		this.ajouterTexture(textureHumainLeft3);
@@ -68,11 +68,12 @@ class Humain extends ElementMobile
 		this.ajouterTexture(textureHumainLeftImmune);
 		this.ajouterTexture(textureHumainLeftImmune2);
 		this.ajouterTexture(textureHumainLeftImmune3);
-		this.ajouterTexture(textureHumainFrontImmune2);
+		this.ajouterTexture(textureHumainFrontImmune2); //30
 		this.ajouterTexture(textureHumainFrontImmune3);
 		this.ajouterTexture(textureHumainRightImmune2);
 		this.ajouterTexture(textureHumainRightImmune3);
 		this.ajouterTexture(textureHumainBackImmune2);
+		this.ajouterTexture(textureHumainBackImmune3);
 		this.ajouterTexture(textureHumainBackImmune3);
 		this.activerTexture(1);
 
@@ -201,35 +202,35 @@ class Humain extends ElementMobile
 	{
 	    if (!this.isInCT) {
 	        if (!this.hasShield) {
-	            if (this.isImmune == true) {
-	                if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
-	                    this.activerTexture(13);
-	                }
-	                if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
-	                    this.activerTexture(6);
-	                }
-	                if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
-	                    this.activerTexture(27);
-	                }
-	                if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
-	                    this.activerTexture(20);
-	                }
-	                this.isImmune = false;
-	            } else {
-	                if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
-	                    this.activerTexture(7);
-	                }
-	                if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
-	                    this.activerTexture(0);
-	                }
-	                if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
-	                    this.activerTexture(21);
-	                }
-	                if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
-	                    this.activerTexture(14);
-	                }
-	                this.isImmune = true;
-	            }
+	            // if (this.isImmune == true) {
+	            //     if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
+	            //         this.activerTexture(13);
+	            //     }
+	            //     if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
+	            //         this.activerTexture(6);
+	            //     }
+	            //     if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
+	            //         this.activerTexture(27);
+	            //     }
+	            //     if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
+	            //         this.activerTexture(20);
+	            //     }
+	            //     this.isImmune = false;
+	            // } else {
+	            //     if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
+	            //         this.activerTexture(7);
+	            //     }
+	            //     if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
+	            //         this.activerTexture(0);
+	            //     }
+	            //     if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
+	            //         this.activerTexture(21);
+	            //     }
+	            //     if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
+	            //         this.activerTexture(14);
+	            //     }
+	            //     this.isImmune = true;
+	            // }
 
 	        }
 	    }
@@ -315,56 +316,112 @@ class Humain extends ElementMobile
 	anime() {
         if(!this.isInCT){
 	    var that = this;
-	    if (!this._immunise) {
+	    //immunisé
+	    if (this._immunise) {
 	        if (this.move1) {
 	            this.move3 = false;
 	            if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
-	                this.activerTexture(7);
+	                this.activerTexture(13); //right
 	            }
 	            if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
-	                this.activerTexture(0);
+	                this.activerTexture(6); //front
 	            }
 	            if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
-	                this.activerTexture(21);
+	                this.activerTexture(27); //left
 	            }
 	            if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
-	                this.activerTexture(14);
+	                this.activerTexture(20); //back
 	            }
 	            setTimeout(function () { that.move2 = true; }, 60);
 	        }
 	        if (this.move2) {
 	            this.move1 = false;
 	            if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
-	                this.activerTexture(8);
+	                this.activerTexture(32);
 	            }
 	            if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
-	                this.activerTexture(1);
+	                this.activerTexture(30);
 	            }
 	            if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
-	                this.activerTexture(22);
+	                this.activerTexture(28);
 	            }
 	            if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
-	                this.activerTexture(15);
+	                this.activerTexture(34);
 	            }
 	            setTimeout(function () { that.move3 = true; }, 60);
 	        }
 	        if (this.move3) {
 	            this.move2 = false;
 	            if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
-	                this.activerTexture(9);
+	                this.activerTexture(33);
 	            }
 	            if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
-	                this.activerTexture(2);
+	                this.activerTexture(31);
 	            }
 	            if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
-	                this.activerTexture(23);
+	                this.activerTexture(29);
 	            }
 	            if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
-	                this.activerTexture(16);
+	                this.activerTexture(35);
 	            }
 	            setTimeout(function () { that.move1 = true; }, 60);
 	        }
 	    }
+
+	    //vulnérable
+	    else {
+
+			if (this.move1) {
+				this.move3 = false;
+				if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
+					this.activerTexture(7);
+				}
+				if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
+					this.activerTexture(0);
+				}
+				if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
+					this.activerTexture(21);
+				}
+				if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
+					this.activerTexture(14);
+				}
+				setTimeout(function () { that.move2 = true; }, 60);
+			}
+			if (this.move2) {
+				this.move1 = false;
+				if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
+					this.activerTexture(8);
+				}
+				if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
+					this.activerTexture(1);
+				}
+				if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
+					this.activerTexture(22);
+				}
+				if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
+					this.activerTexture(15);
+				}
+				setTimeout(function () { that.move3 = true; }, 60);
+			}
+			if (this.move3) {
+				this.move2 = false;
+				if (this.getRotation() > 5.495 || this.getRotation() <= 0.785) {
+					this.activerTexture(9);
+				}
+				if (this.getRotation() > 0.785 && this.getRotation() <= 2.355) {
+					this.activerTexture(2);
+				}
+				if (this.getRotation() > 2.355 && this.getRotation() <= 3.925) {
+					this.activerTexture(23);
+				}
+				if (this.getRotation() > 3.925 && this.getRotation() <= 5.495) {
+					this.activerTexture(16);
+				}
+				setTimeout(function () { that.move1 = true; }, 60);
+			}
+		}
+
+	    //masque
 	    if (this.hasShield) {
 	        if (this.move1) {
 	            this.move3 = false;
