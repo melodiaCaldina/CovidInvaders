@@ -7,12 +7,8 @@ C'est pourquoi, nous vous donnons la possibilité d'incarner l'infirmière Jeannin
 
 ## Installation
 
-Pour lancer le jeu, il suffit simplement de se rendre sur l'url suivante :
-
-
-## Contributions
-
-
+Pour lancer le jeu, il suffit simplement de se rendre sur l'url suivante : <br/>
+<https://covid-invaders.maderation.net>
 
 ## Versionning
 
@@ -26,6 +22,6 @@ nahjy505 - Développeur Front-End<br/>
 Wdesoraner - Développeur Back-End<br/>
 Darkhelloide - Développeur Back-End
 
-## License
+## Licence
 
 Ce projet est détenteur d'une licence MIT.
