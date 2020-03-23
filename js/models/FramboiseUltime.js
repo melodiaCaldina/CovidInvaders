@@ -9,6 +9,7 @@ class FramboiseUltime extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.type = "ennemi";
         this.ajouterTexture(Ultime);
         this.ajouterTexture(UltimeClignotant);
         this.ajouterTexture(Ultime75);

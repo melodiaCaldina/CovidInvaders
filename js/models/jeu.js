@@ -20,24 +20,46 @@ class Jeu extends Sujet
 	    this.timerTrash = null;
 	    this.alterTime = false;
 	    this.weaponLevel = null;
-	    this.tir1 = false;
-	    this.tir2 = false;
-	    this.tir3 = false;
-	    this.tir4 = false;
-	    this.tir5 = false;
-	    this.tir6 = false;
-	    this.tir7 = false;
-	    this.tir8 = false;
-	    this.tir9 = false;
-	    this.tir10 = false;
-	    this.tir11= false;
-	    this.tir12= false;
-	    this.tir13= false;
-	    this.tir14= false;
-	    this.tir15 = false;
+		this.tir1 = false;
+		this.tir2 = false;
+		this.tir3 = false;
+		this.tir4 = false;
+		this.tir5 = false;
+		this.tir6 = false;
+		this.tir7 = false;
+		this.tir8 = false;
+		this.tir9 = false;
+		this.tir10 = false;
+		this.tir11= false;
+		this.tir12= false;
+		this.tir13= false;
+		this.tir14= false;
+		this.tir15 = false;
+
+		this.blow1 = false;
+		this.blow2 = false;
+		this.blow3 = false;
+		this.blow4 = false;
+		this.blow5 = false;
+		this.blow6 = false;
+		this.blow7 = false;
+		this.blow8 = false;
+		this.blow9 = false;
+		this.blow10 = false;
+		this.blow11= false;
+		this.blow12= false;
+		this.blow13= false;
+		this.blow14= false;
+		this.blow15 = false;
 	    this.cineBoss = false;
 	    this._shield = 0;
 	    this._weapon = 0;
+	    this._weaponType = 1;
+		this.lastBossAnimation = false;
+		this.lastBossAnimation2 = false;
+		this.lastBossAnimation3 = false;
+		this.lastBossAnimation4 = false;
+		this.lastBossInvu = false;
 
 		//Fabrique permettant de générer les différents éléments graphiques du jeu
 		this._fabriqueElement = new FabriqueElement();
@@ -74,7 +96,12 @@ class Jeu extends Sujet
 		this._bless = false;
 		this._bossPDV = 50;
         this._bossMaxPDV = 50;
-
+        this.kamehameha1 = true;
+        this.pangolideath = false;
+        this.isFreezed = false;
+		this.bossLevel = false;
+		this.trashLevel = false;
+		this.finalBossLevel = false;
         // this.musicIntro.volume = 0;
         // this.musicIntro.currentTime = 0;
         // this.musicIntro.play();
@@ -110,10 +137,13 @@ class Jeu extends Sujet
             this._bless = true;
             if (this._shield == 0) {
                 this._nbPDV--;
-                this._weapon--;
+				if(this._weapon != 6){
+					this._weapon--;
+					if (this._weapon < 0){
+						this._weapon = 0;
+					}
+				}
                 this.animeWeaponLevel();
-                if (this._weapon < 0)
-                    this._weapon = 0;
             }
             else
                 this._shield--;
@@ -126,19 +156,26 @@ class Jeu extends Sujet
         if (!this._bless) {
             this._bless = true;
             if (this._shield == 0) {
-                this._nbPDV--;
-                this._weapon--;
+				this._nbPDV--;
+				this._nbPDV--;
+				if(this._weapon != 6){
+					this._weapon--;
+					if (this._weapon < 0){
+						this._weapon = 0;
+					}
+				}
 				this.animeWeaponLevel();
-                if (this._weapon < 0)
-                    this._weapon = 0;
             }
             else if (this._shield == 1) {
                 this._shield--;
                 this._nbPDV--;
-                this._weapon--;
+				if(this._weapon != 6){
+					this._weapon--;
+					if (this._weapon < 0){
+						this._weapon = 0;
+					}
+				}
 				this.animeWeaponLevel();
-                if (this._weapon < 0)
-                    this._weapon = 0;
                 if (this._shield == 0)
                     this._joueur.setHasShield(false);
             } else {
@@ -151,6 +188,7 @@ class Jeu extends Sujet
     }
     
     bless() {
+
         this._bless = false;
     }
 
@@ -229,10 +267,14 @@ class Jeu extends Sujet
             $('#ScreamerVid').hide();
             $('#head').show();
             $('#infos').show();
-            if((that._niveau+1) %10 != 0)
-                that.musicTrash.play();
-            else
-                that.musicBoss.play();
+            if(that.finalBossLevel){
+            	that.musicFinalBoss.play();
+			}
+            else if (that.trashLevel){
+				that.musicTrash.play();
+			}else{
+				that.musicBoss.play();
+			}
         }, 24500);
 
     }
@@ -302,12 +344,54 @@ class Jeu extends Sujet
 	{
 		this._termine = false;
 		this._gagne = false;
+		this.musicIntro = document.querySelector("#audioPlayerIntro");
+		this.musicTrash = document.querySelector("#audioPlayerTrash");
+		this.musicBoss = document.querySelector("#audioPlayerBoss");
+		this.musicFinalBoss = document.querySelector("#audioPlayerFinalBoss");
+		this.musicFinalBoss.currentTime = 0;
+		this.musicBoss.currentTime = 0;
+		this.musicTrash.currentTime = 0;
+		this.musicIntro.currentTime = 0;
+		this.timerIntro = null;
+		this.timerBoss = null;
+		this.timerTrash = null;
+		this.alterTime = false;
+		this.weaponLevel = null;
+		this.cineBoss = false;
+		this._shield = 0;
+		this._weapon = 0;
+		this.lastBossAnimation = false;
+		this.lastBossAnimation2 = false;
+		this.lastBossAnimation3 = false;
+		this.lastBossAnimation4 = false;
+		this.lastBossInvu = false;
+		this._weaponType = 3;
+
+		this.pangolideath = false;
+
+		//affiche le texte des boss
+		this._cutBoss = null;
+
+		//Timer plaçant régulièrement des bonus sur le plateau
+		this._timerBonus = null;
+		this._moveTrash = false;
+		this._bless = false;
+		this._bossPDV = 50;
+		this._bossMaxPDV = 50;
+		this.kamehameha1 = true;
+		this.pangolideath = false;
+		this.isFreezed = false;
+
+
+
+
+
 		controleur.tirBossEnd();
 		controleur.tirTrashEnd();
 		this._score = 0;
 		if (localStorage.getItem("high-score") == null)
 		    localStorage.setItem("high-score", "0");
-		this._niveau = 0;
+		this._niveau = 12;
 		this._nbPDV = 5;
 		this.musicBoss.currentTime = 0;
 		this.musicTrash.currentTime = 0;
@@ -351,6 +435,12 @@ class Jeu extends Sujet
 	 */
 	demarrerNiveau()
 	{
+
+
+		this.bossLevel = false;
+		this.trashLevel = false;
+		this.finalBossLevel = false;
+
 	    setTimeout(function(){controleur.tirEnd();},10);
 		//Suppression des précédents éléments graphiques
 	    this._elementsGraphiques.clear();
@@ -373,6 +463,8 @@ class Jeu extends Sujet
 
 		//Création des pampmousses mutants initiaux en fonction du niveau
 		if ((this._niveau + 1)%15 === 0) {
+
+			this.finalBossLevel = true;
 		    var that = this;
 		    this._joueur.setVitesse(0);
 		    this._joueur.setIsInCT(true);
@@ -383,6 +475,7 @@ class Jeu extends Sujet
 		    this._bossMaxPDV = 1300;
 		    this._bossPDV = this._bossMaxPDV;
 		    this.ajouterUltime(this._bossMaxPDV);
+			this.musicFinalBoss = document.querySelector("#audioPlayerFinalBoss");
 		    setTimeout(function () { that.musicTrash.volume = 0.4; }, 1000);
 		    setTimeout(function () { that.musicTrash.volume = 0.3; }, 2000);
 		    setTimeout(function () { that.musicTrash.volume = 0.2; }, 3000);
@@ -398,6 +491,11 @@ class Jeu extends Sujet
 		    clearInterval(this.timerTrash);
 		    that.musicFinalBoss.volume = 0;
 		    this.musicFinalBoss.play();
+		    this.lastBossAnimation = false;
+		    this.lastBossInvu = false;
+			this.lastBossAnimation2 = false;
+			this.lastBossAnimation3 = false;
+			this.lastBossAnimation4 = false;
 		    this.timerBoss = setInterval(function () {
 		        setTimeout(function () { that.musicFinalBoss.volume = 0.4; }, 1000);
 		        setTimeout(function () { that.musicFinalBoss.volume = 0.3; }, 2000);
@@ -429,13 +527,15 @@ class Jeu extends Sujet
 		}
 
 		else if ((this._niveau+2) % 3 === 0) {
+
+			this.bossLevel = true;
 		    var that = this;
 		    this._joueur.setVitesse(0);
 		    this._joueur.setIsInCT(true);
 		    var inter = setInterval(function () { that._joueur.setVitesse(0); }, 20);
-		    setTimeout(function () { that._joueur.setVitesse(8); }, 14000);
-		    setTimeout(function () { that._joueur.setIsInCT(false); }, 14000);
-		    setTimeout(function () { clearInterval(inter); }, 13500);
+		    setTimeout(function () { that._joueur.setVitesse(8); }, 12000);
+		    setTimeout(function () { that._joueur.setIsInCT(false); }, 12000);
+		    setTimeout(function () { clearInterval(inter); }, 11500);
 		    
 		    if ((this._niveau + 1) % 15 === 2) {
 		        this._bossMaxPDV = 50;
@@ -492,8 +592,8 @@ class Jeu extends Sujet
 		    this._elementsGraphiques.add(this._joueur);
 		    
 		} else {
-		    
 
+			this.trashLevel = true;
 		    this._bless = true;
 		    setTimeout(function () { controleur.bless(); }, 3000);
 		    this._joueur.setPDV(this._nbPDV);
@@ -507,7 +607,7 @@ class Jeu extends Sujet
 		    var nbPeche = 0;
 		    var multiplicateur = Math.floor(this._niveau/15)+1;
 		    if ((this._niveau + 1) % 15 === 1) {
-		        nombrePampmousses = 3 * multiplicateur;
+		        nombrePampmousses = 30 * multiplicateur;
 		    } else if ((this._niveau + 1) % 15 === 4) {
 		        nombrePampmousses = 6 * multiplicateur;
 		        nbCerise = 3 * multiplicateur;
@@ -606,6 +706,7 @@ class Jeu extends Sujet
 
 		}
 		this._joueur.donnerMunition();
+		this._joueur.donnerMunition();
 		this.demarrerDistributionBonus();
 	}
 
@@ -623,7 +724,7 @@ class Jeu extends Sujet
 	    this._joueur.setHasShield(true);
 	}
 	Weapon() {
-	    this._weapon = 5;
+	    this._weapon = 6;
 	}
 	Cheat() {
 	    this._nbPDV++;
@@ -860,7 +961,7 @@ class Jeu extends Sujet
 		this._timerBonus = setTimeout(function ()
 		{
 			that.distribuerBonus();
-		}, Math.floor(Math.random() * 2000) + 30000);
+		}, Math.floor(Math.random() * 5000) + 3000);
 		
 	}
 
@@ -871,16 +972,28 @@ class Jeu extends Sujet
 	{
 	    this.ajouterMunition();
 	    var alea = Math.floor(Math.random() * 32);
-	    if (alea != 1) {
+	    if (alea == 1) {
 
 
 			var that = this;
 			that.musicTrash.pause();
 			that.musicBoss.pause();
+			that.musicFinalBoss.pause();
 			document.querySelector('#audioIntroAlpacino').currentTime = 0;
 			document.querySelector('#audioIntroAlpacino').volume = 1;
 			document.querySelector('#audioIntroAlpacino').play();
-			setTimeout(function () {document.querySelector('#audioIntroAlpacino').pause();if((that._niveau+1) %10 != 0) {that.musicTrash.play();	}else{that.musicBoss.play();} }, 1500);
+			setTimeout(function () {
+				document.querySelector('#audioIntroAlpacino').pause();
+					if(that.finalBossLevel){
+						that.musicFinalBoss.play();
+					}
+					else if (that.trashLevel){
+						that.musicTrash.play();
+					}else{
+						that.musicBoss.play();
+					}
+			}
+			, 1500);
 
 
 			setTimeout(function () {that.ajouterElement(that._fabriqueElement.create('BoostSpeed'));
@@ -889,13 +1002,42 @@ class Jeu extends Sujet
 				if (element instanceof (BoostSpeed)) {
 					element.setXY(that._largeurPlateau + 200, Math.floor(Math.random() * that._hauteurPlateau));
 				}}}, 2000);
-	    } else if (alea == 2 || alea == 6 || alea == 7 ) {
+	    } else if (alea == 2 || alea == 6 || alea == 7 || alea == 9 || alea == 10) {
 	        this.ajouterElement(this._fabriqueElement.create('BoostWeapon'));
-	    } else if (alea == 3) {
+	    } else if (alea == 3 || alea == 11 || alea == 12 || alea == 13) {
 	        this.ajouterElement(this._fabriqueElement.create('BoostLife'));
-	    } else if (alea == 4 || alea == 8 ) {
-	        this.ajouterElement(this._fabriqueElement.create('BoostShield'));
-	    }
+	    } else if (alea == 4 || alea == 8  || alea == 16 || alea == 15 || alea == 14) {
+			this.ajouterElement(this._fabriqueElement.create('BoostShield'));
+		}else if (alea == 30){
+
+// if (alea == 30)
+			var that = this;
+			that.musicTrash.pause();
+			that.musicFinalBoss.pause();
+			that.musicBoss.pause();
+			document.querySelector('#audioIntroPangolino').currentTime = 0;
+			document.querySelector('#audioIntroPangolino').volume = 1;
+			document.querySelector('#audioIntroPangolino').play();
+			setTimeout(function () {
+					document.querySelector('#audioIntroPangolino').pause();
+					if(that.finalBossLevel){
+						that.musicFinalBoss.play();
+					}
+					else if (that.trashLevel){
+						that.musicTrash.play();
+					}else{
+						that.musicBoss.play();
+					}
+				}
+				, 3000);
+			setTimeout(function () {that.ajouterElement(that._fabriqueElement.create('Pangolino'));}, 4000);
+		} else if (alea == 20){
+			this.ajouterElement(this._fabriqueElement.create('ChangeW1'));
+		} else if (alea == 21){
+			this.ajouterElement(this._fabriqueElement.create('ChangeW2'));
+		} else{
+			this.ajouterElement(this._fabriqueElement.create('ChangeW3'));
+		}
 		this.demarrerDistributionBonus();
 	}
 
@@ -907,6 +1049,116 @@ class Jeu extends Sujet
 	{
 		this._joueur.orienterVers(coordonnees);
 	}
+
+	soundExplosion(){
+		if (!this.blow1) {
+			var musicTir = document.querySelector("#audioPlayerExplosion");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow1 = true;
+			setTimeout(function () { that.blow1 = false; }, 1200);
+		} else if (!this.blow2) {
+			var musicTir = document.querySelector("#audioPlayerExplosion2");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow2 = true;
+			setTimeout(function () { that.blow2 = false; }, 1200);
+		} else if (!this.blow3) {
+			var musicTir = document.querySelector("#audioPlayerExplosion3");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow3 = true;
+			setTimeout(function () { that.blow3 = false; }, 1200);
+		} else if (!this.blow4) {
+			var musicTir = document.querySelector("#audioPlayerExplosion4");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow4 = true;
+			setTimeout(function () { that.blow4 = false; }, 1200);
+		} else if (!this.blow5) {
+			var musicTir = document.querySelector("#audioPlayerExplosion5");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow5 = true;
+			setTimeout(function () { that.blow5 = false; }, 1200);
+		} else if (!this.blow6) {
+			var musicTir = document.querySelector("#audioPlayerExplosion6");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow6 = true;
+			setTimeout(function () { that.blow6 = false; }, 1200);
+		} else if (!this.blow7) {
+			var musicTir = document.querySelector("#audioPlayerExplosion7");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow7 = true;
+			setTimeout(function () { that.blow7 = false; }, 1200);
+		} else if (!this.blow8) {
+			var musicTir = document.querySelector("#audioPlayerExplosion8");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow8 = true;
+			setTimeout(function () { that.blow8 = false; }, 1200);
+		} else if (!this.blow9) {
+			var musicTir = document.querySelector("#audioPlayerExplosion9");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow9 = true;
+			setTimeout(function () { that.blow9 = false; }, 1200);
+		} else if (!this.blow10) {
+			var musicTir = document.querySelector("#audioPlayerExplosion11");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow11 = true;
+			setTimeout(function () { that.blow10 = false; }, 1200);
+		} else if (!this.blow11) {
+			var musicTir = document.querySelector("#audioPlayerExplosion11");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow11 = true;
+			setTimeout(function () { that.blow11 = false; }, 1200);
+		} else if (!this.blow12) {
+			var musicTir = document.querySelector("#audioPlayerExplosion12");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow12 = true;
+			setTimeout(function () { that.blow12 = false; }, 1200);
+		} else if (!this.blow13) {
+			var musicTir = document.querySelector("#audioPlayerExplosion13");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow13 = true;
+			setTimeout(function () { that.blow13 = false; }, 1200);
+		} else if (!this.blow14) {
+			var musicTir = document.querySelector("#audioPlayerExplosion14");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow14 = true;
+			setTimeout(function () { that.blow14 = false; }, 1200);
+		} else if (!this.blow15) {
+			var musicTir = document.querySelector("#audioPlayerExplosion15");
+			musicTir.volume = 0.05;
+			musicTir.play();
+			var that = this;
+			this.blow15 = true;
+			setTimeout(function () { that.blow15 = false; }, 1200);
+		}
+	}
+
 
 	/**
 	 * Génère un tire du joueur
@@ -1040,20 +1292,28 @@ class Jeu extends Sujet
 	            //On place un presse-agrumes sur le plateau qui se déplace dans la même direction que le joueur
 	            if (this._weapon == 0) {
 	                var presseAgrumes = this._fabriqueElement.create('presse agrumes');
+					presseAgrumes.activerTexture(this._weaponType);
+					presseAgrumes.setDegats(this._weaponType);
 	                presseAgrumes.setCoordonnees(this._joueur.getCoordonnees());
 	                presseAgrumes.setDirection(this._joueur.getDirection());
 	                presseAgrumes.setRotation(this._joueur.getRotation());
 	                this._elementsGraphiques.add(presseAgrumes);
 	            } else if (this._weapon == 1) {
 	                var presseAgrumes = this._fabriqueElement.create('presse agrumes');
+					presseAgrumes.activerTexture(this._weaponType);
+					presseAgrumes.setDegats(this._weaponType);
 	                presseAgrumes.setCoordonnees(this._joueur.getCoordonnees());
 	                presseAgrumes.setDirection(this._joueur.getDirection());
 	                presseAgrumes.setRotation(this._joueur.getRotation());
 	                var presseAgrumes2 = this._fabriqueElement.create('presse agrumes');
+					presseAgrumes2.activerTexture(this._weaponType);
+					presseAgrumes2.setDegats(this._weaponType);
 	                presseAgrumes2.setCoordonnees(this._joueur.getCoordonnees());
 	                presseAgrumes2.setDirection(this._joueur.getDirection() - (15 * 0.0174533));
 	                presseAgrumes2.setRotation(this._joueur.getRotation() - (15 * 0.0174533));
 	                var presseAgrumes3 = this._fabriqueElement.create('presse agrumes');
+					presseAgrumes3.activerTexture(this._weaponType);
+					presseAgrumes3.setDegats(this._weaponType);
 	                presseAgrumes3.setCoordonnees(this._joueur.getCoordonnees());
 	                presseAgrumes3.setDirection(this._joueur.getDirection() + (15 * 0.0174533));
 	                presseAgrumes3.setRotation(this._joueur.getRotation() + (15 * 0.0174533));
@@ -1062,22 +1322,32 @@ class Jeu extends Sujet
 	                this._elementsGraphiques.add(presseAgrumes3);
 	            } else if (this._weapon == 2) {
 	                var presseAgrumes = this._fabriqueElement.create('presse agrumes');
+					presseAgrumes.activerTexture(this._weaponType);
+					presseAgrumes.setDegats(this._weaponType);
 	                presseAgrumes.setCoordonnees(this._joueur.getCoordonnees());
 	                presseAgrumes.setDirection(this._joueur.getDirection());
 	                presseAgrumes.setRotation(this._joueur.getRotation());
 	                var presseAgrumes2 = this._fabriqueElement.create('presse agrumes');
+					presseAgrumes2.activerTexture(this._weaponType);
+					presseAgrumes2.setDegats(this._weaponType);
 	                presseAgrumes2.setCoordonnees(this._joueur.getCoordonnees());
 	                presseAgrumes2.setDirection(this._joueur.getDirection() - (10 * 0.0174533));
 	                presseAgrumes2.setRotation(this._joueur.getRotation() - (10 * 0.0174533));
 	                var presseAgrumes3 = this._fabriqueElement.create('presse agrumes');
+					presseAgrumes3.activerTexture(this._weaponType);
+					presseAgrumes3.setDegats(this._weaponType);
 	                presseAgrumes3.setCoordonnees(this._joueur.getCoordonnees());
 	                presseAgrumes3.setDirection(this._joueur.getDirection() + (10 * 0.0174533));
 	                presseAgrumes3.setRotation(this._joueur.getRotation() + (10 * 0.0174533));
 	                var presseAgrumes4 = this._fabriqueElement.create('presse agrumes');
+					presseAgrumes4.activerTexture(this._weaponType);
+					presseAgrumes4.setDegats(this._weaponType);
 	                presseAgrumes4.setCoordonnees(this._joueur.getCoordonnees());
 	                presseAgrumes4.setDirection(this._joueur.getDirection() - (20 * 0.0174533));
 	                presseAgrumes4.setRotation(this._joueur.getRotation() - (20 * 0.0174533));
 	                var presseAgrumes5 = this._fabriqueElement.create('presse agrumes');
+					presseAgrumes5.activerTexture(this._weaponType);
+					presseAgrumes5.setDegats(this._weaponType);
 	                presseAgrumes5.setCoordonnees(this._joueur.getCoordonnees());
 	                presseAgrumes5.setDirection(this._joueur.getDirection() + (20 * 0.0174533));
 	                presseAgrumes5.setRotation(this._joueur.getRotation() + (20 * 0.0174533));
@@ -1087,227 +1357,96 @@ class Jeu extends Sujet
 	                this._elementsGraphiques.add(presseAgrumes4);
 	                this._elementsGraphiques.add(presseAgrumes5);
 	            } else if (this._weapon == 3) {
-	                var presseAgrumes = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes.setDirection(this._joueur.getDirection());
-	                presseAgrumes.setRotation(this._joueur.getRotation());
-	                var presseAgrumes2 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes2.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes2.setDirection(this._joueur.getDirection() - (10 * 0.0174533));
-	                presseAgrumes2.setRotation(this._joueur.getRotation() - (10 * 0.0174533));
-	                var presseAgrumes3 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes3.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes3.setDirection(this._joueur.getDirection() + (10 * 0.0174533));
-	                presseAgrumes3.setRotation(this._joueur.getRotation() + (10 * 0.0174533));
-	                var presseAgrumes4 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes4.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes4.setDirection(this._joueur.getDirection() - (20 * 0.0174533));
-	                presseAgrumes4.setRotation(this._joueur.getRotation() - (20 * 0.0174533));
-	                var presseAgrumes5 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes5.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes5.setDirection(this._joueur.getDirection() + (20 * 0.0174533));
-	                presseAgrumes5.setRotation(this._joueur.getRotation() + (20 * 0.0174533));
-	                var presseAgrumes6 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes6.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes6.setDirection(this._joueur.getDirection() - (30 * 0.0174533));
-	                presseAgrumes6.setRotation(this._joueur.getRotation() - (30 * 0.0174533));
-	                var presseAgrumes7 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes7.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes7.setDirection(this._joueur.getDirection() + (30 * 0.0174533));
-	                presseAgrumes7.setRotation(this._joueur.getRotation() + (30 * 0.0174533));
-	                this._elementsGraphiques.add(presseAgrumes);
-	                this._elementsGraphiques.add(presseAgrumes2);
-	                this._elementsGraphiques.add(presseAgrumes3);
-	                this._elementsGraphiques.add(presseAgrumes4);
-	                this._elementsGraphiques.add(presseAgrumes5);
-	                this._elementsGraphiques.add(presseAgrumes6);
-	                this._elementsGraphiques.add(presseAgrumes7);
+					for (var i = 0; i < 8; i++) {
+
+						var rad = this._joueur.getDirection();
+						if(i < 4){
+							rad = rad + (i*(0.0174533*4));
+						}else{
+							rad = rad - ((i-4)*(0.0174533*4));
+						}
+						// var rad = this._joueur.getDirection();
+						// this._joueur.getDirection() - (2 * 0.0174533)
+						// rad += 18 * i;
+						// rad = rad * 0.0174533;
+						var bossMunition = this._fabriqueElement.create('presse agrumes');
+						bossMunition.activerTexture(this._weaponType);
+						bossMunition.setDegats(this._weaponType);
+						bossMunition.setCoordonnees(this._joueur.getCoordonnees());
+						bossMunition.setDirection(rad);
+						bossMunition.setRotation(rad);
+
+						this._elementsGraphiques.add(bossMunition);
+					}
 	            } else if (this._weapon == 4) {
-	                var that = this;
-	                var rad = this._joueur.getDirection();
-	                for (var i = 0; i < 15; i++) {
+					for (var i = 0; i < 16; i++) {
 
-	                    rad += 24 * i;
-	                    rad = rad * 0.0174533;
-	                    var bossMunition = this._fabriqueElement.create('presse agrumes');
-	                    bossMunition.setCoordonnees(this._joueur.getCoordonnees());
-	                    bossMunition.setDirection(rad);
-	                    bossMunition.setRotation(rad);
+						var rad = this._joueur.getDirection();
+						if(i < 8){
+							rad = rad + (i*(0.0174533*2));
+						}else{
+							rad = rad - ((i-8)*(0.0174533*2));
+						}
+						// var rad = this._joueur.getDirection();
+						// this._joueur.getDirection() - (2 * 0.0174533)
+						// rad += 18 * i;
+						// rad = rad * 0.0174533;
+						var bossMunition = this._fabriqueElement.create('presse agrumes');
+						bossMunition.activerTexture(this._weaponType);
+						bossMunition.setDegats(this._weaponType);
+						bossMunition.setCoordonnees(this._joueur.getCoordonnees());
+						bossMunition.setDirection(rad);
+						bossMunition.setRotation(rad);
 
-	                    this._elementsGraphiques.add(bossMunition);
-	                }
+						this._elementsGraphiques.add(bossMunition);
+					}
 	            } else if (this._weapon == 5) {
 
-	                var that = this;
-	                var rad = this._joueur.getDirection();
-	                for (var i = 0; i < 20; i++) {
+					for (var i = 0; i < 30; i++) {
 
-	                    rad += 18 * i;
-	                    rad = rad * 0.0174533;
-	                    var bossMunition = this._fabriqueElement.create('presse agrumes');
-	                    bossMunition.setCoordonnees(this._joueur.getCoordonnees());
-	                    bossMunition.setDirection(rad);
-	                    bossMunition.setRotation(rad);
+						var rad = this._joueur.getDirection();
+						if(i < 15){
+							rad = rad + (i*0.0174533);
+						}else{
+							rad = rad - ((i-15)*0.0174533);
+						}
+						// var rad = this._joueur.getDirection();
+						// this._joueur.getDirection() - (2 * 0.0174533)
+						// rad += 18 * i;
+						// rad = rad * 0.0174533;
+						var bossMunition = this._fabriqueElement.create('presse agrumes');
+						bossMunition.activerTexture(this._weaponType);
+						bossMunition.setDegats(this._weaponType);
+						bossMunition.setCoordonnees(this._joueur.getCoordonnees());
+						bossMunition.setDirection(rad);
+						bossMunition.setRotation(rad);
 
-	                    this._elementsGraphiques.add(bossMunition);
-	                }
-	                var presseAgrumes = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes.setDirection(this._joueur.getDirection());
-	                presseAgrumes.setRotation(this._joueur.getRotation());
-	                var presseAgrumes2 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes2.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes2.setDirection(this._joueur.getDirection() - (2 * 0.0174533));
-	                presseAgrumes2.setRotation(this._joueur.getRotation() - (2 * 0.0174533));
-	                var presseAgrumes3 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes3.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes3.setDirection(this._joueur.getDirection() + (2 * 0.0174533));
-	                presseAgrumes3.setRotation(this._joueur.getRotation() + (2 * 0.0174533));
-	                var presseAgrumes4 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes4.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes4.setDirection(this._joueur.getDirection() - (3 * 0.0174533));
-	                presseAgrumes4.setRotation(this._joueur.getRotation() - (3 * 0.0174533));
-	                var presseAgrumes5 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes5.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes5.setDirection(this._joueur.getDirection() + (3 * 0.0174533));
-	                presseAgrumes5.setRotation(this._joueur.getRotation() + (3 * 0.0174533));
-	                var presseAgrumes6 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes6.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes6.setDirection(this._joueur.getDirection() - (4 * 0.0174533));
-	                presseAgrumes6.setRotation(this._joueur.getRotation() - (4 * 0.0174533));
-	                var presseAgrumes7 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes7.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes7.setDirection(this._joueur.getDirection() + (4 * 0.0174533));
-	                presseAgrumes7.setRotation(this._joueur.getRotation() + (4 * 0.0174533));
-	                var presseAgrumes8 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes8.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes8.setDirection(this._joueur.getDirection() + (5 * 0.0174533));
-	                presseAgrumes8.setRotation(this._joueur.getRotation() + (5 * 0.0174533));
-	                var presseAgrumes9 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes9.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes9.setDirection(this._joueur.getDirection() - (5 * 0.0174533));
-	                presseAgrumes9.setRotation(this._joueur.getRotation() - (5 * 0.0174533));
-	                var presseAgrumes10 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes10.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes10.setDirection(this._joueur.getDirection() + (6 * 0.0174533));
-	                presseAgrumes10.setRotation(this._joueur.getRotation() + (6 * 0.0174533));
-	                var presseAgrumes11 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes11.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes11.setDirection(this._joueur.getDirection() - (6 * 0.0174533));
-	                presseAgrumes11.setRotation(this._joueur.getRotation() - (6 * 0.0174533));
-	                var presseAgrumes12 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes12.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes12.setDirection(this._joueur.getDirection() + (7 * 0.0174533));
-	                presseAgrumes12.setRotation(this._joueur.getRotation() + (7 * 0.0174533));
-	                var presseAgrumes13 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes13.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes13.setDirection(this._joueur.getDirection() - (7 * 0.0174533));
-	                presseAgrumes13.setRotation(this._joueur.getRotation() - (7 * 0.0174533));
-	                var presseAgrumes14 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes14.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes14.setDirection(this._joueur.getDirection() + (8 * 0.0174533));
-	                presseAgrumes14.setRotation(this._joueur.getRotation() + (8 * 0.0174533));
-	                var presseAgrumes15 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes15.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes15.setDirection(this._joueur.getDirection() - (8 * 0.0174533));
-	                presseAgrumes15.setRotation(this._joueur.getRotation() - (8 * 0.0174533));
-	                var presseAgrumes16 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes16.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes16.setDirection(this._joueur.getDirection() + (9 * 0.0174533));
-	                presseAgrumes16.setRotation(this._joueur.getRotation() + (9 * 0.0174533));
-	                var presseAgrumes17 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes17.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes17.setDirection(this._joueur.getDirection() - (9 * 0.0174533));
-	                presseAgrumes17.setRotation(this._joueur.getRotation() - (9 * 0.0174533));
-	                var presseAgrumes18 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes18.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes18.setDirection(this._joueur.getDirection() + (10 * 0.0174533));
-	                presseAgrumes18.setRotation(this._joueur.getRotation() + (10 * 0.0174533));
-	                var presseAgrumes19 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes19.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes19.setDirection(this._joueur.getDirection() - (10 * 0.0174533));
-	                presseAgrumes19.setRotation(this._joueur.getRotation() - (10 * 0.0174533));
-	                var presseAgrumes20 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes20.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes20.setDirection(this._joueur.getDirection() + (11 * 0.0174533));
-	                presseAgrumes20.setRotation(this._joueur.getRotation() + (11 * 0.0174533));
-	                var presseAgrumes21 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes21.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes21.setDirection(this._joueur.getDirection() - (11 * 0.0174533));
-	                presseAgrumes21.setRotation(this._joueur.getRotation() - (11 * 0.0174533));
-	                var presseAgrumes22 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes22.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes22.setDirection(this._joueur.getDirection() + (12 * 0.0174533));
-	                presseAgrumes22.setRotation(this._joueur.getRotation() + (12 * 0.0174533));
-	                var presseAgrumes23 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes23.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes23.setDirection(this._joueur.getDirection() - (12 * 0.0174533));
-	                presseAgrumes23.setRotation(this._joueur.getRotation() - (12 * 0.0174533));
-	                var presseAgrumes24 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes24.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes24.setDirection(this._joueur.getDirection() + (13 * 0.0174533));
-	                presseAgrumes24.setRotation(this._joueur.getRotation() + (13 * 0.0174533));
-	                var presseAgrumes25 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes25.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes25.setDirection(this._joueur.getDirection() - (13 * 0.0174533));
-	                presseAgrumes25.setRotation(this._joueur.getRotation() - (13 * 0.0174533));
-	                var presseAgrumes26 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes26.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes26.setDirection(this._joueur.getDirection() + (14 * 0.0174533));
-	                presseAgrumes26.setRotation(this._joueur.getRotation() + (14 * 0.0174533));
-	                var presseAgrumes27 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes27.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes27.setDirection(this._joueur.getDirection() - (14 * 0.0174533));
-	                presseAgrumes27.setRotation(this._joueur.getRotation() - (14 * 0.0174533));
-	                var presseAgrumes28 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes28.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes28.setDirection(this._joueur.getDirection() + (15 * 0.0174533));
-	                presseAgrumes28.setRotation(this._joueur.getRotation() + (15 * 0.0174533));
-	                var presseAgrumes29 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes29.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes29.setDirection(this._joueur.getDirection() - (15 * 0.0174533));
-	                presseAgrumes29.setRotation(this._joueur.getRotation() - (15 * 0.0174533));
-	                var presseAgrumes30 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes30.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes30.setDirection(this._joueur.getDirection() + (1 * 0.0174533));
-	                presseAgrumes30.setRotation(this._joueur.getRotation() + (1 * 0.0174533));
-	                var presseAgrumes31 = this._fabriqueElement.create('presse agrumes');
-	                presseAgrumes31.setCoordonnees(this._joueur.getCoordonnees());
-	                presseAgrumes31.setDirection(this._joueur.getDirection() - (1 * 0.0174533));
-	                presseAgrumes31.setRotation(this._joueur.getRotation() - (1 * 0.0174533));
-	                
-	                this._elementsGraphiques.add(presseAgrumes);
-	                this._elementsGraphiques.add(presseAgrumes2);
-	                this._elementsGraphiques.add(presseAgrumes3);
-	                this._elementsGraphiques.add(presseAgrumes4);
-	                this._elementsGraphiques.add(presseAgrumes5);
-	                this._elementsGraphiques.add(presseAgrumes6);
-	                this._elementsGraphiques.add(presseAgrumes7);
-	                this._elementsGraphiques.add(presseAgrumes8);
-	                this._elementsGraphiques.add(presseAgrumes9);
-	                this._elementsGraphiques.add(presseAgrumes10);
-	                this._elementsGraphiques.add(presseAgrumes11);
-	                this._elementsGraphiques.add(presseAgrumes12);
-	                this._elementsGraphiques.add(presseAgrumes13);
-	                this._elementsGraphiques.add(presseAgrumes14);
-	                this._elementsGraphiques.add(presseAgrumes15);
-	                this._elementsGraphiques.add(presseAgrumes16);
-	                this._elementsGraphiques.add(presseAgrumes17);
-	                this._elementsGraphiques.add(presseAgrumes18);
-	                this._elementsGraphiques.add(presseAgrumes19);
-	                this._elementsGraphiques.add(presseAgrumes20);
-	                this._elementsGraphiques.add(presseAgrumes21);
-	                this._elementsGraphiques.add(presseAgrumes22);
-	                this._elementsGraphiques.add(presseAgrumes23);
-	                this._elementsGraphiques.add(presseAgrumes24);
-	                this._elementsGraphiques.add(presseAgrumes25);
-	                this._elementsGraphiques.add(presseAgrumes26);
-	                this._elementsGraphiques.add(presseAgrumes27);
-	                this._elementsGraphiques.add(presseAgrumes28);
-	                this._elementsGraphiques.add(presseAgrumes29);
-	                this._elementsGraphiques.add(presseAgrumes30);
-	                this._elementsGraphiques.add(presseAgrumes31);
-	            }
+						this._elementsGraphiques.add(bossMunition);
+					}
+				}else if (this._weapon == 6) {
+
+					for (var i = 0; i < 50; i++) {
+
+						var rad = this._joueur.getDirection();
+						if(i < 25){
+							rad = rad + (i*(0.0174533/2));
+						}else{
+							rad = rad - ((i-25)*(0.0174533/2));
+						}
+						// var rad = this._joueur.getDirection();
+						// this._joueur.getDirection() - (2 * 0.0174533)
+						// rad += 18 * i;
+						// rad = rad * 0.0174533;
+						var bossMunition = this._fabriqueElement.create('presse agrumes');
+						bossMunition.setDegats(this._weaponType);
+						bossMunition.setCoordonnees(this._joueur.getCoordonnees());
+						bossMunition.setDirection(rad);
+						bossMunition.setRotation(rad);
+						bossMunition.activerTexture(0);
+
+						this._elementsGraphiques.add(bossMunition);
+					}
+				}
 
 	        }
 	    }
@@ -1417,10 +1556,10 @@ class Jeu extends Sujet
 	                    peche2.setCoordonnees(oeuf.getCoordonnees());
 	                    peche2.setDirection((((Math.random() * 360) + 1) * 0.0174533));
 	                    peche2.setPDV(20);
+						that._elementsGraphiques.add(peche2);
+						oeuf.setDisappear(true);
 	                }, 3000);
 
-	                that._elementsGraphiques.add(peche2);
-	                oeuf.setDisappear(true);
 	                for (var iElement = 0; iElement < that._elementsGraphiques.length() ; ++iElement) {
 	                    var element = that._elementsGraphiques.get(iElement);
 	                    if (element instanceof (Oeuf)) {
@@ -1478,7 +1617,7 @@ class Jeu extends Sujet
 	            this._elementsGraphiques.add(oeuf);
 	            var that = this;
 	            setTimeout(function () {
-	                for (i = 0; i < 2;i++){
+	                for (var i = 0; i < 2;i++){
 	                    var alea = Math.random();
 	                    if (alea < 0.2) {
 	                        var peche1 = that._fabriqueElement.create('peche');
@@ -1601,9 +1740,9 @@ class Jeu extends Sujet
 	            var element = this._elementsGraphiques.get(iElement);
 	            if (element instanceof (Boss) || element instanceof Abricot || element instanceof Ananas || element instanceof Fraise || element instanceof Mangue || element instanceof Orange) {
 	                var rad = 0;
-	                for (var i = 0; i < 60; i++) {
+	                for (var i = 0; i < 30; i++) {
 	                    rad += 6 * i;
-	                    rad = rad * 0.0174533;
+	                    rad = rad * (0.0174533*2);
 	                    var bossMunition = this._fabriqueElement.create('BossMunition');
 	                    bossMunition.setCoordonnees(element.getCoordonnees());
 	                    bossMunition.setDirection(rad);
@@ -1988,17 +2127,23 @@ class Jeu extends Sujet
 	 */
 	animer()
 	{
-		this._elementsGraphiques.animer(this._largeurPlateau, this._hauteurPlateau);
+		if(!this.isFreezed){
+			this._elementsGraphiques.animer(this._largeurPlateau, this._hauteurPlateau);
 
-		this.gererCollissions();
+			this.gererCollissions();
 
-		if (this._elementsGraphiques.getNombrePampmoussesMutants() == 0)
-		{
-			this._gagne = true;
-			this.terminer();
+			if (this._elementsGraphiques.getNombrePampmoussesMutants() == 0)
+			{
+				this._gagne = true;
+				this.terminer();
+			}
+
+			this.notifier();
+		}else {
+			this._elementsGraphiques.animerScene(this._largeurPlateau, this._hauteurPlateau);
+
+			this.notifier();
 		}
-
-		this.notifier();
 	}
 	animerHumain(dir)
 	{
@@ -2033,6 +2178,19 @@ class Jeu extends Sujet
 		this.notifier();
 	}
 
+
+
+	gererDegatsEnnemis(element, element2){
+		if(element2.genre == "trash"){
+
+		}else if (element2.genre == "mob"){
+
+		}
+	}
+
+	//type -> ennemi, boost, etc...
+	//genre -> trash, mob, boss...
+
 	/**
 	 * Gère les éventuelles collisions entre les éléments présents sur le plateau de jeu
 	 */
@@ -2045,6 +2203,7 @@ class Jeu extends Sujet
 
 	        if (element instanceof ElementMobile)
 	        {
+
 	            //Teste la collision des éléments avec les murs
 	            if (this.testerCollisionsMurs(element))
 	            {
@@ -2074,7 +2233,7 @@ class Jeu extends Sujet
 	            {
 	                var element2 = this._elementsGraphiques.get(iElement2);
 
-	                if (!(element2 instanceof Fraise) && !(element2 instanceof FramboiseUltime) && !(element2 instanceof Sangrine) && !(element2 instanceof Orange) && !(element2 instanceof Mangue) && !(element2 instanceof Mure) && !(element2 instanceof Framboise) && !(element2 instanceof Cassis) && !(element2 instanceof Cerises) && !(element2 instanceof miniCerise) && !(element2 instanceof Citron) && !(element2 instanceof Ananas) && !(element2 instanceof PampmousseMutant) && !(element2 instanceof Munition) && !(element2 instanceof Boss) && !(element2 instanceof BossMunition) && !(element2 instanceof BigMunition) && !(element2 instanceof Abricot) && !(element2 instanceof BoostLife) && !(element2 instanceof BoostWeapon) && !(element2 instanceof BoostSpeed) && !(element2 instanceof BoostShield) && !(element2 instanceof Peche))
+	                if (!(element2 instanceof Fraise) && !(element2 instanceof FramboiseUltime) && !(element2 instanceof Sangrine) && !(element2 instanceof Orange) && !(element2 instanceof Mangue) && !(element2 instanceof Mure) && !(element2 instanceof Framboise) && !(element2 instanceof Cassis) && !(element2 instanceof Cerises) && !(element2 instanceof miniCerise) && !(element2 instanceof Citron) && !(element2 instanceof Ananas) && !(element2 instanceof PampmousseMutant) && !(element2 instanceof Munition) && !(element2 instanceof Boss) && !(element2 instanceof BossMunition) && !(element2 instanceof BigMunition) && !(element2 instanceof Abricot) && !(element2 instanceof BoostLife) && !(element2 instanceof BoostWeapon) && !(element2 instanceof BoostSpeed) && !(element2 instanceof BoostShield) && !(element2 instanceof changeW1) && !(element2 instanceof changeW2) && !(element2 instanceof changeW3) && !(element2 instanceof Peche) && !(element2 instanceof Pangolino))
 	                    continue;
 
 	                //Si les deux éléments testés se touchent
@@ -2127,7 +2286,8 @@ class Jeu extends Sujet
 	                            if (this._joueur.getPointsDeVie() === 0) {
 	                                this.terminer();
 	                            }
-	                        } else if (element2 instanceof BigMunition) {
+	                        }
+	                        else if (element2 instanceof BigMunition) {
 	                            this._elementsGraphiques.remove(iElement2);
 	                            if (this._shield == 0)
 	                                this._joueur.blesserFort();
@@ -2152,13 +2312,52 @@ class Jeu extends Sujet
 	                                this.terminer();
 	                            }
 	                        }
-	                        else if (element2 instanceof BoostShield) {
-	                            this._elementsGraphiques.remove(iElement2);
-	                            this._shield = this._shield + 2;
-	                            if (this._shield > 2)
-	                                this._shield = 2;
-                                this._joueur.setHasShield(true);
-	                        }
+							else if (element2 instanceof BoostShield) {
+								this._elementsGraphiques.remove(iElement2);
+								this._shield = this._shield + 2;
+								if (this._shield > 2)
+									this._shield = 2;
+								this._joueur.setHasShield(true);
+							}
+							else if (element2 instanceof changeW1) {
+								this._elementsGraphiques.remove(iElement2);
+								this._weaponType = 1;
+								$('#label-weapon-1').removeClass('unused');
+								$('#label-weapon-2').addClass('unused');
+								$('#label-weapon-3').addClass('unused');
+							}
+							else if (element2 instanceof changeW2) {
+								this._elementsGraphiques.remove(iElement2);
+								this._weaponType = 2;
+								$('#label-weapon-1').addClass('unused');
+								$('#label-weapon-2').removeClass('unused');
+								$('#label-weapon-3').addClass('unused');
+							}
+							else if (element2 instanceof changeW3) {
+								this._elementsGraphiques.remove(iElement2);
+								this._weaponType = 3;
+								$('#label-weapon-1').addClass('unused');
+								$('#label-weapon-2').addClass('unused');
+								$('#label-weapon-3').removeClass('unused');
+							}
+							else if (element2 instanceof Pangolino) {
+								this._elementsGraphiques.remove(iElement2);
+								this._nbPDV++;
+								this._nbPDV++;
+								this._nbPDV++;
+								this._nbPDV++;
+								this._nbPDV++;
+								this._nbPDV++;
+								this._nbPDV++;
+								this._nbPDV++;
+								this._nbPDV++;
+								this._weapon = 4;
+								this._shield = this._shield + 2;
+								if (this._shield > 2)
+									this._shield = 2;
+								this._joueur.setHasShield(true);
+								this._joueur.setPDV(this._nbPDV);
+							}
 	                        else if (element2 instanceof BoostSpeed) {
 	                            this._elementsGraphiques.remove(iElement2);
 	                            this._joueur.setVitesse(20);
@@ -2175,7 +2374,19 @@ class Jeu extends Sujet
 								document.querySelector('#audioAlpacino').play();
 								this.musicTrash.pause();
 								this.musicBoss.pause();
-								setTimeout(function () {document.querySelector('#audioAlpacino').pause();if((that._niveau+1) %10 != 0) {that.musicTrash.play();	}else{that.musicBoss.play();} }, 15000);
+								this.musicFinalBoss.pause();
+								setTimeout(function () {
+										document.querySelector('#audioAlpacino').pause();
+										if(that.finalBossLevel){
+											that.musicFinalBoss.play();
+										}
+										else if (that.trashLevel){
+											that.musicTrash.play();
+										}else{
+											that.musicBoss.play();
+										}
+									}
+									, 15000);
 
 	                        }
 	                        else if (element2 instanceof BoostLife) {
@@ -2187,82 +2398,300 @@ class Jeu extends Sujet
 	                            this._elementsGraphiques.remove(iElement2);
 	                            this._weapon++;
 	                            this.animeWeaponLevel();
-	                            if (this._weapon > 4)
+	                            if (this._weapon > 4 && this._weapon != 6)
 	                                this._weapon = 4;
 	                        }
 							
 	                    }
 	                        // Si un presse-agrumes touche un pampmousse mutant
-	                    else if (element instanceof PresseAgrumes && element2 instanceof PampmousseMutant )
+						// else if(element instanceof PresseAgrumes && element2.type == "ennemi"){
+						// 	var result = this.gererDegatsEnnemis(element, element2);
+						// 	if(result == 0){ //both element destroyed
+						// 		--iElement;
+						// 		--iElement2;
+						// 	}else if (result ==1){ // element1 destroyed
+						//
+						// 	}else if(result == 2){ //element2 destroyed
+						//
+						// 	}
+						// }
+
+						else if (element instanceof PresseAgrumes && element2 instanceof PampmousseMutant )
 	                    {
 	                        if (!element2.getDead()) {
-	                            this._elementsGraphiques.remove(iElement);
-	                            element2.beginDeath();
-	                            var that = this;
-	                            setTimeout(function () { that.eraseTrash(); }, 12000);
-	                            --iElement;
-	                            --iElement2;
+	                        	if(this._weaponType != 3){
+									this._elementsGraphiques.remove(iElement);
+									element2.beginDeath();
+									var that = this;
+									setTimeout(function () { that.eraseTrash(); }, 12000);
+									--iElement;
+									--iElement2;
+								}else{
+									if(element.notYetExploded){
+										element.startExplosion = true;
+										setTimeout(function() {
+											elt.exploded = false;
+											elt.startExplosion = false;
+											elt.resetExplosion();
+										}, 60);
+									}else if(element.exploding){
+										element.exploded = true;
+										var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+										this._elementsGraphiques.add(elementExploded);
+										elementExploded.setXY(element.getX(), element.getY());
+										elementExploded.setRotation(element.getRotation());
+										elementExploded.explode();
+
+
+										this._elementsGraphiques.remove(iElement);
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.eraseTrash(); }, 12000);
+										setTimeout(function () { that.eraseTir(); }, 600);
+										--iElement;
+										--iElement2;
+									}
+								}
 	                        }
 	                    }
+
 	                    else if (element instanceof PresseAgrumes && (element2 instanceof Mure || element2 instanceof Framboise || element2 instanceof Peche || element2 instanceof Cassis || element2 instanceof miniCerise)) {
 	                        if (!element2.getDead()) {
-	                            this._elementsGraphiques.remove(iElement);
-	                            element2.setPDV(element2.getPDV() - 1);
-	                            console.log(element2.getPDV());
-	                            if (element2.getPDV() <= 0) {
-	                                element2.beginDeath();
-	                                var that = this;
-	                                setTimeout(function () { that.eraseTrash(); }, 12000);
-	                                --iElement2;
-	                            }
+								if(this._weaponType != 3){
 
+									//////////////
+									this._elementsGraphiques.remove(iElement);
+									element2.setPDV(element2.getPDV() - element.degats);
+									console.log(element2.getPDV());
+									if (element2.getPDV() <= 0) {
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.eraseTrash(); }, 12000);
+										--iElement2;
+									}
+									--iElement;
+									////////////////
+								}
+								else
+									{
+									if(element.notYetExploded){
+										element.startExplosion = true;
+										setTimeout(function() {
+											elt.exploded = false;
+											elt.startExplosion = false;
+											elt.resetExplosion();
+										}, 60);
 
-	                            --iElement;
+									}
+									else if(element.exploding){
+										element.exploded = true;
+										var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+										this._elementsGraphiques.add(elementExploded);
+										elementExploded.setXY(element.getX(), element.getY());
+										elementExploded.setRotation(element.getRotation());
+										elementExploded.explode();
+
+										////////////
+										this._elementsGraphiques.remove(iElement);
+										element2.setPDV(element2.getPDV() - element.degats);
+										console.log(element2.getPDV());
+										if (element2.getPDV() <= 0) {
+											element2.beginDeath();
+											var that = this;
+											setTimeout(function () { that.eraseTrash(); }, 12000);
+											--iElement2;
+										}
+										--iElement;
+										////////////
+
+										setTimeout(function () { that.eraseTir(); }, 600);
+										--iElement;
+										--iElement2;
+									}
+								}
+								////////
 	                        }
 
 	                    }
 	                    else if (element instanceof PresseAgrumes && element2 instanceof Citron) {
 	                        if (!element2.getDead()) {
-	                            this._elementsGraphiques.remove(iElement);
-	                            element2.setPDV(element2.getPDV() - 1);
-	                            if (element2.getPDV() <= 0) {
-	                                element2.setTaille(100);
-	                                element2.beginDeath();
-	                                var that = this;
-	                                setTimeout(function () { that.eraseTrash(); }, 12000);
-	                                --iElement2;
-	                            }
+								if(this._weaponType != 3){
+
+									//////////////
+									this._elementsGraphiques.remove(iElement);
+									element2.setPDV(element2.getPDV() - element.degats);
+									if (element2.getPDV() <= 0) {
+										element2.setTaille(100);
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.eraseTrash(); }, 12000);
+										--iElement2;
+									}
+									--iElement;
+									////////////////
+								}
+								else
+								{
+									if(element.notYetExploded){
+										element.startExplosion = true;
+										setTimeout(function() {
+											elt.exploded = false;
+											elt.startExplosion = false;
+											elt.resetExplosion();
+										}, 60);
+
+									}
+									else if(element.exploding){
+										element.exploded = true;
+										var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+										this._elementsGraphiques.add(elementExploded);
+										elementExploded.setXY(element.getX(), element.getY());
+										elementExploded.setRotation(element.getRotation());
+										elementExploded.explode();
+
+										////////////
+										this._elementsGraphiques.remove(iElement);
+										element2.setPDV(element2.getPDV() - element.degats);
+										if (element2.getPDV() <= 0) {
+											element2.setTaille(100);
+											element2.beginDeath();
+											var that = this;
+											setTimeout(function () { that.eraseTrash(); }, 12000);
+											--iElement2;
+										}
 
 
-	                            --iElement;
+										--iElement;
+										////////////
+
+										setTimeout(function () { that.eraseTir(); }, 600);
+										--iElement;
+										--iElement2;
+									}
+								}
+								////////
+
+
 	                        }
 
 	                    }
 	                    else if (element instanceof PresseAgrumes && element2 instanceof Cerises) {
 	                        if (!element2.getDead()) {
-	                            this._elementsGraphiques.remove(iElement);
-	                            element2.setPDV(element2.getPDV() - 1);
-	                            if (element2.getPDV() <= 0) {
-	                                for (i = 0; i < 6; i++) {
-	                                    var cerise = this._fabriqueElement.create('minicerise');
-	                                    cerise.setCoordonnees(element2.getCoordonnees());
-	                                    cerise.activerTexture(i);
-	                                    this._elementsGraphiques.add(cerise);
-	                                }
-	                                element2.beginDeath();
-	                                var that = this;
-	                                setTimeout(function () { that.eraseTrash(); }, 12000);
-	                                --iElement2;
-	                            }
+								if(this._weaponType != 3){
+
+									//////////////
+									this._elementsGraphiques.remove(iElement);
+									element2.setPDV(element2.getPDV() - element.degats);
+									if (element2.getPDV() <= 0) {
+										for (i = 0; i < 6; i++) {
+											var cerise = this._fabriqueElement.create('minicerise');
+											cerise.setCoordonnees(element2.getCoordonnees());
+											cerise.activerTexture(i);
+											this._elementsGraphiques.add(cerise);
+										}
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.eraseTrash(); }, 12000);
+										--iElement2;
+									}
 
 
-	                            --iElement;
+									--iElement;
+									////////////////
+								}
+								else
+								{
+									if(element.notYetExploded){
+										element.startExplosion = true;
+										setTimeout(function() {
+											elt.exploded = false;
+											elt.startExplosion = false;
+											elt.resetExplosion();
+										}, 60);
+
+									}
+									else if(element.exploding){
+										element.exploded = true;
+										var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+										this._elementsGraphiques.add(elementExploded);
+										elementExploded.setXY(element.getX(), element.getY());
+										elementExploded.setRotation(element.getRotation());
+										elementExploded.explode();
+
+										////////////
+										this._elementsGraphiques.remove(iElement);
+										element2.setPDV(element2.getPDV() - element.degats);
+										if (element2.getPDV() <= 0) {
+											for (i = 0; i < 6; i++) {
+												var cerise = this._fabriqueElement.create('minicerise');
+												cerise.setCoordonnees(element2.getCoordonnees());
+												cerise.activerTexture(i);
+												this._elementsGraphiques.add(cerise);
+											}
+											element2.beginDeath();
+											var that = this;
+											setTimeout(function () { that.eraseTrash(); }, 12000);
+											--iElement2;
+										}
+
+
+										--iElement;
+										////////////
+
+										setTimeout(function () { that.eraseTir(); }, 600);
+										--iElement;
+										--iElement2;
+									}
+								}
+								////////
+
+
+
 	                        }
 
 	                    }
 	                    else if (element instanceof PresseAgrumes && element2 instanceof Boss) {
-	                        this._elementsGraphiques.remove(iElement);
-	                        this._bossPDV--;
+							if(this._weaponType != 3){
+
+								//////////////
+
+								this._elementsGraphiques.remove(iElement);
+								this._bossPDV -= element.degats;
+								////////////////
+							}
+							else
+							{
+								if(element.notYetExploded){
+									element.startExplosion = true;
+									setTimeout(function() {
+										elt.exploded = false;
+										elt.startExplosion = false;
+										elt.resetExplosion();
+									}, 60);
+
+								}
+								else if(element.exploding){
+									element.exploded = true;
+									var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+									this._elementsGraphiques.add(elementExploded);
+									elementExploded.setXY(element.getX(), element.getY());
+									elementExploded.setRotation(element.getRotation());
+									elementExploded.explode();
+
+									////////////
+
+									this._elementsGraphiques.remove(iElement);
+									this._bossPDV -= element.degats;
+									////////////
+
+									setTimeout(function () { that.eraseTir(); }, 600);
+									--iElement;
+									--iElement2;
+								}
+							}
+							////////
+
+
 	                        if (this._bossPDV <= (this._bossMaxPDV / 1.3)) {
 	                            element2.activerTexture(2);
 	                        }
@@ -2284,117 +2713,744 @@ class Jeu extends Sujet
 	                        }
 	                    }
 	                    else if (element instanceof PresseAgrumes && element2 instanceof FramboiseUltime) {
-	                        this._elementsGraphiques.remove(iElement);
-	                        element2.setPDV(element2.getPDV() - 1);
+							if(this._weaponType != 3){
+
+								//////////////
+								this._elementsGraphiques.remove(iElement);
+								if(!this.lastBossInvu)
+									element2.setPDV(element2.getPDV() - element.degats);
+								////////////////
+							}
+							else
+							{
+								if(element.notYetExploded){
+									element.startExplosion = true;
+									setTimeout(function() {
+										elt.exploded = false;
+										elt.startExplosion = false;
+										elt.resetExplosion();
+									}, 60);
+
+								}
+								else if(element.exploding){
+									element.exploded = true;
+									var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+									this._elementsGraphiques.add(elementExploded);
+									elementExploded.setXY(element.getX(), element.getY());
+									elementExploded.setRotation(element.getRotation());
+									elementExploded.explode();
+
+									////////////
+									this._elementsGraphiques.remove(iElement);
+									if(!this.lastBossInvu)
+										element2.setPDV(element2.getPDV() - element.degats);
+									////////////
+
+									setTimeout(function () { that.eraseTir(); }, 600);
+									--iElement;
+									--iElement2;
+								}
+							}
+							////////
+
+
+
 	                        if (element2.getPDV() <= (this._bossMaxPDV / 1.3)) {
 	                            element2.activerTexture(2);
 	                        }
 	                        if (element2.getPDV() <= (this._bossMaxPDV / 2)) {
 
-								this._joueur.setIsInCT(true);
-								var inter = setInterval(function () { that._joueur.setVitesse(0); }, 20);
-								setTimeout(function () { that._joueur.setVitesse(12); }, 12000);
-								setTimeout(function () { that._joueur.setIsInCT(false); }, 12000);
-	                            element2.activerTexture(4);
-	                        }
-	                        if (element2.getPDV() <= (this._bossMaxPDV / 4)) {
-	                            element2.activerTexture(6);
-	                        }
+								if (!this.lastBossAnimation) {
+									this.lastBossAnimation = true;
+									this.lastBossInvu = true;
+									var cutScene = this._cutBoss;
+									var that = this;
+									var elt2 = element2;
+									cutScene.setTexture(8);
+									clearTimeout(this._timerBonus);
+									setTimeout(function () {
+										cutScene.setTexture(9);
+									}, 6000);
+									setTimeout(function () {
+										elt2.setXY(elt2.getX(), that._hauteurPlateau / 2);
+									}, 9800);
+									setTimeout(function () {
+										elt2.setVitesse(0);
+									}, 9800);
+									setTimeout(function () {
+										cutScene.setTexture(10);
+									}, 11600);
+									setTimeout(function () {
+										that.musicFinalBoss.volume = 0.4;
+									}, 10800);
+									setTimeout(function () {
+										that.musicFinalBoss.volume = 0.3;
+									}, 10900);
+									setTimeout(function () {
+										that.musicFinalBoss.volume = 0.2;
+									}, 11000);
+									setTimeout(function () {
+										that.musicFinalBoss.volume = 0.1;
+									}, 11100);
+									setTimeout(function () {
+										that.musicFinalBoss.volume = 0;
+									}, 11200);
+									setTimeout(function () {
+										that.musicFinalBoss.pause();
+									}, 11300);
+
+									setTimeout(function () {
+										document.querySelector('#audioAlpacino').pause();
+										document.querySelector('#audioIntroAlpacino').pause();
+										document.querySelector('#audioWarudo').currentTime = 0;
+										document.querySelector('#audioWarudo').volume = 1;
+										document.querySelector('#audioWarudo').play();
+										controleur.tirEnd();
+
+
+									}, 11300);
+
+
+									setTimeout(function () {
+										that.isFreezed = true;
+										that._joueur.setIsInCT(true);
+										that.freezeAll();
+									}, 15000);
+									setTimeout(function () {
+										that._joueur.setVitesse(0);
+									}, 15000);
+									setTimeout(function () {
+										controleur.stopUpdateWeapon();
+									}, 15000);
+									setTimeout(function () {
+										that._bless = true;
+									}, 15000);
+									setTimeout(function () {
+										that.cineBoss = true;
+									}, 15000);
+									setTimeout(function () {
+										cutScene.setTexture(13);
+									}, 15000);
+									setTimeout(function () {
+										cutScene.setTexture(14);
+										that.freezeAll();
+									}, 19000);
+									setTimeout(function () {
+										that._joueur.setXY(that._largeurPlateau / 2, that._hauteurPlateau / 2 + 30);
+									}, 19000);
+
+									setTimeout(function () {that.freezeAll();}, 20000);
+									setTimeout(function () {that.freezeAll();}, 21000);
+									setTimeout(function () {that.freezeAll();}, 22000);
+									setTimeout(function () {that.freezeAll();}, 23000);
+									setTimeout(function () {
+										cutScene.setTexture(15);
+										that.freezeAll();
+									}, 24000);
+
+
+									setTimeout(function () {
+										that.freezeAll();
+										document.querySelector('#audioAlpacino').pause();
+										document.querySelector('#audioIntroAlpacino').pause();
+										document.querySelector('#audioWarudo').pause();
+										document.querySelector('#audioKamehameha').currentTime = 0;
+										document.querySelector('#audioKamehameha').volume = 0.9;
+										document.querySelector('#audioKamehameha').play();
+
+									}, 25000);
+									setTimeout(function () {
+										cutScene.setXY(that._largeurPlateau / 2, elt2.getY());
+										that.freezeAll();
+									}, 28000);
+									setTimeout(function () {
+										cutScene.setTexture(11);
+									}, 28000);
+									setTimeout(function () {
+
+											that._nbPDV--;
+											that._nbPDV--;
+											that._nbPDV--;
+											that._joueur.setPDV(that._nbPDV);
+											that._joueur.isDead = true;
+											that._joueur.anime();
+										}
+										, 28000);
+									setTimeout(function () {
+										var interv = setInterval(function () {
+											if (that.kamehameha1) {
+												cutScene.setTexture(11);
+											} else {
+												cutScene.setTexture(12);
+											}
+											that.kamehameha1 = !that.kamehameha1;
+										}, 100);
+
+										setTimeout(function () {
+											clearInterval(interv);
+										}, 4000);
+									}, 28000);
+
+									setTimeout(function () {
+										cutScene.setXY((that._largeurPlateau / 20) * 10, (that._hauteurPlateau / 20) * 4);
+										cutScene.setTexture(17);
+									}, 32100);
+									setTimeout(function () {
+										that.musicFinalBoss = document.querySelector("#audioPlayerFinalBoss2");
+										;
+										that.musicFinalBoss.currentTime = 0;
+										that.musicFinalBoss.volume = 0.4;
+										that.musicFinalBoss.play();
+									}, 34000);
+
+									setTimeout(function () {
+										cutScene.setTexture(18);
+									}, 36000);
+									setTimeout(function () {
+										document.querySelector('#audioKamehameha').pause();
+									}, 37000);
+									setTimeout(function () {
+
+											that._joueur.isDead = false;
+											that._joueur.isLookingBack = true;
+											that._joueur.anime();
+										}
+										, 42000);
+
+									setTimeout(function () {
+										cutScene.setTexture(19);
+									}, 42300);
+									setTimeout(function () {
+											that._joueur.isLookingBack = false;
+											that._joueur.isLookingLeft = true;
+											that._joueur.anime();
+										}
+										, 44000);
+									setTimeout(function () {
+										that._joueur.isLookingRight = true;
+										that._joueur.isLookingLeft = false;
+										that._joueur.anime();
+									}, 46000);
+									setTimeout(function () {
+										that._joueur.isLookingBack = true;
+										that._joueur.isLookingRight = false;
+										that._joueur.anime();
+									}, 48000);
+									setTimeout(function () {
+										that._joueur.isLookingBack = false;
+										that._joueur.immortal = true;
+										that.musicFinalBoss.volume = 1;
+										that._joueur.anime();
+									}, 51500);
+									setTimeout(function () {
+										cutScene.setTexture(16);
+									}, 51900);
+
+// speech 2 = 8
+//speech 4 = 10
+//kamehameha1 = 11
+//speech 5= 13
+									setTimeout(function () {
+										document.querySelector('#audioKamehameha').pause();
+										that._joueur.setIsInCT(false);
+										that._joueur.setVitesse(30);
+										that.cineBoss = false;
+										that._weapon = 6;
+										cutScene.setTexture(0);
+										elt2.setVitesse(1);
+										elt2.setPDV(that._bossMaxPDV / 2 - 15);
+										that.lastBossInvu = false;
+										that.unfreezeAll();
+										that.isFreezed = false;
+										that.demarrerDistributionBonus();
+										controleur.tirBegin();
+										controleur.startUpdateWeapon();
+									}, 55000);
+
+
+								}
+								element2.activerTexture(4);
+
+							}
+//speech 12 = 20
+							if (element2.getPDV() <= (this._bossMaxPDV / 4)) {
+
+								if(!this.lastBossAnimation2){
+
+									this.lastBossAnimation2 = true;
+									var cutScene = this._cutBoss;
+									cutScene.setTexture(20);
+									setTimeout(function () { cutScene.setTexture(0); }, 5000);
+								}
+								element2.activerTexture(6);
+							}
+							if (element2.getPDV() <= (this._bossMaxPDV / 8)) {
+								if(!this.lastBossAnimation3){
+									this.lastBossAnimation3 = true;
+									var cutScene = this._cutBoss;
+									cutScene.setTexture(20);
+									setTimeout(function () { cutScene.setTexture(0); }, 5000);
+								}
+								setTimeout(function () { cutScene.setTexture(0); }, 5000);
+							}
 	                        element2.beginClignotement();
 	                        if (element2.getPDV() <= 0) {
+								console.log("phase death");
+								if(!this.lastBossAnimation4){
+									this.lastBossAnimation4 = true;
+									var cutScene = this._cutBoss;
+									cutScene.setTexture(20);
+									setTimeout(function () { cutScene.setTexture(0); }, 5000);
+								}
+								var cutScene = this._cutBoss;
+								cutScene.setTexture(22);
+								setTimeout(function () { cutScene.setTexture(0); }, 4000);
 	                            this._joueur.immuniser();
+	                            this._joueur.setVitesse(12);
 	                            var that = this;
 	                            var musicBoss = document.querySelector("#audioPlayerExploBoss");
 	                            musicBoss.play();
+	                            this._joueur.immortal = false;
+								that._weapon = 4;
 	                            setTimeout(function () { musicBoss.play(); }, 200);
 	                            element2.beginDeath();
 	                            setTimeout(function () { that.winUltime(); }, 4000);
 	                        }
 	                    }
 	                    else if (element instanceof PresseAgrumes && element2 instanceof Abricot) {
-	                        this._elementsGraphiques.remove(iElement);
-	                        element2.setPDV(element2.getPDV() - 1);
-	                        element2.beginClignotement();
-	                        if (element2.getPDV() <= 0) {
-	                            this._joueur.immuniser();
-	                            var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
-	                            musicBoss.volume = 0.05;
-	                            musicBoss.play();
-	                            element2.beginDeath();
-	                            var that = this;
-	                            setTimeout(function () { that.winAbricot(); }, 1000);
-	                        }
+							if(this._weaponType != 3){
+
+								//////////////
+								this._elementsGraphiques.remove(iElement);
+								element2.setPDV(element2.getPDV() - element.degats);
+								element2.beginClignotement();
+								if (element2.getPDV() <= 0) {
+									this._joueur.immuniser();
+									var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+									musicBoss.volume = 0.05;
+									musicBoss.play();
+									element2.beginDeath();
+									var that = this;
+									setTimeout(function () { that.winAbricot(); }, 1000);
+								}
+								////////////////
+							}
+							else
+							{
+								if(element.notYetExploded){
+									element.startExplosion = true;
+									setTimeout(function() {
+										elt.exploded = false;
+										elt.startExplosion = false;
+										elt.resetExplosion();
+									}, 60);
+
+								}
+								else if(element.exploding){
+									element.exploded = true;
+									var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+									this._elementsGraphiques.add(elementExploded);
+									elementExploded.setXY(element.getX(), element.getY());
+									elementExploded.setRotation(element.getRotation());
+									elementExploded.explode();
+
+									////////////
+									this._elementsGraphiques.remove(iElement);
+									element2.setPDV(element2.getPDV() - element.degats);
+									element2.beginClignotement();
+									if (element2.getPDV() <= 0) {
+										this._joueur.immuniser();
+										var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+										musicBoss.volume = 0.05;
+										musicBoss.play();
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.winAbricot(); }, 1000);
+									}
+									////////////
+
+									setTimeout(function () { that.eraseTir(); }, 600);
+									--iElement;
+									--iElement2;
+								}
+							}
+							////////
+
+
 	                    }
 	                    else if (element instanceof PresseAgrumes && element2 instanceof Ananas) {
-	                        this._elementsGraphiques.remove(iElement);
-	                        element2.setPDV(element2.getPDV() - 1);
-	                        element2.beginClignotement();
-	                        if (element2.getPDV() <= 0) {
-	                            this._joueur.immuniser();
-	                            var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
-	                            musicBoss.volume = 0.05;
-	                            musicBoss.play();
-	                            element2.beginDeath();
-	                            var that = this;
-	                            setTimeout(function () { that.winAnanas(); }, 1000);
-	                        }
+							if(this._weaponType != 3){
+
+								//////////////
+								this._elementsGraphiques.remove(iElement);
+								element2.setPDV(element2.getPDV() - element.degats);
+								element2.beginClignotement();
+								if (element2.getPDV() <= 0) {
+									this._joueur.immuniser();
+									var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+									musicBoss.volume = 0.05;
+									musicBoss.play();
+									element2.beginDeath();
+									var that = this;
+									setTimeout(function () { that.winAnanas(); }, 1000);
+								}
+								////////////////
+							}
+							else
+							{
+								if(element.notYetExploded){
+									element.startExplosion = true;
+									setTimeout(function() {
+										elt.exploded = false;
+										elt.startExplosion = false;
+										elt.resetExplosion();
+									}, 60);
+
+								}
+								else if(element.exploding){
+									element.exploded = true;
+									var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+									this._elementsGraphiques.add(elementExploded);
+									elementExploded.setXY(element.getX(), element.getY());
+									elementExploded.setRotation(element.getRotation());
+									elementExploded.explode();
+
+									////////////
+									this._elementsGraphiques.remove(iElement);
+									element2.setPDV(element2.getPDV() - element.degats);
+									element2.beginClignotement();
+									if (element2.getPDV() <= 0) {
+										this._joueur.immuniser();
+										var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+										musicBoss.volume = 0.05;
+										musicBoss.play();
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.winAnanas(); }, 1000);
+									}
+									////////////
+
+									setTimeout(function () { that.eraseTir(); }, 600);
+									--iElement;
+									--iElement2;
+								}
+							}
+							////////
+
+
 	                    }
 	                    else if (element instanceof PresseAgrumes && element2 instanceof Mangue) {
-	                        this._elementsGraphiques.remove(iElement);
-	                        element2.setPDV(element2.getPDV() - 1);
-	                        element2.beginClignotement();
-	                        if (element2.getPDV() <= 0) {
-	                            this._joueur.immuniser();
-	                            var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
-	                            musicBoss.volume = 0.05;
-	                            musicBoss.play();
-	                            element2.beginDeath();
-	                            var that = this;
-	                            setTimeout(function () { that.winMangue(); }, 1000);
-	                        }
+							if(this._weaponType != 3){
+
+								//////////////
+								this._elementsGraphiques.remove(iElement);
+								element2.setPDV(element2.getPDV() - element.degats);
+								element2.beginClignotement();
+								if (element2.getPDV() <= 0) {
+									this._joueur.immuniser();
+									var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+									musicBoss.volume = 0.05;
+									musicBoss.play();
+									element2.beginDeath();
+									var that = this;
+									setTimeout(function () { that.winMangue(); }, 1000);
+								}
+								////////////////
+							}
+							else
+							{
+								if(element.notYetExploded){
+									element.startExplosion = true;
+									setTimeout(function() {
+										elt.exploded = false;
+										elt.startExplosion = false;
+										elt.resetExplosion();
+									}, 60);
+
+								}
+								else if(element.exploding){
+									element.exploded = true;
+									var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+									this._elementsGraphiques.add(elementExploded);
+									elementExploded.setXY(element.getX(), element.getY());
+									elementExploded.setRotation(element.getRotation());
+									elementExploded.explode();
+
+									////////////
+									this._elementsGraphiques.remove(iElement);
+									element2.setPDV(element2.getPDV() - element.degats);
+									element2.beginClignotement();
+									if (element2.getPDV() <= 0) {
+										this._joueur.immuniser();
+										var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+										musicBoss.volume = 0.05;
+										musicBoss.play();
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.winMangue(); }, 1000);
+									}
+									////////////
+
+									setTimeout(function () { that.eraseTir(); }, 600);
+									--iElement;
+									--iElement2;
+								}
+							}
+							////////
+
+
 	                    }
 	                    else if (element instanceof PresseAgrumes && element2 instanceof Orange) {
-	                        this._elementsGraphiques.remove(iElement);
-	                        element2.setPDV(element2.getPDV() - 1);
-	                        element2.beginClignotement();
-	                        if (element2.getPDV() <= 0) {
-	                            this._joueur.immuniser();
-	                            var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
-	                            musicBoss.volume = 0.05;
-	                            musicBoss.play();
-	                            element2.beginDeath();
-	                            var that = this;
-	                            setTimeout(function () { that.winOrange(); }, 1000);
-	                        }
+							if(this._weaponType != 3){
+
+								//////////////
+								this._elementsGraphiques.remove(iElement);
+								element2.setPDV(element2.getPDV() - element.degats);
+								element2.beginClignotement();
+								if (element2.getPDV() <= 0) {
+									this._joueur.immuniser();
+									var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+									musicBoss.volume = 0.05;
+									musicBoss.play();
+									element2.beginDeath();
+									var that = this;
+									setTimeout(function () { that.winOrange(); }, 1000);
+								}
+								////////////////
+							}
+							else
+							{
+								if(element.notYetExploded){
+									element.startExplosion = true;
+									setTimeout(function() {
+										elt.exploded = false;
+										elt.startExplosion = false;
+										elt.resetExplosion();
+									}, 60);
+
+								}
+								else if(element.exploding){
+									element.exploded = true;
+									var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+									this._elementsGraphiques.add(elementExploded);
+									elementExploded.setXY(element.getX(), element.getY());
+									elementExploded.setRotation(element.getRotation());
+									elementExploded.explode();
+
+									////////////
+									this._elementsGraphiques.remove(iElement);
+									element2.setPDV(element2.getPDV() - element.degats);
+									element2.beginClignotement();
+									if (element2.getPDV() <= 0) {
+										this._joueur.immuniser();
+										var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+										musicBoss.volume = 0.05;
+										musicBoss.play();
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.winOrange(); }, 1000);
+									}
+									////////////
+
+									setTimeout(function () { that.eraseTir(); }, 600);
+									--iElement;
+									--iElement2;
+								}
+							}
+							////////
+
+
 	                    }
 	                    else if (element instanceof PresseAgrumes && element2 instanceof Fraise) {
-	                        this._elementsGraphiques.remove(iElement);
-	                        element2.setPDV(element2.getPDV() - 1);
-	                        element2.beginClignotement();
-	                        if (element2.getPDV() <= 0) {
-	                            this._joueur.immuniser();
-	                            var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
-	                            musicBoss.volume = 0.05;
-	                            musicBoss.play();
-	                            element2.beginDeath();
-	                            var that = this;
-	                            setTimeout(function () { that.winFraise(); }, 1000);
-	                        }
+							if(this._weaponType != 3){
+
+								//////////////
+								this._elementsGraphiques.remove(iElement);
+								element2.setPDV(element2.getPDV() - element.degats);
+								element2.beginClignotement();
+								if (element2.getPDV() <= 0) {
+									this._joueur.immuniser();
+									var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+									musicBoss.volume = 0.05;
+									musicBoss.play();
+									element2.beginDeath();
+									var that = this;
+									setTimeout(function () { that.winFraise(); }, 1000);
+								}
+								////////////////
+							}
+							else
+							{
+								if(element.notYetExploded){
+									element.startExplosion = true;
+									setTimeout(function() {
+										elt.exploded = false;
+										elt.startExplosion = false;
+										elt.resetExplosion();
+									}, 60);
+
+								}
+								else if(element.exploding){
+									element.exploded = true;
+									var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+									this._elementsGraphiques.add(elementExploded);
+									elementExploded.setXY(element.getX(), element.getY());
+									elementExploded.setRotation(element.getRotation());
+									elementExploded.explode();
+
+									////////////
+									this._elementsGraphiques.remove(iElement);
+									element2.setPDV(element2.getPDV() - element.degats);
+									element2.beginClignotement();
+									if (element2.getPDV() <= 0) {
+										this._joueur.immuniser();
+										var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+										musicBoss.volume = 0.05;
+										musicBoss.play();
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.winFraise(); }, 1000);
+									}
+									////////////
+
+									setTimeout(function () { that.eraseTir(); }, 600);
+									--iElement;
+									--iElement2;
+								}
+							}
+							////////
+
+
 	                    }
-	                    else if (element instanceof PresseAgrumes && element2 instanceof Sangrine) {
-	                        this._elementsGraphiques.remove(iElement);
-	                        element2.setPDV(element2.getPDV() - 1);
-	                        element2.beginClignotement();
-	                        if (element2.getPDV() <= 0) {
-	                            element2.setTaille(300);
-	                            var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
-	                            musicBoss.volume = 0.05;
-	                            musicBoss.play();
-	                            element2.beginDeath();
-	                            var that = this;
-	                            setTimeout(function () { that.winSangrine(); }, 2000);
-	                        }
-	                    }
+						else if (element instanceof PresseAgrumes && element2 instanceof Sangrine) {
+							if(this._weaponType != 3){
+
+								//////////////
+								this._elementsGraphiques.remove(iElement);
+								element2.setPDV(element2.getPDV() - element.degats);
+								element2.beginClignotement();
+								if (element2.getPDV() <= 0) {
+									element2.setTaille(300);
+									var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+									musicBoss.volume = 0.05;
+									musicBoss.play();
+									element2.beginDeath();
+									var that = this;
+									setTimeout(function () { that.winSangrine(); }, 2000);
+								}
+								////////////////
+							}
+							else
+							{
+								if(element.notYetExploded){
+									element.startExplosion = true;
+									setTimeout(function() {
+										elt.exploded = false;
+										elt.startExplosion = false;
+										elt.resetExplosion();
+									}, 60);
+
+								}
+								else if(element.exploding){
+									element.exploded = true;
+									var elementExploded = this._fabriqueElement.create("presse agrumes explosion");
+									this._elementsGraphiques.add(elementExploded);
+									elementExploded.setXY(element.getX(), element.getY());
+									elementExploded.setRotation(element.getRotation());
+									elementExploded.explode();
+
+									////////////
+									this._elementsGraphiques.remove(iElement);
+									element2.setPDV(element2.getPDV() - element.degats);
+									element2.beginClignotement();
+									if (element2.getPDV() <= 0) {
+										element2.setTaille(300);
+										var musicBoss = document.querySelector("#audioPlayerCollapseBoss");
+										musicBoss.volume = 0.05;
+										musicBoss.play();
+										element2.beginDeath();
+										var that = this;
+										setTimeout(function () { that.winSangrine(); }, 2000);
+									}
+									////////////
+
+									setTimeout(function () { that.eraseTir(); }, 600);
+									--iElement;
+									--iElement2;
+								}
+							}
+							////////
+
+
+
+
+
+						}
+						else if (element instanceof PresseAgrumes && element2 instanceof Pangolino) {
+							if(!this.pangolideath){
+								this.pangolideath = true;
+								this._joueur.setIsInCT(true);
+								this.freezeAll();
+								this._joueur.setVitesse(0);
+								controleur.stopUpdateWeapon();
+								controleur.tirEnd();
+								clearTimeout(this._timerBonus);
+								this._elementsGraphiques.remove(iElement);
+								this._elementsGraphiques.remove(iElement2);
+								--iElement;
+								--iElement2;
+
+								this.musicTrash.pause();
+								this.musicBoss.pause();
+								this.musicFinalBoss.pause();
+
+								document.querySelector("#audioPreDeathPangolino").currentTime = 0;
+								document.querySelector("#audioPreDeathPangolino").volume = 1;
+								document.querySelector("#audioPreDeathPangolino").play();
+								this._cutBoss.setXY(this._largeurPlateau/2, this._hauteurPlateau/2);
+								this._cutBoss.setTexture(23);
+
+
+								setTimeout(function () {
+									$('#screamerIMG').show();
+									$('#Pangolino').show();
+									$('#head').hide();
+									$('#infos').hide();
+
+									document.querySelector("#audioPreDeathPangolino").pause();
+
+									document.querySelector("#audioDeathPangolino").currentTime = 0;
+									document.querySelector("#audioDeathPangolino").volume = 1;
+									document.querySelector("#audioDeathPangolino").play();
+								}, 4150);
+
+
+
+								var that = this;
+								setTimeout(function () {
+									$('#screamerIMG').hide();
+									$('#Pangolino').hide();
+									$('#head').show();
+									$('#infos').show();
+									that._cutBoss.setTexture(0);
+								}, 14000);
+								var that = this;
+								setTimeout(function () {
+
+									that._joueur.setIsInCT(false);
+									that.unfreezeAll();
+									that._joueur.setVitesse(12);
+									controleur.startUpdateWeapon();
+									clearTimeout(this._timerBonus);
+									that._nbPDV = 0;
+									that._joueur.setPDV(0);
+									that.terminer();
+								}, 14000);
+
+							}
+
+
+						}
 	                    
 	                        //Si un pampmousse mutant touche une munition
 	                    else if (element instanceof PampmousseMutant && element2 instanceof Munition) {
@@ -2413,36 +3469,63 @@ class Jeu extends Sujet
 	                        }
 
 
-	                    } else if (element instanceof FramboiseUltime && (element2 instanceof Munition || element2 instanceof BoostSpeed || element2 instanceof BoostWeapon|| element2 instanceof BoostLife || element2 instanceof BoostShield)) {
+	                    }
+	                    else if (element instanceof FramboiseUltime && (element2 instanceof Munition || element2 instanceof BoostSpeed || element2 instanceof BoostWeapon|| element2 instanceof BoostLife || element2 instanceof BoostShield)) {
 	                        
 	                            this._elementsGraphiques.remove(iElement2);
 	                        
 	                    }
-	                    else if (element instanceof Peche && element2 instanceof Munition) {
-	                        if (!element.getDead()) {
-	                            this._elementsGraphiques.remove(iElement2);
-	                            element.setPDV(10);
-	                            var nbCoups = 5;
-	                            var rad = 0;
-	                            for (var i = 0; i < nbCoups; i++) {
+						else if (element instanceof Peche && element2 instanceof Munition) {
+							if (!element.getDead()) {
+								this._elementsGraphiques.remove(iElement2);
+								element.setPDV(10);
+								var nbCoups = 5;
+								var rad = 0;
+								for (var i = 0; i < nbCoups; i++) {
 
-	                                rad += Math.floor(360 / nbCoups) * i;
-	                                rad = rad * 0.0174533;
-	                                var bossMunition = this._fabriqueElement.create('BossMunition');
-	                                bossMunition.setCoordonnees(element.getCoordonnees());
-	                                bossMunition.setDirection(rad);
+									rad += Math.floor(360 / nbCoups) * i;
+									rad = rad * 0.0174533;
+									var bossMunition = this._fabriqueElement.create('BossMunition');
+									bossMunition.setCoordonnees(element.getCoordonnees());
+									bossMunition.setDirection(rad);
 
-	                                this._elementsGraphiques.add(bossMunition);
-
-
-	                            }
-	                            var musicTir = document.querySelector("#audioPlayerTirBoss");
-	                            musicTir.volume = 0.05;
-	                            musicTir.play();
-	                        }
+									this._elementsGraphiques.add(bossMunition);
 
 
-	                    } else if ((element instanceof Sangrine || element instanceof Mangue || element instanceof Orange || element instanceof Boss || element instanceof Fraise || element instanceof Abricot || element instanceof Ananas) && element2 instanceof Munition) {
+								}
+								var musicTir = document.querySelector("#audioPlayerTirBoss");
+								musicTir.volume = 0.05;
+								musicTir.play();
+							}
+
+
+						}
+						else if (element instanceof Peche && element2 instanceof Munition) {
+							if (!element.getDead()) {
+								this._elementsGraphiques.remove(iElement2);
+								element.setPDV(10);
+								var nbCoups = 5;
+								var rad = 0;
+								for (var i = 0; i < nbCoups; i++) {
+
+									rad += Math.floor(360 / nbCoups) * i;
+									rad = rad * 0.0174533;
+									var bossMunition = this._fabriqueElement.create('BossMunition');
+									bossMunition.setCoordonnees(element.getCoordonnees());
+									bossMunition.setDirection(rad);
+
+									this._elementsGraphiques.add(bossMunition);
+
+
+								}
+								var musicTir = document.querySelector("#audioPlayerTirBoss");
+								musicTir.volume = 0.05;
+								musicTir.play();
+							}
+
+
+						}
+	                    else if ((element instanceof Sangrine || element instanceof Mangue || element instanceof Orange || element instanceof Boss || element instanceof Fraise || element instanceof Abricot || element instanceof Ananas) && element2 instanceof Munition) {
 	                        this._bossPDV += Math.floor(this._bossMaxPDV / 10);
 	                        this._elementsGraphiques.remove(iElement2);
 	                        this.GrosTirBossBegin();
@@ -2469,19 +3552,54 @@ class Jeu extends Sujet
 	                    }
 	                }
 	            }
+
+	            if(element instanceof PresseAgrumes){
+	            	if(element.startExplosion){
+	            		element.explode();
+						this.soundExplosion();
+
+					}
+	            	if(element.exploded){
+	            		element.explode();
+	            		var that = this;
+	            		setTimeout(function() {that.eraseTir();}, 550);
+						// this._elementsGraphiques.remove(iElement);
+					}
+				}
 	        }
 	    }
 	    } catch (exception) {
 	    }
 	}
 	eraseTrash() {
-	    for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
-	        var element = this._elementsGraphiques.get(iElement);
-	        if (element instanceof PampmousseMutant || element instanceof Mure || element instanceof Framboise || element instanceof Peche || element instanceof Citron || element instanceof Cassis) {
-                if(element.getMustDisappear())
-	                this._elementsGraphiques.remove(iElement);
-	        }
-	    }
+		for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
+			var element = this._elementsGraphiques.get(iElement);
+			if (element instanceof PampmousseMutant || element instanceof Mure || element instanceof Framboise || element instanceof Peche || element instanceof Citron || element instanceof Cassis) {
+				if(element.getMustDisappear())
+					this._elementsGraphiques.remove(iElement);
+			}
+		}
+	}
+
+	eraseTir() {
+		for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
+			var element = this._elementsGraphiques.get(iElement);
+			if (element instanceof PresseAgrumesExplosion) {
+				console.log('polop');
+				if(element.mustDisappear){
+					this._elementsGraphiques.remove(iElement);
+				}
+
+			}
+
+			if(element instanceof PresseAgrumes){
+				if(element.hasExploded){
+					this._elementsGraphiques.remove(iElement);
+				}
+			}
+
+
+		}
 	}
 	winBoss() {
 	    for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
@@ -2605,14 +3723,75 @@ class Jeu extends Sujet
 	}
 
 	updatePampmousse() {
-	    for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
-	        var element = this._elementsGraphiques.get(iElement);
-	        if (element instanceof (PampmousseMutant)) {
-                if(!element.getDead())
-	                element.textureAleatoire();
-	        }
-	    }
+		if(!this.isFreezed){
+			for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
+				var element = this._elementsGraphiques.get(iElement);
+				if (element instanceof (PampmousseMutant)) {
+					if(!element.getDead())
+						element.textureAleatoire();
+				}
+			}
+		}
+
 	}
+
+
+	updatePangolino(){
+		if(!this.isFreezed){
+			for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
+				var element = this._elementsGraphiques.get(iElement);
+
+				if (element instanceof (Pangolino)) {
+					element.ChangeText();
+				}
+			}
+		}
+	}
+
+	updatePangolinoDir(){
+		for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
+			var element = this._elementsGraphiques.get(iElement);
+			if (element instanceof (Pangolino)) {
+				var rad = element.getDirection()-(45*0.0174533);
+				var alea = Math.floor(Math.random() * 90) * 0.0174533;
+				rad = rad + alea;
+				element.setDirection(rad);
+
+
+			}
+		}
+	}
+
+	freezeAll(){
+		for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
+			var element = this._elementsGraphiques.get(iElement);
+			if (element instanceof (PampmousseMutant) || element instanceof (miniCerise) || element instanceof Peche || element instanceof Mure || element instanceof Framboise || element instanceof Cassis) {
+				element.setVitesse(0);
+			}
+			if (element instanceof (Sangrine) || element instanceof (Orange) || element instanceof (Mangue) || element instanceof (Boss) || element instanceof (Fraise) || element instanceof Abricot || element instanceof Ananas || element instanceof Citron) {
+				element.setVitesse(0);
+			}
+			if (element instanceof (PresseAgrumes) || element instanceof (BossMunition) || element instanceof (BigMunition)) {
+				element.setVitesse(0);
+			}
+		}
+	}
+
+	unfreezeAll(){
+		for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
+			var element = this._elementsGraphiques.get(iElement);
+			if (element instanceof (PampmousseMutant) || element instanceof (miniCerise) || element instanceof Peche || element instanceof Mure || element instanceof Framboise || element instanceof Cassis) {
+				element.setVitesse(element.baseVitesse);
+			}
+			if (element instanceof (Sangrine) || element instanceof (Orange) || element instanceof (Mangue) || element instanceof (Boss) || element instanceof (Fraise) || element instanceof Abricot || element instanceof Ananas || element instanceof Citron) {
+				element.setVitesse(element.baseVitesse);
+			}
+			if (element instanceof (PresseAgrumes) || element instanceof (BossMunition) || element instanceof (BigMunition)) {
+				element.setVitesse(element.baseVitesse);
+			}
+		}
+	}
+
 	updatePampmousseDir() {
 	    for (var iElement = 0; iElement < this._elementsGraphiques.length() ; ++iElement) {
 	        var element = this._elementsGraphiques.get(iElement);
@@ -2663,7 +3842,6 @@ class Jeu extends Sujet
 	                    else if (element.getY()>750){
 	                    	rad = 270*0.0174533;
 	                    }
-	                    console.log(element.getDirection());
 	                    element.setDirection(rad);
 	                }
 	        }

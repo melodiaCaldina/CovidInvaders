@@ -9,6 +9,9 @@ class Boss extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 3;
+        this.type = "ennemi";
+        this.genre = "boss";
         this.ajouterTexture(BossTexture);
         this.ajouterTexture(BossTexture2);
         this.ajouterTexture(BossTexture3);

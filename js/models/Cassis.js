@@ -9,6 +9,8 @@ class Cassis extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 3;
+        this.type = "ennemi";
         this.nbPDV = 3;
         this.isDead = false;
         this.mustDisappear = false;

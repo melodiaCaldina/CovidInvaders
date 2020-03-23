@@ -9,6 +9,8 @@ class Framboise extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 3;
+        this.type = "ennemi";
         this.nbPDV = 5;
         this.isDead = false;
         this.mustDisappear = false;

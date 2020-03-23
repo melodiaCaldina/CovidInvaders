@@ -9,10 +9,12 @@ class Peche extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 3;
         this.nbPDV = 10;
         this.isDead = false;
         this.mustDisappear = false;
         this.isWin = false;
+        this.type = "ennemi";
         this.ajouterTexture(Texturepeche);
         this.ajouterTexture(PecheExplo1);
         this.ajouterTexture(PecheExplo2);

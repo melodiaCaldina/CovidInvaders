@@ -9,6 +9,8 @@ class Mangue extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 3;
+        this.type = "ennemi";
         this.ajouterTexture(TextureMangue);
         this.ajouterTexture(mangueTouche);
         this.ajouterTexture(mangue_fin_10);

@@ -49,17 +49,24 @@ class Controleur extends Observateur
 		this._keyUp = false;
 		this._keyRight = false;
 		this._keyLeft = false;
+		this._animeWeapon = null;
+		this._animepampmousseDir = null;
+		this._animeBossDir = null;
+		this._animeBossUltimeDir = null;
+		this._animePangolinoDir = null;
 
 		this._Move = 0;
 		//Affiche l'écran de démarrage
 		this._vue.afficherDebutPartie();
 		setInterval(function () { controleur.updatePampmousse(); }, 1000);
-		setInterval(function () { controleur.updatePampmousseDir(); }, 500);
-		setInterval(function () { controleur.updateBossDir(); }, 500);
-		setInterval(function () { controleur.updateBossUltimeDir(); }, 500);
+		setInterval(function () { controleur.updatePangolino(); }, 100);
+		this._animepampmousseDir = setInterval(function () { controleur.updatePampmousseDir(); }, 500);
+		this._animePangolinoDir = setInterval(function () { controleur.updatePangolinoDir(); }, 800);
+		this._animeBossDir = setInterval(function () { controleur.updateBossDir(); }, 500);
+		this._animeBossUltimeDir = setInterval(function () { controleur.updateBossUltimeDir(); }, 500);
 		this._isMoving = true;
 		this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
-		setInterval(function () { controleur.updateWeaponLevel(); }, 100);
+		this._animeWeapon = setInterval(function () { controleur.updateWeaponLevel(); }, 100);
 		document.querySelector("#bgvid").volume = 1;
 		document.querySelector("#bgvid").play();
 		
@@ -68,15 +75,35 @@ class Controleur extends Observateur
         this._jeu.bless();
     }
 
+    startUpdateWeapon(){
+		this._animeWeapon = setInterval(function () { controleur.updateWeaponLevel(); }, 100);
+		this._animepampmousseDir = setInterval(function () { controleur.updatePampmousseDir(); }, 500);
+		this._animeBossDir = setInterval(function () { controleur.updateBossDir(); }, 500);
+		this._animeBossUltimeDir = setInterval(function () { controleur.updateBossUltimeDir(); }, 500);
+	}
+
+	stopUpdateWeapon(){
+		clearInterval(this._animeWeapon);
+		clearInterval(this._animepampmousseDir);
+		clearInterval(this._animeBossDir);
+		clearInterval(this._animeBossUltimeDir);
+	}
+
     updateWeaponLevel() {
         this._jeu.animeWeaponLevel();
     }
     updatePlayer(isMoving) {
         this._jeu.animePlayer(isMoving);
     }
-    updatePampmousse() {
-        this._jeu.updatePampmousse();
-    }
+	updatePampmousse() {
+		this._jeu.updatePampmousse();
+	}
+	updatePangolino() {
+		this._jeu.updatePangolino();
+	}
+	updatePangolinoDir() {
+		this._jeu.updatePangolinoDir();
+	}
     updatePampmousseDir() {
         this._jeu.updatePampmousseDir();
     }
@@ -345,7 +372,10 @@ class Controleur extends Observateur
 		if (countDir == 0) {
 			clearInterval(this._animePlayer);
 			this._isMoving = false;
-			this._animePlayer = setInterval(function () { controleur.updatePlayer(false); }, 60);
+			if(!this._jeu._joueur.immortal)
+				this._animePlayer = setInterval(function () { controleur.updatePlayer(false); }, 60);
+			else
+				this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
 		}
 		else if (countDir == 1){
 			if(this._isMoving == false) {

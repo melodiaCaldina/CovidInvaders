@@ -9,6 +9,8 @@ class Citron extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 4;
+        this.type = "ennemi";
         this.nbPDV = 7;
         this.isDead = false;
         this.mustDisappear = false;

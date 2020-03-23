@@ -11,9 +11,11 @@ class PampmousseMutant extends ElementMobile
     constructor()
 	{
         super();
+        this.baseVitesse = 3;
         this.isDead = false;
         this.mustDisappear = false;
         this.isWin = false;
+        this.type = "ennemi";
 	    this.ajouterTexture(pampmousseTexture1);
 	    this.ajouterTexture(pampmousseTexture2);
 	    this.ajouterTexture(pampmousseTexture3);

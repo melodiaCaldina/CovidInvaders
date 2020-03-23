@@ -11,6 +11,8 @@ class ElementMobile extends ElementGraphique
 	{
 		super();
 
+		this.type = "notYet Implemented";
+		this.genre = "notYet Implemented";
 		//Direction de l'élément (en radians)
 		this._direction = 0;
 

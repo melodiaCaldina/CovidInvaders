@@ -46,9 +46,24 @@ class ElementsGraphiques extends Collection
 			{
 				element.animer();
 			}
-			
+
 		}
 	}
+
+	animerScene()
+	{
+		for(var iElement = 0; iElement < this.length(); ++iElement)
+		{
+			var element = this.get(iElement);
+
+			if (element instanceof ElementMobile && (element instanceof Humain || element instanceof cutSceneBoss || element instanceof FramboiseUltime))
+			{
+				element.animer();
+			}
+
+		}
+	}
+
 
 	animerHumain(Direction)
 	{
