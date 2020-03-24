@@ -14,6 +14,7 @@ class PresseAgrumesExplosion extends ElementMobile
 		this.baseVitesse = 0;
 
 		this.mustDisappear = false;
+		this.name = "Explosion";
 
 		/*
 		* dans gérer collision :
@@ -63,14 +64,14 @@ class PresseAgrumesExplosion extends ElementMobile
 
 	explode(){
 		var that = this;
-			setTimeout(function() {that.activerTexture(4); that.animer();}, 50);
-			setTimeout(function() {that.activerTexture(5); that.animer();}, 100);
-			setTimeout(function() {that.activerTexture(6); that.animer();}, 150);
-			setTimeout(function() {that.activerTexture(7); that.animer();}, 200);
-			setTimeout(function() {that.activerTexture(8); that.animer();}, 250);
-			setTimeout(function() {that.activerTexture(9); that.animer();}, 300);
-		setTimeout(function() {that.activerTexture(10); that.animer();}, 350);
-		setTimeout(function() {that.mustDisappear = true;}, 500);
+			setTimeout(function() {that.activerTexture(4); }, 50);
+			setTimeout(function() {that.activerTexture(5);}, 100);
+			setTimeout(function() {that.activerTexture(6);}, 150);
+			setTimeout(function() {that.activerTexture(7);}, 200);
+			setTimeout(function() {that.activerTexture(8);}, 250);
+			setTimeout(function() {that.activerTexture(9);}, 300);
+		setTimeout(function() {that.activerTexture(10);}, 350);
+		setTimeout(function() {that.mustDisappear = true;}, 800);
 
 	}
 

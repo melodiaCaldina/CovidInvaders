@@ -10,6 +10,7 @@ class BoostSpeed extends ElementMobile {
     constructor() {
         super();
         this.type = "Boost";
+        this.name = "Alpacino";
         this.ajouterTexture(BoostSpeedTexture);
         this.setVitesse(40);
         this.setTaille(75);

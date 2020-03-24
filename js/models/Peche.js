@@ -15,6 +15,9 @@ class Peche extends ElementMobile {
         this.mustDisappear = false;
         this.isWin = false;
         this.type = "ennemi";
+        this.genre = "mob";
+        this.name = "Peche";
+        this.pointValue = 8;
         this.ajouterTexture(Texturepeche);
         this.ajouterTexture(PecheExplo1);
         this.ajouterTexture(PecheExplo2);

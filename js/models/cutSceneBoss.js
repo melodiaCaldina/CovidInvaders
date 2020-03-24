@@ -9,6 +9,7 @@ class cutSceneBoss extends ElementMobile {
 	 */
 	constructor() {
 		super();
+		this.name = "Cutscene";
 		this.nbPDV = 99999999999999999;
 		this.isDead = false;
 		this.mustDisappear = false;

@@ -15,6 +15,7 @@ class Vue
 		$('#btnStart').bind('click', function () { controleur.commencerNouveauJeu(); });
 		$('#btnReStart').bind('click', function () { controleur.commencerNouveauJeu(); });
 		$('#btnNextLevel').bind('click', function () { controleur.commencerNiveauSuivant(); });
+		$('#btnValidPseudo').bind('click', function () { controleur.startVideo(); });
 		
 		$('#canvas-dessin').bind('mousemove', function (event)
 		{

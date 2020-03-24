@@ -10,7 +10,7 @@ class Pangolino extends ElementMobile {
     constructor() {
         super();
         this.countText = 0;
-        this.type = "ennemi";
+        this.type = "Pangolino";
         this.ajouterTexture(Pangolino1);
         this.ajouterTexture(Pangolino2);
         this.ajouterTexture(Pangolino3);

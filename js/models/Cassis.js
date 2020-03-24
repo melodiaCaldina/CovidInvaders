@@ -11,7 +11,10 @@ class Cassis extends ElementMobile {
         super();
         this.baseVitesse = 3;
         this.type = "ennemi";
+        this.genre = "mob";
+        this.name = "Cassis";
         this.nbPDV = 3;
+        this.pointValue = 2;
         this.isDead = false;
         this.mustDisappear = false;
         this.isWin = false;

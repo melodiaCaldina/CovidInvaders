@@ -13,6 +13,8 @@ class ElementMobile extends ElementGraphique
 
 		this.type = "notYet Implemented";
 		this.genre = "notYet Implemented";
+		this.name = "notYet Implemented";
+		this.pointValue = 0;
 		//Direction de l'élément (en radians)
 		this._direction = 0;
 

@@ -31,6 +31,7 @@ class Humain extends ElementMobile
 		this.isLookingBack = false;
 		this.immortal = false;
 		this.immortal_state = false;
+		this.name = "Humain";
 
 		this.hasShield = false;
 
@@ -350,8 +351,8 @@ class Humain extends ElementMobile
 				}else{
 					this.activerTexture(39);
 				}
-				var that = this;
-				setTimeout(function() {that.anime();}, 100);
+				// var that = this;
+				// setTimeout(function() {that.anime();}, 100);
 			}else {
 				if (this._immunise) {
 					if (this.move1) {
@@ -536,8 +537,6 @@ class Humain extends ElementMobile
 			} else {
 				this.activerTexture(39);
 			}
-			var that = this;
-			// setTimeout(function() {that.anime();}, 100);
 		}
 	}
 }

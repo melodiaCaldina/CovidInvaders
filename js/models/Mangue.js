@@ -11,6 +11,9 @@ class Mangue extends ElementMobile {
         super();
         this.baseVitesse = 3;
         this.type = "ennemi";
+        this.genre = "boss";
+        this.name = "Mangue";
+        this.pointValue = 15;
         this.ajouterTexture(TextureMangue);
         this.ajouterTexture(mangueTouche);
         this.ajouterTexture(mangue_fin_10);

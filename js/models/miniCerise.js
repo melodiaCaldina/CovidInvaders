@@ -15,6 +15,9 @@ class miniCerise extends ElementMobile {
         this.mustDisappear = false;
         this.isWin = false;
         this.type = "ennemi";
+        this.genre = "mob";
+        this.name = "MiniCerise";
+        this.pointValue = 2;
         this.ajouterTexture(TextureCerise1);
         this.ajouterTexture(TextureCerise2);
         this.ajouterTexture(TextureCerise3);

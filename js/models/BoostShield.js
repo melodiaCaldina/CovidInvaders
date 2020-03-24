@@ -12,6 +12,7 @@ class BoostShield extends ElementMobile
 	{
 	    super();
 		this.type = "Boost";
+		this.name = "BoostShield";
 	    this.ajouterTexture(BoostShieldTexture);
 	    this.setVitesse(0);
 	    this.setTaille(20);

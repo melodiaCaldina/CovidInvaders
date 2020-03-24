@@ -16,6 +16,9 @@ class PampmousseMutant extends ElementMobile
         this.mustDisappear = false;
         this.isWin = false;
         this.type = "ennemi";
+        this.genre = "trash";
+        this.name = "Trash";
+        this.pointValue = 1;
 	    this.ajouterTexture(pampmousseTexture1);
 	    this.ajouterTexture(pampmousseTexture2);
 	    this.ajouterTexture(pampmousseTexture3);

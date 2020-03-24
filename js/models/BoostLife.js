@@ -10,6 +10,7 @@ class BoostLife extends ElementMobile {
     constructor() {
         super();
         this.type = "Boost";
+        this.name = "BoostLife";
         this.ajouterTexture(BoostLifeTexture);
         this.setVitesse(0);
         this.setTaille(20);

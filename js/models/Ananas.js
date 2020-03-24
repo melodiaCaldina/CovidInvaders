@@ -12,6 +12,8 @@ class Ananas extends ElementMobile {
         this.baseVitesse = 3;
         this.type = "ennemi";
         this.genre = "boss";
+        this.name = "Ananas";
+        this.pointValue = 16;
         this.ajouterTexture(TextureAnanas);
         this.ajouterTexture(ananasTouche);
         this.ajouterTexture(ananas_fin_10);

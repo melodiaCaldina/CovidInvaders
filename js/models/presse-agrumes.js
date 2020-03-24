@@ -18,6 +18,7 @@ class PresseAgrumes extends ElementMobile
 		this.hasExploded = false;
 		this.exploded = false;
 		this.exploding = false;
+		this.name = "tir";
 
 		/*
 		* dans gérer collision :
@@ -50,7 +51,7 @@ class PresseAgrumes extends ElementMobile
 		this.ajouterTexture(anime_weapon3_7);
 
 		this.setVitesse(30);
-		this.setTaille(20);
+		this.setTaille(40);
 		this.activerTexture(1);
 	}
 
@@ -74,6 +75,7 @@ class PresseAgrumes extends ElementMobile
 			this.setTaille(120);
 			// this.setVitesse(0);
 		}else if(this.exploding){
+			this.degats = 0;
 			this.exploding = false;
 			this.hasExploded = true;
 		}
@@ -86,7 +88,7 @@ class PresseAgrumes extends ElementMobile
 		this.startExplosion = false;
 		this.exploding = false;
 		this.degats = 0;
-		this.setTaille(20);
+		this.setTaille(40);
 		this.setVitesse(30);
 	}
 

@@ -12,6 +12,8 @@ class Abricot extends ElementMobile {
         this.baseVitesse = 3;
         this.type = "ennemi";
         this.genre = "boss";
+        this.name = "Abricot";
+        this.pointValue = 16;
         this.ajouterTexture(TextureAbricot);
         this.ajouterTexture(AbricotTouche);
         this.ajouterTexture(Abricot_fin_10);

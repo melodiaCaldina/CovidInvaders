@@ -12,6 +12,9 @@ class Cerises extends ElementMobile {
         this.baseVitesse = 2;
         this.nbPDV = 8;
         this.type = "ennemi";
+        this.genre = "mob";
+        this.name = "Cerises";
+        this.pointValue = 0;
         this.isDead = false;
         this.mustDisappear = false;
         this.isWin = false;

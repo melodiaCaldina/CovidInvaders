@@ -11,10 +11,13 @@ class Citron extends ElementMobile {
         super();
         this.baseVitesse = 4;
         this.type = "ennemi";
+        this.genre = "mob";
+        this.name = "Citron";
         this.nbPDV = 7;
         this.isDead = false;
         this.mustDisappear = false;
         this.isWin = false;
+        this.pointValue = 8;
         this.ajouterTexture(TextureCitron);
         this.ajouterTexture(CitronExplo1);
         this.ajouterTexture(CitronExplo2);
@@ -56,9 +59,13 @@ class Citron extends ElementMobile {
         return this.mustDisappear;
     }
     beginDeath() {
-        this.isDead = true;
+
+        this.setTaille(100);
         this.setVitesse(0);
+        this.isDead = true;
         var that = this;
+
+        // setTimeout(function () { that.isDead = true; }, 80);
         setTimeout(function () { that.activerTexture(1); }, 80);
         setTimeout(function () { that.activerTexture(2); }, 160);
         setTimeout(function () { that.activerTexture(3); }, 240);

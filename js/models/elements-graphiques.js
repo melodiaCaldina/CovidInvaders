@@ -114,10 +114,16 @@ class ElementsGraphiques extends Collection
 	 */
 	dessiner(context)
 	{
+		var joueur = null;
 		for (var iElement = 0; iElement < this.length() ; ++iElement)
 		{
 			var element = this.get(iElement);
-			element.dessiner(context);
+			if(element instanceof Humain){
+				joueur = element;
+			}else{
+				element.dessiner(context);
+			}
 		}
+		joueur.dessiner(context);
 	}
 }

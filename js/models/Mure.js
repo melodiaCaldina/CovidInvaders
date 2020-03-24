@@ -12,6 +12,9 @@ class Mure extends ElementMobile {
         this.baseVitesse = 3;
         this.nbPDV = 5;
         this.type = "ennemi";
+        this.genre = "mob";
+        this.name = "Mure";
+        this.pointValue = 4;
         this.isDead = false;
         this.mustDisappear = false;
         this.isWin = false;
