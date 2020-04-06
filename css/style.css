@@ -11,7 +11,7 @@ body
 
 	font-family: pampmousses;
     
-    background-color: #C7B676;
+    background-color: #000000;
 
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -111,6 +111,29 @@ img
 	text-align: center;
 }
 
+#div-loading
+{
+	position: fixed;
+	top: 16%;
+	left: 0%;
+
+	width: 10%;
+	height: 18px;
+	padding: 10px;
+	background-color: #00000000;
+	color: #BBBBBB;
+
+	font-size: 20px;
+	text-align: left;
+}
+#label-small-loading
+{
+	background-color: #00000000;
+	color: #BBBBBB;
+
+	font-size: 10px;
+	text-align: left;
+}
 #div-combo
 {
 	position: fixed;
