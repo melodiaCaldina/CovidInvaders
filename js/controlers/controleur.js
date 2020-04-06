@@ -76,19 +76,7 @@ class Controleur extends Observateur
     startVideo(){
 		this._vue.afficherDebutPartie();
 
-		// // var response = prompt("Hey there, what's your name?");
-		// // alert("You typed: " + response);
-		// setInterval(function () { controleur.updatePampmousse(); }, 1000);
-		// setInterval(function () { controleur.updatePangolino(); }, 100);
-		// this._animepampmousseDir = setInterval(function () { controleur.updatePampmousseDir(); }, 500);
-		// this._animePangolinoDir = setInterval(function () { controleur.updatePangolinoDir(); }, 800);
-		// this._animeBossDir = setInterval(function () { controleur.updateBossDir(); }, 500);
-		// this._animeBossUltimeDir = setInterval(function () { controleur.updateBossUltimeDir(); }, 500);
-		// this._isMoving = true;
-		// this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
-		// this._animeWeapon = setInterval(function () { controleur.updateWeaponLevel(); }, 100);
 		this.pseudo = $("#textPseudo").val();
-		console.log(this.pseudo);
 		$("#label-Pseudo").text(this.pseudo);
 		$("#div-Pseudo").hide();
 		document.querySelector("#bgvid").volume = 1;
@@ -276,6 +264,8 @@ class Controleur extends Observateur
 		$("#label-combo").show();
 		$("#label-Pseudo").show();
 		$("#label-superScore").show();
+		$("#infos").show();
+		$("#head-weapon").show();
 		document.querySelector("#bgvid").volume =0;
 		document.querySelector("#bgvid").pause();
 		this._vue.masquerBandeaux();
