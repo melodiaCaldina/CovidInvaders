@@ -55,12 +55,16 @@ class Controleur extends Observateur
 		this._animePangolinoDir = null;
 		this.pseudo = "Machin";
 		this.hasStart = false;
+		this._IP = "";
 		$("#label-combo").hide();
 		$("#label-superScore").hide();
 		$("#label-Pseudo").hide();
 		$("#infos").hide();
 		$("#head-weapon").hide();
 		$('#div-global').show();
+		$.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
+			controleur.setIP(data.split("ip=")[1].split("ts=")[0])
+		});
 		this.redimensionner();
 
 
@@ -72,6 +76,10 @@ class Controleur extends Observateur
     bless() {
         this._jeu.bless();
     }
+
+    setIP(data){
+		this._IP = data;
+	}
 
     startVideo(){
 		this._vue.afficherDebutPartie();
