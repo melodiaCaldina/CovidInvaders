@@ -411,7 +411,7 @@ class Jeu extends Sujet
 		this._score = 0;
 		if (localStorage.getItem("high-score") == null)
 		    localStorage.setItem("high-score", "0");
-		this._niveau = 14;
+		this._niveau = 0;
 		this._nbPDV = 5;
 		this.musicBoss.currentTime = 0;
 		this.musicTrash.currentTime = 0;
@@ -671,7 +671,7 @@ class Jeu extends Sujet
 		        nbCitron = 2 * multiplicateur;
 		    }
 
-		    if ((this._niveau + 1) %3 ==0 || this._niveau == 0) {
+		    if ((this._niveau + 1) %3 ==0 || this._niveau == 0 || ((this._niveau+1)%15) ==1) {
 
 		        var that = this;
 		        setTimeout(function () { controleur.tirBossEnd(); }, 0);
@@ -689,7 +689,7 @@ class Jeu extends Sujet
 				setTimeout(function () { that.musicFinalBoss.pause(); }, 5000);
 				clearInterval(this.timerBoss);
 		        that.musicTrash.volume = 0;
-		        this.musicTrash.play();
+		        that.musicTrash.play();
 		        this.timerTrash = setInterval(function () {
 		            setTimeout(function () { that.musicTrash.volume = 0.4; }, 1000);
 		            setTimeout(function () { that.musicTrash.volume = 0.3; }, 2000);
@@ -750,20 +750,26 @@ class Jeu extends Sujet
 		this._elementsGraphiques.add(element);
 	}
 	Shield() {
-	    this._shield = 2;
+	    this._shield = 9999;
 	    this._joueur.setHasShield(true);
 	}
 	Weapon() {
 	    this._weapon = 6;
 	}
 	Cheat() {
-	    this._nbPDV++;
-	    this._nbPDV++;
-	    this._nbPDV++;
-	    this._joueur.setPDV(this._nbPDV);
-	    this._joueur.donnerMunition();
-	    this._joueur.donnerMunition();
-	    this._joueur.donnerMunition();
+		this._nbPDV++;
+		this._nbPDV++;
+		this._nbPDV++;
+		this._joueur.setPDV(this._nbPDV);
+		this._joueur.donnerMunition();
+		this._joueur.donnerMunition();
+		this._joueur.donnerMunition();
+	}
+
+	CheatCombo() {
+		this.combo += 100;
+
+		controleur.updateCombo(this.combo);
 	}
 	/**
 	 * Ajoute un pampmousse mutant sur le plateau de jeu
@@ -4001,6 +4007,8 @@ class Jeu extends Sujet
 	 */
 	dessinerSol(context)
 	{
+		textureSol.width = this._largeurPlateau;
+		textureSol.height = this._hauteurPlateau;
 		var pattern = context.createPattern(textureSol, 'repeat');
 		context.fillStyle = pattern;
 		context.beginPath();

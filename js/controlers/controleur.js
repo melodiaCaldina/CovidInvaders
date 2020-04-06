@@ -510,8 +510,10 @@ class Controleur extends Observateur
 	        this._jeu.Shield();
 	    if (this._jeu instanceof Jeu && event.keyCode == 87)
 	        this._jeu.Weapon();
-	    if (this._jeu instanceof Jeu && event.keyCode == 67)
-	        this._jeu.Cheat();
+		if (this._jeu instanceof Jeu && event.keyCode == 67)
+			this._jeu.Cheat();
+		if (this._jeu instanceof Jeu && event.keyCode == 86)
+			this._jeu.CheatCombo();
 
 
 
