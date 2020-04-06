@@ -5,57 +5,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <script src="js/libs/jquery.js" type="text/javascript"></script>
+    <script src="js/libs/math.js" type="text/javascript"></script>
+    <script src="js/patterns/observateur.js" type="text/javascript"></script>
+    <script src="js/patterns/sujet.js" type="text/javascript"></script>
+    <script src="js/patterns/collection.js" type="text/javascript"></script>
+    <script src="js/controlers/main.js" type="text/javascript"></script>
+    <script src="js/controlers/controleur.js" type="text/javascript"></script>
+    <script src="js/views/vue.js" type="text/javascript"></script>
+    <script src="js/models/point.js" type="text/javascript"></script>
+    <script src="js/models/textures.js" type="text/javascript"></script>
+    <script src="js/models/element-graphique.js" type="text/javascript"></script>
+    <script src="js/models/element-mobile.js" type="text/javascript"></script>
+    <script src="js/models/humain.js" type="text/javascript"></script>
+    <script src="js/models/pampmousse-mutant.js" type="text/javascript"></script>
+    <script src="js/models/munition.js" type="text/javascript"></script>
+    <script src="js/models/presse-agrumes.js" type="text/javascript"></script>
+    <script src="js/models/fabrique-element.js" type="text/javascript"></script>
+    <script src="js/models/elements-graphiques.js" type="text/javascript"></script>
+    <script src="js/models/jeu.js" type="text/javascript"></script>
+    <script src="js/models/Boss.js" type="text/javascript"></script>
+    <script src="js/models/BossMunition.js" type="text/javascript"></script>
+    <script src="js/models/BoostLife.js" type="text/javascript"></script>
+    <script src="js/models/BoostShield.js" type="text/javascript"></script>
+    <script src="js/models/BoostSpeed.js" type="text/javascript"></script>
+    <script src="js/models/BoostWeapon.js" type="text/javascript"></script>
+    <script src="js/models/Weapon_level.js" type="text/javascript"></script>
+    <script src="js/models/Orange.js"></script>
+    <script src="js/models/Mangue.js"></script>
+    <script src="js/models/Fraise.js"></script>
+    <script src="js/models/Cerises.js"></script>
+    <script src="js/models/Framboise.js"></script>
+    <script src="js/models/Mure.js"></script>
+    <script src="js/models/Ananas.js"></script>
+    <script src="js/models/Abricot.js"></script>
+    <script src="js/models/Peche.js"></script>
+    <script src="js/models/Citron.js"></script>
+    <script src="js/models/Sangrine.js"></script>
+    <script src="js/models/Screamer.js"></script>
+    <script src="js/models/BigMunition.js"></script>
+    <script src="js/models/Oeuf.js"></script>
+    <script src="js/models/Cassis.js"></script>
+    <script src="js/models/Pangolino.js"></script>
+    <script src="js/models/cutSceneBoss.js"></script>
+    <script src="js/models/miniCerise.js"></script>
+    <script src="js/models/FramboiseUltime.js"></script>
+    <script src="js/models/weapon_type_1.js"></script>
+    <script src="js/models/weapon_type_2.js"></script>
+    <script src="js/models/weapon_type_3.js"></script>
+    <script src="js/models/presse-agrumes_explosion.js"></script>
   </head>
 <body>
-<script src="js/libs/jquery.js" type="text/javascript"></script>
-<script src="js/libs/math.js" type="text/javascript"></script>
-<script src="js/patterns/observateur.js" type="text/javascript"></script>
-<script src="js/patterns/sujet.js" type="text/javascript"></script>
-<script src="js/patterns/collection.js" type="text/javascript"></script>
-<script src="js/controlers/main.js" type="text/javascript"></script>
-<script src="js/controlers/controleur.js" type="text/javascript"></script>
-<script src="js/views/vue.js" type="text/javascript"></script>
-<script src="js/models/point.js" type="text/javascript"></script>
-<script src="js/models/textures.js" type="text/javascript"></script>
-<script src="js/models/element-graphique.js" type="text/javascript"></script>
-<script src="js/models/element-mobile.js" type="text/javascript"></script>
-<script src="js/models/humain.js" type="text/javascript"></script>
-<script src="js/models/pampmousse-mutant.js" type="text/javascript"></script>
-<script src="js/models/munition.js" type="text/javascript"></script>
-<script src="js/models/presse-agrumes.js" type="text/javascript"></script>
-<script src="js/models/fabrique-element.js" type="text/javascript"></script>
-<script src="js/models/elements-graphiques.js" type="text/javascript"></script>
-<script src="js/models/jeu.js" type="text/javascript"></script>
-<script src="js/models/Boss.js" type="text/javascript"></script>
-<script src="js/models/BossMunition.js" type="text/javascript"></script>
-<script src="js/models/BoostLife.js" type="text/javascript"></script>
-<script src="js/models/BoostShield.js" type="text/javascript"></script>
-<script src="js/models/BoostSpeed.js" type="text/javascript"></script>
-<script src="js/models/BoostWeapon.js" type="text/javascript"></script>
-<script src="js/models/Weapon_level.js" type="text/javascript"></script>
-<script src="js/models/Orange.js"></script>
-<script src="js/models/Mangue.js"></script>
-<script src="js/models/Fraise.js"></script>
-<script src="js/models/Cerises.js"></script>
-<script src="js/models/Framboise.js"></script>
-<script src="js/models/Mure.js"></script>
-<script src="js/models/Ananas.js"></script>
-<script src="js/models/Abricot.js"></script>
-<script src="js/models/Peche.js"></script>
-<script src="js/models/Citron.js"></script>
-<script src="js/models/Sangrine.js"></script>
-<script src="js/models/Screamer.js"></script>
-<script src="js/models/BigMunition.js"></script>
-<script src="js/models/Oeuf.js"></script>
-<script src="js/models/Cassis.js"></script>
-<script src="js/models/Pangolino.js"></script>
-<script src="js/models/cutSceneBoss.js"></script>
-<script src="js/models/miniCerise.js"></script>
-<script src="js/models/FramboiseUltime.js"></script>
-<script src="js/models/weapon_type_1.js"></script>
-<script src="js/models/weapon_type_2.js"></script>
-<script src="js/models/weapon_type_3.js"></script>
-<script src="js/models/presse-agrumes_explosion.js"></script>
+
     <div id="screamerIMG">
 
         <img id="Screamer1" src="img/Screamer/Screamer1.jpg" />

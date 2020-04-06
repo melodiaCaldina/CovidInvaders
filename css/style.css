@@ -114,15 +114,16 @@ img
 #div-loading
 {
 	position: fixed;
-	top: 16%;
-	left: 0%;
+	top: 35%;
+	left: 40%;
 
-	width: 10%;
-	height: 18px;
+	width: 20%;
+	/*height: 80px;*/
 	padding: 10px;
-	background-color: #00000000;
-	color: #BBBBBB;
-
+	background-color: #999999;
+	border-radius: 10px;
+	color: #EEEEEE;
+	z-index: 999999;
 	font-size: 20px;
 	text-align: left;
 }
