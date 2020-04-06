@@ -4,6 +4,11 @@
 	src: url('../font/monster.TTF');
 }
 
+head
+{
+	background-color: #000000;
+}
+
 body
 {	
 	margin: 0;

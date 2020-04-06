@@ -61,6 +61,7 @@ class Controleur extends Observateur
 		$("#label-Pseudo").hide();
 		$("#infos").hide();
 		$("#head-weapon").hide();
+		$('body').show();
 
 
 		this._Move = 0;
