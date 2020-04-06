@@ -61,12 +61,7 @@ class Controleur extends Observateur
 		$("#label-Pseudo").hide();
 		$("#infos").hide();
 		$("#head-weapon").hide();
-		$("#div-combo").hide();
-		$("#div-loading").show();
-		$(document).ready(function() {
-			$("#div-loading").hide();
-			$("#div-combo").show();
-		});
+
 
 		this._Move = 0;
 		//Affiche l'écran de démarrage
