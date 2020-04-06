@@ -1,7 +1,8 @@
 @font-face
 {
 	font-family: "pampmousses";
-	src: url('../../jeu/font/monster.TTF');
+
+	src: url(./monster.TTF);
 }
 
 head
