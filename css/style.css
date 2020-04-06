@@ -49,6 +49,46 @@ img
 	display: none;
 }
 
+table {
+	table-layout: fixed;
+	width: 98%;
+	height: 80%;
+	margin: 15% 0% 0% 0%;
+	border-collapse: collapse;
+	background-color: #000000;
+	border: 3px solid purple;
+}
+caption {
+	margin-bottom: 15px;
+	color: black;
+	font-size: 20px;
+}
+
+thead th:nth-child(1) {
+	width: 30%;
+	color: #AAAAAA;
+}
+
+thead th:nth-child(2) {
+	width: 20%;
+	color: #AAAAAA;
+}
+
+thead th:nth-child(3) {
+	width: 15%;
+	color: #AAAAAA;
+}
+
+
+th, td {
+	padding: 20px 12%;
+	color: #AAAAAA;
+}
+
+
+
+
+
 .header
 {
 	position: fixed;
@@ -115,6 +155,54 @@ img
 	font-size: 20px;
 	text-align: center;
 }
+#div_tab
+{
+	position: fixed;
+	top: 10%;
+	left: 0%;
+
+	width: 100%;
+	height: 10%;
+	padding: 10px;
+	background-color: #00000000;
+	color: #AAAAAA;
+
+	font-size: 20px;
+	text-align: center;
+}
+
+#div_tab_high
+{
+	position: fixed;
+	top: 2%;
+	left: 74%;
+
+	width: 25%;
+	height: 8%;
+	background-color: #00000000;
+	color: #AAAAAA;
+	z-index: 999999999;
+	font-size: 20px;
+	text-align: center;
+}
+
+#tab_high
+{
+
+	table-layout: fixed;
+	width: 98%;
+	height: 100%;
+	margin: 0% 0% 0% 0%;
+	border-collapse: collapse;
+	background-color: #000000;
+	border: 3px solid purple;
+}
+
+.th_high
+{
+	padding: 0 0 0 0;
+	color: #AAAAAA;
+}
 
 #div-loading
 {
@@ -130,8 +218,9 @@ img
 	color: #EEEEEE;
 	z-index: 999999;
 	font-size: 20px;
-	text-align: left;
+	text-align: center;
 }
+
 #label-small-loading
 {
 	background-color: #00000000;
@@ -173,6 +262,22 @@ img
 	text-align: left;
 }
 
+#div-pause
+{
+	position: fixed;
+	top: 35%;
+	left: 40%;
+
+	width: 20%;
+	/*height: 80px;*/
+	padding: 10px;
+	background-color: #999999;
+	border-radius: 10px;
+	color: #EEEEEE;
+	z-index: 999999;
+	font-size: 20px;
+	text-align: center;
+}
 
 #screamer
 {

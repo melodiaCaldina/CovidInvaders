@@ -139,7 +139,7 @@ class Jeu extends Sujet
             if (this._shield == 0) {
 				this.combo=0;
 				controleur.updateCombo(this.combo);
-                this._nbPDV--;
+                this._joueur.blesser();
 				if(this._weapon != 6){
 					this._weapon--;
 					if (this._weapon < 0){
@@ -161,8 +161,8 @@ class Jeu extends Sujet
             if (this._shield == 0) {
 				this.combo=0;
 				controleur.updateCombo(this.combo);
-				this._nbPDV--;
-				this._nbPDV--;
+				this._joueur.blesser();
+				this._joueur.blesser();
 				if(this._weapon != 6){
 					this._weapon--;
 					if (this._weapon < 0){
@@ -175,7 +175,7 @@ class Jeu extends Sujet
 				this.combo=0;
 				controleur.updateCombo(this.combo);
                 this._shield--;
-                this._nbPDV--;
+                this._joueur.blesser();
 				if(this._weapon != 6){
 					this._weapon--;
 					if (this._weapon < 0){

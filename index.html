@@ -73,6 +73,7 @@
   </div>
   <p>Pret a defendre la planete contre les virus ? <input type="button" id="btnStart" value="Jouer !" /></p>
 
+
 </div>
 <div id="div-global" hidden>
     <div id="screamerIMG">
@@ -87,6 +88,41 @@
         </video>
         
     </div>
+    <div id="div_tab">
+        <table id="tab_global">
+            <caption id="caption_tab">Meilleurs score !</caption>
+            <thead>
+            <tr>
+                <th scope="col" id="tab_number">No</th>
+                <th scope="col" id="tab_joueurs">Joueurs</th>
+                <th scope="col" id="tab_score">Score</th>
+                <th scope="col" id="tab_niveau">Niveau</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row" id="tab_joueur1">1</th>
+                <td>Bob</td>
+                <td>34</td>
+                <td>9</td>
+            </tr>
+            <tr>
+                <th scope="row" id="tab_joueur2">jonathan</th>
+                <td>jonathan</td>
+                <td>239</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <th scope="row" id="tab_joueur3">Lily</th>
+                <td>Lily</td>
+                <td>1635</td>
+                <td>17</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
     <div id="infos">
         <span id="niveau"></span>
         <span id="points-de-vie" class="info"></span><span id="label-points-de-vie" class="label"></span>
@@ -112,6 +148,41 @@
       </div>
 
 
+
+        <div id="div_tab_high">
+            <table id="tab_high">
+                <thead>
+                <tr>
+                    <th class="th_high" scope="col" id="tab_number_high">No</th>
+                    <th class="th_high" scope="col" id="tab_joueurs_high">Joueurs</th>
+                    <th class="th_high" scope="col" id="tab_score_high">Score</th>
+                    <th class="th_high" scope="col" id="tab_niveau_high">Niveau</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <th class="th_high" scope="row" id="tab_joueur1_high">1</th>
+                    <td class="th_high">Bob</td>
+                    <td class="th_high">34</td>
+                    <td class="th_high">9</td>
+                </tr>
+                <tr>
+                    <th class="th_high" scope="row" id="tab_joueur2_high">2</th>
+                    <td class="th_high">jonathan</td>
+                    <td class="th_high">239</td>
+                    <td class="th_high">6</td>
+                </tr>
+                <tr>
+                    <th class="th_high" scope="row" id="tab_joueur3_high">3</th>
+                    <td class="th_high">Lily</td>
+                    <td class="th_high">1635</td>
+                    <td class="th_high">17</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
     <div id = "div-Pseudo">
@@ -121,6 +192,10 @@
     </div>
     <div id="content">
         <canvas id="canvas-dessin"></canvas>
+    </div>
+    <div id = "div-pause">
+        <p>Genre il te faut une pause !</p>
+        <input type="button" id="btnReturnFromPause" value="Go taper !!!" />
     </div>
 
   <div id="partie-perdue" class="bandeau">

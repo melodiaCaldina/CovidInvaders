@@ -15,6 +15,8 @@ function main()
     window.onkeyup = function (event) { controleur.onKeyUp(event); };
     $("#div-combo").hide();
     $("#div-loading").show();
+    $("#div-pause").hide();
+    $("#div_tab").hide();
     document.querySelector("#bgvid").volume = 0;
     document.querySelector("#bgvid").play();
     document.querySelector("#bgvid").pause();
