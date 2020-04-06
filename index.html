@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
   <head>
-    <title>Clients riches - TP 3</title>
+    <title>COVID Invaders</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="css/style.css" rel="stylesheet" type="text/css"/>
@@ -10,7 +10,8 @@
     <div id="screamerIMG">
 
         <img id="Screamer1" src="img/Screamer/Screamer1.jpg" />
-        <img id="Screamer2" src="img/Screamer/Screamer2.jpg" />
+      <img id="Screamer2" src="img/Screamer/Screamer2.jpg" />
+      <img id="Pangolino" src="img/pangolinosan/Pangolino_angry.png" />
     </div>
     <div id="screamer">
         <video id="ScreamerVid">
@@ -31,18 +32,36 @@
         <div id="vid">
             
             <video id="bgvid">
-                <source src="video/attak02.mp4" type="video/mp4">
+                <source src="video/attak.mp4" type="video/mp4">
             </video>
             
         </div>
-        <p>Pret a defendre la planete ? <input type="button" id="btnStart" value="Jouer !" /></p>
+        <p>Pret a defendre la planete contre les virus ? <input type="button" id="btnStart" value="Jouer !" /></p>
 
     </div>
     <div id="head" class="header">
-        <p>TP 3 - L'attaque des</p>
-        <p class="bigger">Pampmousses Mutants !</p>
+        <p>Earth Defense</p>
+        <p class="bigger">COVID Invaders</p>
+      <div id = "head-weapon">
+        <span id="label-weapon-1" class="labelWeapon"></span>
+        <span id="label-weapon-2" class="labelWeapon unused"></span>
+        <span id="label-weapon-3" class="labelWeapon unused"></span>
+      </div>
+
+      <div id = "div-combo">
+        <p id="label-Pseudo">Machin </p>
+        <p id="label-combo">COMBO - </p>
+        <p id="label-superScore">SCORE - 0 </p>
+      </div>
+
+
     </div>
 
+    <div id = "div-Pseudo">
+      <p>Hey vas y ! Donne ton pseudo la !</p>
+      <input type="text" id="textPseudo" placeholder="Rentre ton pseudo ici !" />
+      <input type="button" id="btnValidPseudo" value="Valider !" />
+    </div>
     <div id="content">
         <canvas id="canvas-dessin"></canvas>
     </div>
@@ -52,83 +71,153 @@
   </div>
 
   <div id="partie-gagnee" class="bandeau">
-    <p>Vous avez vaincu ! <input type="button" id="btnNextLevel" value="Niveau suivant !" /></p>
+    <p>Vous avez vaincu les virus -un peu- ! <input type="button" id="btnNextLevel" value="Niveau suivant !" /></p>
   </div>
-    
+
     <audio id="audioPlayerTrash">
-        <source src="img/TrashMobs.mp3">
+      <source src="img/music/TrashMobs.m4a">
+    </audio>
+    <audio id="audioAlpacino">
+      <source src="img/alpacino/alpacino.mp3">
+    </audio>
+    <audio id="audioIntroAlpacino">
+      <source src="img/alpacino/tuturu_1.mp3">
+    </audio>
+    <audio id="audioIntroPangolino">
+      <source src="img/pangolinosan/sugoi-sugoi.mp3">
+    </audio>
+    <audio id="audioPreDeathPangolino">
+      <source src="img/pangolinosan/omae_wa.mp3">
+    </audio>
+    <audio id="audioDeathPangolino">
+      <source src="img/pangolinosan/to_be_continued.mp3">
+    </audio>
+    <audio id="audioWarudo">
+      <source src="img/alpacino/za-warudo.mp3">
+    </audio>
+    <audio id="audioKamehameha">
+      <source src="img/alpacino/kamehameha.mp3">
     </audio>
     <audio id="audioPlayerBoss">
-        <source src="img/BossMusic.mp3">
+      <source src="img/music/BossMusic.m4a">
+    </audio>
+    <audio id="audioPlayerFinalBoss2">
+      <source src="img/music/FinalBoss2.m4a">
     </audio>
     <audio id="audioPlayerIntro">
-        <source src="img/Intro.mp3">
+        <source src="img/music/Intro.mp3">
     </audio>
     <audio id="audioPlayerTir">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir2">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir3">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir4">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir5">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir6">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir7">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir8">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir9">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir10">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir11">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir12">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir13">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir14">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
     </audio>
     <audio id="audioPlayerTir15">
-        <source src="img/Tir.m4a">
+      <source src="img/music/Tir.m4a">
+    </audio>
+
+    <audio id="audioPlayerExplosion">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion2">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion3">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion4">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion5">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion6">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion7">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion8">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion9">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion10">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion11">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion12">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion13">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion14">
+      <source src="img/music/Blow10.m4a">
+    </audio>
+    <audio id="audioPlayerExplosion15">
+      <source src="img/music/Blow10.m4a">
     </audio>
     <audio id="audioPlayerTirBoss">
-        <source src="img/ExploBoss.m4a">
+        <source src="img/music/ExploBoss.m4a">
     </audio>
     <audio id="audioExploTrash">
-        <source src="img/Absorb1.m4a">
+        <source src="img/music/Absorb1.m4a">
     </audio>
     <audio id="audioPlayerBigTirBoss">
-        <source src="img/BigExploBoss.m4a">
+        <source src="img/music/BigExploBoss.m4a">
     </audio>
     <audio id="audioPlayerGameOver">
-        <source src="img/GameOver.mp3">
+        <source src="img/music/GameOver.mp3">
     </audio>
     <audio id="audioPlayerExploBoss">
-        <source src="img/Explosion8.m4a">
+        <source src="img/music/Explosion8.m4a">
     </audio>
     <audio id="audioPlayerCollapseBoss">
-        <source src="img/Collapse3.m4a">
+        <source src="img/music/Collapse3.m4a">
     </audio>
     <audio id="audioPlayerFinalBoss">
-        <source src="img/FinalBoss.m4a">
+        <source src="img/music/FinalBoss.m4a">
     </audio>
     <audio id="ScreamerSound1">
         <source src="img/Screamer/ScreamerSound.mp3">
@@ -136,132 +225,171 @@
     <audio id="ScreamerSound2">
         <source src="img/Screamer/ScreamerSound2.mp3">
     </audio>
-  <img id="textureSol" src="img/Sol.png" />
-    <img id="BossTextureMunition" src="img/BossMunition.png" />
-    <img id="BossTexture" src="img/logo.png" />
-    <img id="WeaponTexture" src="img/weapon.png" />
-    <img id="BossTexture2" src="img/Boss.png" />
-    <img id="BossTexture3" src="img/Boss2.png" />
-    <img id="BossTexture4" src="img/Boss3.png" />
-    <img id="BossTexture5" src="img/FormatFactoryBoss4.png" />
-    <img id="BossTexture6" src="img/FormatFactoryBoss5.png" />
-    <img id="BossTexture7" src="img/FormatFactoryBoss6.png" />
-    <img id="BossTexture8" src="img/FormatFactoryBoss7.png" />
-    <img id="BossEclate1" src="img/BossExplo/FormatFactoryeclatement1.png" />
-    <img id="BossEclate2" src="img/BossExplo/FormatFactoryeclatement2.png" />
-    <img id="BossEclate3" src="img/BossExplo/FormatFactoryeclatement3.png" />
-    <img id="BossEclate4" src="img/BossExplo/FormatFactoryeclatement4.png" />
-    <img id="BossEclate5" src="img/BossExplo/FormatFactoryeclatement5.png" />
-    <img id="BossEclate6" src="img/BossExplo/FormatFactoryeclatement6.png" />
-    <img id="BossEclate7" src="img/BossExplo/FormatFactoryeclatement7.png" />
-    <img id="BossEclate8" src="img/BossExplo/FormatFactoryeclatement8.png" />
-    <img id="BossEclate9" src="img/BossExplo/FormatFactoryeclatement9.png" />
-    <img id="BossEclate10" src="img/BossExplo/FormatFactoryeclatement10.png" />
-    <img id="BossEclate11" src="img/BossExplo/FormatFactoryeclatement11.png" />
-    <img id="BossEclate12" src="img/BossExplo/FormatFactoryeclatement12.png" />
-    <img id="BossEclate13" src="img/BossExplo/FormatFactoryeclatement13.png" />
-    <img id="BossEclate14" src="img/BossExplo/FormatFactoryeclatement14.png" />
-    <img id="BossEclate15" src="img/BossExplo/FormatFactoryeclatement15.png" />
-    <img id="BossEclate16" src="img/BossExplo/FormatFactoryeclatement16.png" />
-    <img id="BossExplo1" src="img/BossExplo/FormatFactoryexplo1.png" />
-    <img id="BossExplo2" src="img/BossExplo/FormatFactoryexplo2.png" />
-    <img id="BossExplo3" src="img/BossExplo/FormatFactoryexplo3.png" />
-    <img id="BossExplo4" src="img/BossExplo/FormatFactoryexplo4.png" />
-    <img id="BossExplo5" src="img/BossExplo/FormatFactoryexplo5.png" />
-    <img id="BossExplo6" src="img/BossExplo/FormatFactoryexplo6.png" />
-    <img id="BossExplo7" src="img/BossExplo/FormatFactoryexplo7.png" />
-    <img id="BossExplo8" src="img/BossExplo/FormatFactoryexplo8.png" />
-    <img id="BossExplo9" src="img/BossExplo/FormatFactoryexplo9.png" />
-    <img id="BossExplo10" src="img/BossExplo/FormatFactoryexplo10.png" />
-    <img id="BossExplo11" src="img/BossExplo/FormatFactoryexplo11.png" />
-    <img id="BossExplo12" src="img/BossExplo/FormatFactoryexplo12.png" />
-    <img id="BossExplo13" src="img/BossExplo/FormatFactoryexplo13.png" />
-    <img id="BossExplo14" src="img/BossExplo/FormatFactoryexplo14.png" />
-    <img id="BossExplo15" src="img/BossExplo/FormatFactoryexplo15.png" />
-    <img id="BossExplo16" src="img/BossExplo/FormatFactoryexplo16.png" />
-    <img id="BossExplo17" src="img/BossExplo/FormatFactoryexplo17.png" />
-    <img id="BossExplo18" src="img/BossExplo/FormatFactoryexplo18.png" />
-    <img id="pampmousseTexture1" src="img/pampmousse1.png" />
-    <img id="BossAppearTexture" src="img/BossAppear.png" />
-    <img id="BoostSpeedTexture" src="img/BoostSpeed.png" />
-    <img id="BoostLifeTexture" src="img/BoostLife.png" />
-    <img id="BoostWeaponTexture" src="img/BoostWeapon.png" />
-    <img id="BoostShieldTexture" src="img/BoostShield.png" />
+  <img id="textureSol" src="img/sol.png" />
+    <img id="BossTextureMunition" src="img/others/BossMunition.png" />
+    <img id="BossTexture" src="img/boss1/boss_1.png" />
+    <img id="WeaponTexture" src="img/weapon/weapon.png" />
+    <img id="WeaponTexture2" src="img/weapon/weapon2.png" />
+    <img id="BossTexture2" src="img/boss1/Boss_1_cligno.png" />
+    <img id="BossTexture3" src="img/boss1/Boss_2.png" />
+    <img id="BossTexture4" src="img/boss1/Boss_2_cligno.png" />
+    <img id="BossTexture5" src="img/boss1/boss_3.png" />
+    <img id="BossTexture6" src="img/boss1/boss_3_cligno.png" />
+    <img id="BossTexture7" src="img/boss1/boss_4.png" />
+    <img id="BossTexture8" src="img/boss1/boss_4_cligno.png" />
+    <img id="BossEclate1" src="img/BossExplo/eclatement1.png" />
+    <img id="BossEclate2" src="img/BossExplo/eclatement2.png" />
+    <img id="BossEclate3" src="img/BossExplo/eclatement3.png" />
+    <img id="BossEclate4" src="img/BossExplo/eclatement4.png" />
+    <img id="BossEclate5" src="img/BossExplo/eclatement5.png" />
+    <img id="BossEclate6" src="img/BossExplo/eclatement6.png" />
+    <img id="BossEclate7" src="img/BossExplo/eclatement7.png" />
+    <img id="BossEclate8" src="img/BossExplo/eclatement8.png" />
+    <img id="BossEclate9" src="img/BossExplo/eclatement9.png" />
+    <img id="BossEclate10" src="img/BossExplo/eclatement10.png" />
+    <img id="BossEclate11" src="img/BossExplo/eclatement11.png" />
+    <img id="BossEclate12" src="img/BossExplo/eclatement12.png" />
+    <img id="BossEclate13" src="img/BossExplo/eclatement13.png" />
+    <img id="BossEclate14" src="img/BossExplo/eclatement14.png" />
+    <img id="BossEclate15" src="img/BossExplo/eclatement15.png" />
+    <img id="BossEclate16" src="img/BossExplo/eclatement16.png" />
+    <img id="BossExplo1" src="img/BossExplo/explo1.png" />
+    <img id="BossExplo2" src="img/BossExplo/explo2.png" />
+    <img id="BossExplo3" src="img/BossExplo/explo3.png" />
+    <img id="BossExplo4" src="img/BossExplo/explo4.png" />
+    <img id="BossExplo5" src="img/BossExplo/explo5.png" />
+    <img id="BossExplo6" src="img/BossExplo/explo6.png" />
+    <img id="BossExplo7" src="img/BossExplo/explo7.png" />
+    <img id="BossExplo8" src="img/BossExplo/explo8.png" />
+    <img id="BossExplo9" src="img/BossExplo/explo9.png" />
+    <img id="BossExplo10" src="img/BossExplo/explo10.png" />
+    <img id="BossExplo11" src="img/BossExplo/explo11.png" />
+    <img id="BossExplo12" src="img/BossExplo/explo12.png" />
+    <img id="BossExplo13" src="img/BossExplo/explo13.png" />
+    <img id="BossExplo14" src="img/BossExplo/explo14.png" />
+    <img id="BossExplo15" src="img/BossExplo/explo15.png" />
+    <img id="BossExplo16" src="img/BossExplo/explo16.png" />
+    <img id="BossExplo17" src="img/BossExplo/explo17.png" />
+    <img id="BossExplo18" src="img/BossExplo/explo18.png" />
+    <img id="pampmousseTexture1" src="img/trash/pampmousse1.png" />
+    <img id="BossAppearTexture" src="img/boss1/BossAppear.png" />
+    <img id="BoostSpeedTexture" src="img/alpacino/kawailpaga.png" />
+    <img id="BoostLifeTexture" src="img/boosts/BoostLife.png" />
+    <img id="BoostWeaponTexture" src="img/boosts/BoostWeapon.png" />
+    <img id="BoostShieldTexture" src="img/boosts/BoostShield.png" />
     <img id="PlayerShieldTexture" src="img/PlayerShield.png" />
-  <img id="pampmousseTexture2" src="img/pampmousse2.png" />
-  <img id="pampmousseTexture3" src="img/pampmousse3.png" />
-  <img id="pampmousseTexture4" src="img/pampmousse4.png" />
+  <img id="pampmousseTexture2" src="img/trash/pampmousse2.png" />
+  <img id="pampmousseTexture3" src="img/trash/pampmousse3.png" />
+  <img id="pampmousseTexture4" src="img/trash/pampmousse4.png" />
     <img id="textureHumain" src="img/humain.png" />
-    <img id="textureHumainFront" src="img/Player_Front.png" />
-    <img id="textureHumainBack" src="img/Player_Back.png" />
-    <img id="textureHumainRight" src="img/Player_Right.png" />
-    <img id="textureHumainLeft" src="img/Player_Left.png" />
+    <img id="textureHumainFront" src="img/player/Player_Front.png" />
+    <img id="textureHumainBack" src="img/player/Player_Back.png" />
+    <img id="textureHumainRight" src="img/player/Player_Right.png" />
+    <img id="textureHumainLeft" src="img/player/Player_Left.png" />
 
-    <img id="textureHumainFront2" src="img/Player_Front2.png" />
-    <img id="textureHumainBack2" src="img/Player_Back2.png" />
-    <img id="textureHumainRight2" src="img/Player_Right2.png" />
-    <img id="textureHumainLeft2" src="img/Player_Left2.png" />
+    <img id="textureHumainFront2" src="img/player/Player_Front2.png" />
+    <img id="textureHumainBack2" src="img/player/Player_Back2.png" />
+    <img id="textureHumainRight2" src="img/player/Player_Right2.png" />
+    <img id="textureHumainLeft2" src="img/player/Player_Left2.png" />
 
-    <img id="textureHumainFront3" src="img/Player_Front3.png" />
-    <img id="textureHumainBack3" src="img/Player_Back3.png" />
-    <img id="textureHumainRight3" src="img/Player_Right3.png" />
-    <img id="textureHumainLeft3" src="img/Player_Left3.png" />
+    <img id="textureHumainFront3" src="img/player/Player_Front3.png" />
+    <img id="textureHumainBack3" src="img/player/Player_Back3.png" />
+    <img id="textureHumainRight3" src="img/player/Player_Right3.png" />
+    <img id="textureHumainLeft3" src="img/player/Player_Left3.png" />
 
-    <img id="textureHumainFrontImmune" src="img/Player_Front_Immune.png" />
-    <img id="textureHumainBackImmune" src="img/Player_Back_Immune.png" />
-    <img id="textureHumainRightImmune" src="img/Player_Right_Immune.png" />
-    <img id="textureHumainLeftImmune" src="img/Player_Left_Immune.png" />
+    <img id="textureHumainFrontImmune" src="img/player/Player_Front_Immune.png" />
+    <img id="textureHumainBackImmune" src="img/player/Player_Back_Immune.png" />
+    <img id="textureHumainRightImmune" src="img/player/Player_Right_Immune.png" />
+    <img id="textureHumainLeftImmune" src="img/player/Player_Left_Immune.png" />
+    <img id="textureHumainFrontImmune2" src="img/player/Player_Front_Immune2.png" />
+    <img id="textureHumainBackImmune2" src="img/player/Player_Back_Immune2.png" />
+    <img id="textureHumainRightImmune2" src="img/player/Player_Right_Immune2.png" />
+    <img id="textureHumainLeftImmune2" src="img/player/Player_Left_Immune2.png" />
+    <img id="textureHumainFrontImmune3" src="img/player/Player_Front_Immune3.png" />
+    <img id="textureHumainBackImmune3" src="img/player/Player_Back_Immune3.png" />
+    <img id="textureHumainRightImmune3" src="img/player/Player_Right_Immune3.png" />
+    <img id="textureHumainLeftImmune3" src="img/player/Player_Left_Immune3.png" />
 
-    <img id="textureHumainFrontShield" src="img/Player_Front_Shield.png" />
-    <img id="textureHumainBackShield" src="img/Player_Back_Shield.png" />
-    <img id="textureHumainRightShield" src="img/Player_Right_Shield.png" />
-    <img id="textureHumainLeftShield" src="img/Player_Left_Shield.png" />
+    <img id="textureHumainFrontShield" src="img/player/Player_Front_Shield.png" />
+    <img id="textureHumainBackShield" src="img/player/Player_Back_Shield.png" />
+    <img id="textureHumainRightShield" src="img/player/Player_Right_Shield.png" />
+    <img id="textureHumainLeftShield" src="img/player/Player_Left_Shield.png" />
 
-    <img id="textureHumainFrontShield2" src="img/Player_Front_Shield2.png" />
-    <img id="textureHumainBackShield2" src="img/Player_Back_Shield2.png" />
-    <img id="textureHumainRightShield2" src="img/Player_Right_Shield2.png" />
-    <img id="textureHumainLeftShield2" src="img/Player_Left_Shield2.png" />
+    <img id="textureHumainFrontShield2" src="img/player/Player_Front_Shield2.png" />
+    <img id="textureHumainBackShield2" src="img/player/Player_Back_Shield2.png" />
+    <img id="textureHumainRightShield2" src="img/player/Player_Right_Shield2.png" />
+    <img id="textureHumainLeftShield2" src="img/player/Player_Left_Shield2.png" />
 
-    <img id="textureHumainFrontShield3" src="img/Player_Front_Shield3.png" />
-    <img id="textureHumainBackShield3" src="img/Player_Back_Shield3.png" />
-    <img id="textureHumainRightShield3" src="img/Player_Right_Shield3.png" />
-    <img id="textureHumainLeftShield3" src="img/Player_Left_Shield3.png" />
+    <img id="textureHumainFrontShield3" src="img/player/Player_Front_Shield3.png" />
+    <img id="textureHumainBackShield3" src="img/player/Player_Back_Shield3.png" />
+    <img id="textureHumainRightShield3" src="img/player/Player_Right_Shield3.png" />
+    <img id="textureHumainLeftShield3" src="img/player/Player_Left_Shield3.png" />
+    <img id="textureHumainDead" src="img/player/dead.png" />
+    <img id="textureHumainImmo1" src="img/player/immortal_1.png" />
+    <img id="textureHumainImmo2" src="img/player/immortal_2.png" />
 
     <img id="textureHumainImmunise" src="img/humain-immunise.png" />
-    <img id="textureWeapon0" src="img/Weapon_0.png" />
-    <img id="textureWeapon1" src="img/Weapon_1.png" />
-    <img id="textureWeapon2" src="img/Weapon_2.png" />
-    <img id="textureWeapon3" src="img/Weapon_3.png" />
-    <img id="textureWeapon4" src="img/Weapon_4.png" />
-    <img id="textureWeapon5" src="img/Weapon_5.png" />
+    <img id="textureWeapon0" src="img/weapon/Weapon_0.png" />
+    <img id="textureWeapon1" src="img/weapon/Weapon_1.png" />
+    <img id="textureWeapon2" src="img/weapon/Weapon_2.png" />
+    <img id="textureWeapon3" src="img/weapon/Weapon_3.png" />
+    <img id="textureWeapon4" src="img/weapon/Weapon_4.png" />
+    <img id="textureWeapon5" src="img/weapon/Weapon_5.png" />
+    <img id="textureWeapon6" src="img/weapon/Weapon_6.png" />
+    <img id="textureWeapon7" src="img/weapon/Weapon_7.png" />
+    <img id="textureWeapon8" src="img/weapon/Weapon_8.png" />
+    <img id="textureWeapon9" src="img/weapon/Weapon_9.png" />
+    <img id="textureWeapon10" src="img/weapon/Weapon_10.png" />
+    <img id="textureWeapon11" src="img/weapon/Weapon_11.png" />
+    <img id="textureWeapon12" src="img/weapon/Weapon_12.png" />
 
-    <img id="textureDeathP1" src="img/TrashExplo/FormatFactoryexplo1.png" />
-    <img id="textureDeathP2" src="img/TrashExplo/FormatFactoryexplo2.png" />
-    <img id="textureDeathP3" src="img/TrashExplo/FormatFactoryexplo3.png" />
-    <img id="textureDeathP4" src="img/TrashExplo/FormatFactoryexplo4.png" />
-    <img id="textureDeathP5" src="img/TrashExplo/FormatFactoryexplo5.png" />
-    <img id="textureDeathP6" src="img/TrashExplo/FormatFactoryexplo6.png" />
-    <img id="textureDeathP7" src="img/TrashExplo/FormatFactoryexplo7.png" />
-    <img id="textureDeathP8" src="img/TrashExplo/FormatFactoryexplo8.png" />
-    <img id="textureDeathP9" src="img/TrashExplo/FormatFactoryexplo9.png" />
-    <img id="textureDeathP10" src="img/TrashExplo/FormatFactoryexplo10.png" />
-    <img id="textureDeathP11" src="img/TrashExplo/FormatFactoryexplo11.png" />
-    <img id="textureDeathP12" src="img/TrashExplo/FormatFactoryexplo12.png" />
-    <img id="textureDeathP13" src="img/TrashExplo/FormatFactoryexplo13.png" />
-    <img id="textureFlaqueF" src="img/TrashExplo/FormatFactoryflaque_final.png" />
-    <img id="textureFlaque10" src="img/TrashExplo/FormatFactoryflaque10.png" />
-    <img id="textureFlaque20" src="img/TrashExplo/FormatFactoryflaque20.png" />
-    <img id="textureFlaque30" src="img/TrashExplo/FormatFactoryflaque30.png" />
-    <img id="textureFlaque40" src="img/TrashExplo/FormatFactoryflaque40.png" />
-    <img id="textureFlaque50" src="img/TrashExplo/FormatFactoryflaque50.png" />
-    <img id="textureFlaque60" src="img/TrashExplo/FormatFactoryflaque60.png" />
-    <img id="textureFlaque70" src="img/TrashExplo/FormatFactoryflaque70.png" />
-    <img id="textureFlaque80" src="img/TrashExplo/FormatFactoryflaque80.png" />
-    <img id="textureFlaque90" src="img/TrashExplo/FormatFactoryflaque90.png" />
 
-    <img id="texturePresseAgrumes" src="img/presse-agrumes.png" />
+    <img id="textureWeapon_type_2" src="img/weapon/weapon_type_2.png" />
+    <img id="textureWeapon_type_3" src="img/weapon/weapon_type_3.png" />
+    <img id="changeWeapon" src="img/weapon/change_weapon_type_1.png" />
+    <img id="changeWeapon_2" src="img/weapon/change_weapon_type_2.png" />
+    <img id="changeWeapon_3" src="img/weapon/change_weapon_type_3.png" />
+    <img id="anime_weapon3_1" src="img/weapon/anime_weap3_1.png" />
+    <img id="anime_weapon3_2" src="img/weapon/anime_weap3_2.png" />
+    <img id="anime_weapon3_3" src="img/weapon/anime_weap3_3.png" />
+    <img id="anime_weapon3_4" src="img/weapon/anime_weap3_4.png" />
+    <img id="anime_weapon3_5" src="img/weapon/anime_weap3_5.png" />
+    <img id="anime_weapon3_6" src="img/weapon/anime_weap3_6.png" />
+    <img id="anime_weapon3_7" src="img/weapon/anime_weap3_7.png" />
 
-    <img id="BigMunitions" src="img/BigMunitions.png" />
+    <img id="textureDeathP1" src="img/TrashExplo/explo_1.png" />
+    <img id="textureDeathP2" src="img/TrashExplo/explo_2.png" />
+    <img id="textureDeathP3" src="img/TrashExplo/explo_3.png" />
+    <img id="textureDeathP4" src="img/TrashExplo/explo_4.png" />
+    <img id="textureDeathP5" src="img/TrashExplo/explo_5.png" />
+    <img id="textureDeathP6" src="img/TrashExplo/explo_6.png" />
+    <img id="textureDeathP7" src="img/TrashExplo/explo_7.png" />
+    <img id="textureDeathP8" src="img/TrashExplo/explo_8.png" />
+    <img id="textureDeathP9" src="img/TrashExplo/explo_9.png" />
+    <img id="textureDeathP10" src="img/TrashExplo/explo_10.png" />
+    <img id="textureDeathP11" src="img/TrashExplo/explo_11.png" />
+    <img id="textureDeathP12" src="img/TrashExplo/explo_12.png" />
+    <img id="textureDeathP13" src="img/TrashExplo/explo_13.png" />
+    <img id="textureFlaqueF" src="img/TrashExplo/Flaque.png" />
+    <img id="textureFlaque10" src="img/TrashExplo/flaque_10.png" />
+    <img id="textureFlaque20" src="img/TrashExplo/flaque_20.png" />
+    <img id="textureFlaque30" src="img/TrashExplo/flaque_30.png" />
+    <img id="textureFlaque40" src="img/TrashExplo/flaque_40.png" />
+    <img id="textureFlaque50" src="img/TrashExplo/flaque_50.png" />
+    <img id="textureFlaque60" src="img/TrashExplo/flaque_60.png" />
+    <img id="textureFlaque70" src="img/TrashExplo/flaque_70.png" />
+    <img id="textureFlaque80" src="img/TrashExplo/flaque_80.png" />
+    <img id="textureFlaque90" src="img/TrashExplo/flaque_90.png" />
+
+    <img id="texturePresseAgrumes" src="img/others/presse-agrumes.png" />
+
+    <img id="BigMunitions" src="img/others/BigMunitions.png" />
+
+
+    <img id="Pangolino1" src="img/pangolinosan/Pangolin.png" />
+    <img id="PangolinoBig" src="img/pangolinosan/Big_Pangolino.png" />
+    <img id="Pangolino2" src="img/pangolinosan/Pangolin_2.png" />
+    <img id="Pangolino3" src="img/pangolinosan/Pangolin_3.png" />
 
     <img id="TextureAbricot" src="img/abricot/abricot.png" />
     <img id="AbricotTouche" src="img/abricot/abricot_touche.png" />
@@ -416,6 +544,21 @@
     <img id="UltimeExplo17" src="img/FramboiseUltime/Explo/explo17.png" />
     <img id="UltimeExplo18" src="img/FramboiseUltime/Explo/explo18.png" />
     <img id="UltimeExplo19" src="img/FramboiseUltime/Explo/explo19.png" />
+    <img id="UltimeSpeech2" src="img/FramboiseUltime/SPEECH2.png" />
+    <img id="UltimeSpeech3" src="img/FramboiseUltime/SPEECH3.png" />
+    <img id="UltimeSpeech4" src="img/FramboiseUltime/SPEECH4.png" />
+    <img id="UltimeSpeech5" src="img/FramboiseUltime/SPEECH5.png" />
+    <img id="UltimeSpeech6" src="img/FramboiseUltime/SPEECH6.png" />
+    <img id="UltimeSpeech7" src="img/FramboiseUltime/SPEECH7.png" />
+    <img id="UltimeSpeech8" src="img/FramboiseUltime/SPEECH8.png" />
+    <img id="UltimeSpeech9" src="img/FramboiseUltime/SPEECH9.png" />
+    <img id="UltimeSpeech10" src="img/FramboiseUltime/SPEECH10.png" />
+    <img id="UltimeSpeech11" src="img/FramboiseUltime/SPEECH11.png" />
+    <img id="UltimeSpeech12" src="img/FramboiseUltime/SPEECH12.png" />
+    <img id="UltimeSpeech13" src="img/FramboiseUltime/SPEECH13.png" />
+    <img id="UltimeSpeech14" src="img/FramboiseUltime/SPEECH14.png" />
+    <img id="UltimeKamehameha1" src="img/FramboiseUltime/KAMEHAMEHA1.png" />
+    <img id="UltimeKamehameha2" src="img/FramboiseUltime/KAMEHAMEHA2.png" />
     
     <img id="TextureFramboise" src="img/framboise/framboise.png" />
     <img id="framboiseExplo1" src="img/framboise/explo1.png" />
@@ -439,7 +582,7 @@
     <img id="framboiseFlaque_80" src="img/peche/flaque_80.png" />
     <img id="framboiseFlaque_90" src="img/peche/flaque_90.png" />
 
-    <img id="TextureCerise" src="img/cerise/cerise.png" />
+    <img id="TextureCerise" src="img/cerise/Cerise.png" />
     <img id="TextureCerise1" src="img/cerise/cerise1.png" />
     <img id="TextureCerise2" src="img/cerise/cerise2.png" />
     <img id="TextureCerise3" src="img/cerise/cerise3.png" />
@@ -457,7 +600,7 @@
     <img id="ceriseFlaque_80" src="img/cerise/flaque_80.png" />
     <img id="ceriseFlaque_90" src="img/cerise/flaque_90.png" />
 
-    <img id="TextureCassis" src="img/cassis/cassis.png" />
+    <img id="TextureCassis" src="img/cassis/Cassis.png" />
     <img id="cassisExplo1" src="img/cassis/explo1.png" />
     <img id="cassisExplo2" src="img/cassis/explo2.png" />
     <img id="cassisExplo3" src="img/cassis/explo3.png" />
@@ -468,7 +611,7 @@
     <img id="cassisExplo8" src="img/cassis/explo8.png" />
     <img id="cassisExplo9" src="img/cassis/explo9.png" />
     <img id="cassisExplo10" src="img/cassis/explo10.png" />
-    <img id="cassisFlaque" src="img/cassis/flaque.png" />
+    <img id="cassisFlaque" src="img/cassis/Flaque.png" />
     <img id="cassisFlaque_10" src="img/cassis/flaque_10.png" />
     <img id="cassisFlaque_20" src="img/cassis/flaque_20.png" />
     <img id="cassisFlaque_30" src="img/cassis/flaque_30.png" />
@@ -521,7 +664,11 @@
     <img id="CitronFlaque_80" src="img/Citron/flaque_80.png" />
     <img id="CitronFlaque_90" src="img/Citron/flaque_90.png" />
 
-    <img id="OeufTexture" src="img/oeuf.png" />
+    <img id="OeufTexture" src="img/Oeuf.png" />
+
+
+    <img id="textureVide" src="img/others/texture_vide.png" />
+    <img id="texteSangrine" src="img/sangrine/sangrineSpeech.png" />
 
   <script src="js/libs/jquery.js" type="text/javascript"></script>
   <script src="js/libs/math.js" type="text/javascript"></script>
@@ -564,7 +711,13 @@
     <script src="js/models/BigMunition.js"></script>
     <script src="js/models/Oeuf.js"></script>
     <script src="js/models/Cassis.js"></script>
+    <script src="js/models/Pangolino.js"></script>
+    <script src="js/models/cutSceneBoss.js"></script>
     <script src="js/models/miniCerise.js"></script>
     <script src="js/models/FramboiseUltime.js"></script>
+    <script src="js/models/weapon_type_1.js"></script>
+    <script src="js/models/weapon_type_2.js"></script>
+    <script src="js/models/weapon_type_3.js"></script>
+    <script src="js/models/presse-agrumes_explosion.js"></script>
 </body>
 </html>

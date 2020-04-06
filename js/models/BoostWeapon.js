@@ -9,8 +9,10 @@ class BoostWeapon extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.type = "Boost";
+        this.name = "BoostWeapon";
         this.ajouterTexture(BoostWeaponTexture);
-        this.setTaille(15);
+        this.setTaille(20);
     }
 
 }

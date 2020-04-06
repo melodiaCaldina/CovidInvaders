@@ -9,6 +9,8 @@ class BossMunition extends ElementMobile {
     constructor() {
         super();
 
+        this.baseVitesse = 10;
+        this.type = "Tirennemi";
         this.ajouterTexture(BossTextureMunition);
 
         this.setVitesse(10);

@@ -9,7 +9,12 @@ class Cerises extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 2;
         this.nbPDV = 8;
+        this.type = "ennemi";
+        this.genre = "mob";
+        this.name = "Cerises";
+        this.pointValue = 0;
         this.isDead = false;
         this.mustDisappear = false;
         this.isWin = false;
@@ -25,7 +30,7 @@ class Cerises extends ElementMobile {
         this.ajouterTexture(ceriseFlaque_80);
         this.ajouterTexture(ceriseFlaque_90);
         this.activerTexture(0);
-        this.setVitesse(3);
+        this.setVitesse(2);
         this.setTaille(40);
         this.setDirection(Math.floor((Math.random() * 360) + 1) * 0.0174533);
     }

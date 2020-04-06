@@ -10,7 +10,7 @@ class Munition extends ElementGraphique
 	constructor()
 	{
 		super();
-
+		this.name = "Munition";
 		this.setTaille(10);
 		this.ajouterTexture(texturePresseAgrumes);
 	}

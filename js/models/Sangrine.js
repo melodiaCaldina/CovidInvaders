@@ -9,6 +9,11 @@ class Sangrine extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 4;
+        this.type = "ennemi";
+        this.genre = "boss";
+        this.name = "Sangrine";
+        this.pointValue = 25;
         this.ajouterTexture(TextureSangrine);
         this.ajouterTexture(sangrineTouche);
         this.ajouterTexture(sangrine_fin_10);

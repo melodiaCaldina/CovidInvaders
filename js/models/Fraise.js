@@ -9,6 +9,11 @@ class Fraise extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 3;
+        this.type = "ennemi";
+        this.genre = "boss";
+        this.name = "Fraise";
+        this.pointValue = 20;
         this.ajouterTexture(TextureFraise);
         this.ajouterTexture(fraiseTouche);
         this.ajouterTexture(fraise_fin_10);

@@ -15,8 +15,17 @@ class weaponLevel extends ElementMobile {
         this.ajouterTexture(textureWeapon3);
         this.ajouterTexture(textureWeapon4);
         this.ajouterTexture(textureWeapon5);
+        this.ajouterTexture(textureWeapon6);
+        this.ajouterTexture(textureWeapon7);
+        this.ajouterTexture(textureWeapon8);
+        this.ajouterTexture(textureWeapon9);
+        this.ajouterTexture(textureWeapon10);
+        this.ajouterTexture(textureWeapon11);
+        this.ajouterTexture(textureWeapon12);
         this.setTaille(0);
         this.level = 0;
+        this.MaxActive = 5;
+        this.MaxActive6 = false;
         this.activerTexture(0);
     }
     setTexture(value) {
@@ -24,14 +33,24 @@ class weaponLevel extends ElementMobile {
         this.animerWeapon();
     }
     animerWeapon() {
-        if (this.level != 5) {
+        if (this.level != 5 && this.level != 6) {
             this.activerTexture(this.level);
-        } else {
-            var that = this;
-            this.activerTexture(5);
-            setTimeout(function () { that.activerTexture(4); }, 100);
-            setTimeout(function () { that.activerTexture(5); }, 200);
-           
+        } else if(this.level == 5) {
+            this.MaxActive ++;
+            if(this.MaxActive == 11){
+                this.MaxActive = 5;
+            }
+            this.activerTexture(this.MaxActive);
+
+        } else if(this.level == 6) {
+            this.MaxActive6 = !this.MaxActive6;
+            if(this.MaxActive6){
+                this.activerTexture(11);
+            }else{
+                this.activerTexture(12);
+
+            }
+
         }
     }
 }
