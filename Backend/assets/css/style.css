@@ -1,7 +1,7 @@
 @font-face
 {
 	font-family: "pampmousses";
-	src: url('../font/monster.TTF');
+	src: url('../../jeu/font/monster.TTF');
 }
 
 head
@@ -416,18 +416,18 @@ th, td {
 	padding: 10px;
 }
 #content{
-	cursor: url(../css/target.png), auto;
+	cursor: url(target.png), auto;
 }
 
 #canvas-dessin {
-	cursor: url(../css/target.png), auto;
+	cursor: url(target.png), auto;
 }
 
 canvas
 {
 	width: 100%;
 	height: 100%;
-    cursor: url(./target.png), auto;
+    cursor: url(target.png), auto;
     background-color : #000000;
 	box-sizing: border-box;
 }

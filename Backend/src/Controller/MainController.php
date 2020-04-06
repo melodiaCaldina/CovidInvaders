@@ -21,24 +21,21 @@ class MainController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $entityManager)
     {
-        $joueur = new Joueur();
-        $form = $this->createForm(JoueurType::class, $joueur);
-        $form->handleRequest($request);
+//        $joueur = new Joueur();
+//        $form = $this->createForm(JoueurType::class, $joueur);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager->persist($joueur);
+//            $entityManager->flush();
+////            return $this->render('main/game.html.twig', [
+////                'player' => $joueur,
+////            ]);
+//            header('Location: file://C:/Users/Antoine/Desktop/CESI/COVID-Invaders/CovidInvaders/index.html.twig');
+//
+//        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($joueur);
-            $entityManager->flush();
-//            return $this->render('main/game.html.twig', [
-//                'player' => $joueur,
-//            ]);
-            header('Location: file://C:/Users/Antoine/Desktop/CESI/COVID-Invaders/CovidInvaders/index.html');
-
-        }
-
-        return $this->render('main/index.html.twig', [
-            'form' => $form->createView(),
-            'player' => null,
-        ]);
+        return $this->render('index.html.twig');
     }
 
     /**
