@@ -54,14 +54,15 @@
     <script src="js/models/weapon_type_2.js"></script>
     <script src="js/models/weapon_type_3.js"></script>
     <script src="js/models/presse-agrumes_explosion.js"></script>
-    
-    <div id = "div-loading">
-      <p id="label-loading">Chargement en cours </p>
-      <p id="label-small-loading">(si tu es presse prend la fibre ! ) </p>
-    </div>
-  </head>
-<body hidden>
 
+
+  </head>
+<body>
+<div id = "div-loading">
+  <p id="label-loading">Chargement en cours </p>
+  <p id="label-small-loading">(si tu es presse prend la fibre ! ) </p>
+</div>
+<div id="div-global" hidden>
     <div id="screamerIMG">
 
         <img id="Screamer1" src="img/Screamer/Screamer1.jpg" />
@@ -128,7 +129,7 @@
   <div id="partie-gagnee" class="bandeau">
     <p>Vous avez vaincu les virus -un peu- ! <input type="button" id="btnNextLevel" value="Niveau suivant !" /></p>
   </div>
-
+</div>
     <audio id="audioPlayerTrash">
       <source src="img/music/TrashMobs.m4a">
     </audio>

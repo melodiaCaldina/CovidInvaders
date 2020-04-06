@@ -22,7 +22,6 @@ class Controleur extends Observateur
 		this._timerRafraichissement = null;
 
 		//Redimensionne la zone de dessin
-		this.redimensionner();
 		this._tirAbricot = null;
 		this._tirFraise = null;
 		this._tirMangue = null;
@@ -61,7 +60,8 @@ class Controleur extends Observateur
 		$("#label-Pseudo").hide();
 		$("#infos").hide();
 		$("#head-weapon").hide();
-		$('body').show();
+		$('#div-global').show();
+		this.redimensionner();
 
 
 		this._Move = 0;
