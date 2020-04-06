@@ -9,6 +9,8 @@ class BigMunition extends ElementMobile {
     constructor() {
         super();
 
+        this.baseVitesse = 8;
+        this.type = "Tirennemi";
         this.ajouterTexture(BigMunitions);
 
         this.setVitesse(8);

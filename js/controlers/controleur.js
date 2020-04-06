@@ -49,24 +49,62 @@ class Controleur extends Observateur
 		this._keyUp = false;
 		this._keyRight = false;
 		this._keyLeft = false;
+		this._animeWeapon = null;
+		this._animepampmousseDir = null;
+		this._animeBossDir = null;
+		this._animeBossUltimeDir = null;
+		this._animePangolinoDir = null;
+		this.pseudo = "Machin";
+		this.hasStart = false;
+		$("#label-combo").hide();
+		$("#label-superScore").hide();
+		$("#label-Pseudo").hide();
+
 
 		this._Move = 0;
 		//Affiche l'écran de démarrage
-		this._vue.afficherDebutPartie();
-		setInterval(function () { controleur.updatePampmousse(); }, 1000);
-		setInterval(function () { controleur.updatePampmousseDir(); }, 500);
-		setInterval(function () { controleur.updateBossDir(); }, 500);
-		setInterval(function () { controleur.updateBossUltimeDir(); }, 500);
-		this._isMoving = true;
-		this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
-		setInterval(function () { controleur.updateWeaponLevel(); }, 100);
-		document.querySelector("#bgvid").volume = 1;
-		document.querySelector("#bgvid").play();
+
 		
 	}
     bless() {
         this._jeu.bless();
     }
+
+    startVideo(){
+		this._vue.afficherDebutPartie();
+
+		// // var response = prompt("Hey there, what's your name?");
+		// // alert("You typed: " + response);
+		// setInterval(function () { controleur.updatePampmousse(); }, 1000);
+		// setInterval(function () { controleur.updatePangolino(); }, 100);
+		// this._animepampmousseDir = setInterval(function () { controleur.updatePampmousseDir(); }, 500);
+		// this._animePangolinoDir = setInterval(function () { controleur.updatePangolinoDir(); }, 800);
+		// this._animeBossDir = setInterval(function () { controleur.updateBossDir(); }, 500);
+		// this._animeBossUltimeDir = setInterval(function () { controleur.updateBossUltimeDir(); }, 500);
+		// this._isMoving = true;
+		// this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
+		// this._animeWeapon = setInterval(function () { controleur.updateWeaponLevel(); }, 100);
+		this.pseudo = $("#textPseudo").val();
+		console.log(this.pseudo);
+		$("#label-Pseudo").text(this.pseudo);
+		$("#div-Pseudo").hide();
+		document.querySelector("#bgvid").volume = 1;
+		document.querySelector("#bgvid").play();
+	}
+
+    startUpdateWeapon(){
+		this._animeWeapon = setInterval(function () { controleur.updateWeaponLevel(); }, 100);
+		this._animepampmousseDir = setInterval(function () { controleur.updatePampmousseDir(); }, 500);
+		this._animeBossDir = setInterval(function () { controleur.updateBossDir(); }, 500);
+		this._animeBossUltimeDir = setInterval(function () { controleur.updateBossUltimeDir(); }, 500);
+	}
+
+	stopUpdateWeapon(){
+		clearInterval(this._animeWeapon);
+		clearInterval(this._animepampmousseDir);
+		clearInterval(this._animeBossDir);
+		clearInterval(this._animeBossUltimeDir);
+	}
 
     updateWeaponLevel() {
         this._jeu.animeWeaponLevel();
@@ -74,9 +112,15 @@ class Controleur extends Observateur
     updatePlayer(isMoving) {
         this._jeu.animePlayer(isMoving);
     }
-    updatePampmousse() {
-        this._jeu.updatePampmousse();
-    }
+	updatePampmousse() {
+		this._jeu.updatePampmousse();
+	}
+	updatePangolino() {
+		this._jeu.updatePangolino();
+	}
+	updatePangolinoDir() {
+		this._jeu.updatePangolinoDir();
+	}
     updatePampmousseDir() {
         this._jeu.updatePampmousseDir();
     }
@@ -158,6 +202,7 @@ class Controleur extends Observateur
         this._tirAnanas = setInterval(function () { controleur.tirAnanasBegin(); }, 6000);
         this._tirAnanas2 = setInterval(function () { controleur.popAnanasBegin(); }, 10000);
         this._tirTrash = setInterval(function () { controleur.tirTrashBegin(); }, 5000);
+        this.tirUltimeBegin();
         this._tirUltime = setInterval(function () { controleur.tirUltimeBegin(); }, 19000);
         this._tirBoss = setInterval(function () { controleur.tirBossBegin(); }, 3000);
     }
@@ -215,6 +260,19 @@ class Controleur extends Observateur
 	 */
 	commencerNouveauJeu()
 	{
+		this.hasStart = true;
+		setInterval(function () { controleur.updatePampmousse(); }, 1000);
+		setInterval(function () { controleur.updatePangolino(); }, 100);
+		this._animepampmousseDir = setInterval(function () { controleur.updatePampmousseDir(); }, 500);
+		this._animePangolinoDir = setInterval(function () { controleur.updatePangolinoDir(); }, 800);
+		this._animeBossDir = setInterval(function () { controleur.updateBossDir(); }, 500);
+		this._animeBossUltimeDir = setInterval(function () { controleur.updateBossUltimeDir(); }, 500);
+		this._isMoving = true;
+		this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
+		this._animeWeapon = setInterval(function () { controleur.updateWeaponLevel(); }, 100);
+		$("#label-combo").show();
+		$("#label-Pseudo").show();
+		$("#label-superScore").show();
 		document.querySelector("#bgvid").volume =0;
 		document.querySelector("#bgvid").pause();
 		this._vue.masquerBandeaux();
@@ -232,6 +290,18 @@ class Controleur extends Observateur
 		this.animer();
 	}
 
+	updateCombo(value){
+		if(value == 0){
+			$("#label-combo").hide();
+		}else {
+			$("#label-combo").show();
+			$("#label-combo").text("COMBO - " + value);
+		}
+	}
+	updateScore(value){
+		$("#label-superScore").text("SCORE - " + value);
+
+	}
 	/**
 	 * Termine le niveau en cours
 	 */
@@ -303,8 +373,10 @@ class Controleur extends Observateur
 	 */
 	onMouseDown()
 	{
-		if(!this._jeu.estTermine())
-			this._jeu.tirer();
+		if(this.hasStart){
+			if(!this._jeu.estTermine())
+				this._jeu.tirer();
+		}
 	}
 
 
@@ -313,8 +385,10 @@ class Controleur extends Observateur
 	 */
 	onMouseMove(coordonnees)
 	{
-		if (!this._jeu.estTermine())
-			this._jeu.orienterJoueurVers(coordonnees);
+		if(this.hasStart){
+			if (!this._jeu.estTermine())
+				this._jeu.orienterJoueurVers(coordonnees);
+		}
 	}
 
 	updateDirection(){
@@ -342,10 +416,13 @@ class Controleur extends Observateur
 			countDir ++;
 		}
 
-		if (countDir == 0) {
+		if (countDir == 0 && !this._jeu._joueur.immortal) {
 			clearInterval(this._animePlayer);
 			this._isMoving = false;
-			this._animePlayer = setInterval(function () { controleur.updatePlayer(false); }, 60);
+			if(!this._jeu._joueur.immortal)
+				this._animePlayer = setInterval(function () { controleur.updatePlayer(false); }, 60);
+			else
+				this._animePlayer = setInterval(function () { controleur.updatePlayer(true); }, 60);
 		}
 		else if (countDir == 1){
 			if(this._isMoving == false) {
@@ -424,14 +501,19 @@ class Controleur extends Observateur
 
 	onKeyDown(event) 
 	{
+		if(!this.hasStart){
+			return;
+		}
 	    if (this._jeu instanceof Jeu && event.keyCode == 80)
 	        this._jeu.scream();
 	    if (this._jeu instanceof Jeu && event.keyCode == 66)
 	        this._jeu.Shield();
 	    if (this._jeu instanceof Jeu && event.keyCode == 87)
 	        this._jeu.Weapon();
-	    if (this._jeu instanceof Jeu && event.keyCode == 67)
-	        this._jeu.Cheat();
+		if (this._jeu instanceof Jeu && event.keyCode == 67)
+			this._jeu.Cheat();
+		if (this._jeu instanceof Jeu && event.keyCode == 86)
+			this._jeu.CheatCombo();
 
 
 
@@ -462,7 +544,10 @@ class Controleur extends Observateur
 	    
 	}
 
-	onKeyUp(evt) {
+	onKeyUp(event) {
+		if(!this.hasStart){
+			return;
+		}
 		if (this._jeu instanceof Jeu && event.keyCode == 83){ //down
 			this._keyDown = false;
 			this.updateDirection();

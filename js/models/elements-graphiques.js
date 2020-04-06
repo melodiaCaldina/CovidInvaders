@@ -46,9 +46,24 @@ class ElementsGraphiques extends Collection
 			{
 				element.animer();
 			}
-			
+
 		}
 	}
+
+	animerScene()
+	{
+		for(var iElement = 0; iElement < this.length(); ++iElement)
+		{
+			var element = this.get(iElement);
+
+			if (element instanceof ElementMobile && (element instanceof Humain || element instanceof cutSceneBoss || element instanceof FramboiseUltime))
+			{
+				element.animer();
+			}
+
+		}
+	}
+
 
 	animerHumain(Direction)
 	{
@@ -99,10 +114,16 @@ class ElementsGraphiques extends Collection
 	 */
 	dessiner(context)
 	{
+		var joueur = null;
 		for (var iElement = 0; iElement < this.length() ; ++iElement)
 		{
 			var element = this.get(iElement);
-			element.dessiner(context);
+			if(element instanceof Humain){
+				joueur = element;
+			}else{
+				element.dessiner(context);
+			}
 		}
+		joueur.dessiner(context);
 	}
 }

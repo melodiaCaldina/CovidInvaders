@@ -24,6 +24,19 @@ class FabriqueElement
 			case 'humain':
 				element = new Humain();
 				break;
+
+			case 'Pangolino':
+				element = new Pangolino();
+				break;
+			case 'ChangeW1':
+				element = new changeW1();
+				break;
+			case 'ChangeW2':
+				element = new changeW2();
+				break;
+			case 'ChangeW3':
+				element = new changeW3();
+				break;
 			case 'cutSceneBoss':
 				element = new cutSceneBoss();
 				break;
@@ -33,9 +46,12 @@ class FabriqueElement
 			case 'munition':
 				element = new Munition();
 				break;
-		    case 'presse agrumes':
-		        element = new PresseAgrumes();
-		        break;
+			case 'presse agrumes':
+				element = new PresseAgrumes();
+				break;
+			case 'presse agrumes explosion':
+				element = new PresseAgrumesExplosion();
+				break;
 		    case 'Boss':
 		        element = new Boss();
 		        break;

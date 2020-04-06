@@ -9,6 +9,11 @@ class Orange extends ElementMobile {
 	 */
     constructor() {
         super();
+        this.baseVitesse = 3;
+        this.type = "ennemi";
+        this.genre = "boss";
+        this.name = "Orange";
+        this.pointValue = 16;
         this.ajouterTexture(TextureOrange);
         this.ajouterTexture(orangeTouche);
         this.ajouterTexture(orange_fin_10);

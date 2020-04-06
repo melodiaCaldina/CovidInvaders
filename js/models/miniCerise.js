@@ -9,10 +9,15 @@ class miniCerise extends ElementMobile {
 	 */
     constructor() {
         super();
-        this.nbPDV = 3;
+        this.baseVitesse = 5;
+        this.nbPDV = 4;
         this.isDead = false;
         this.mustDisappear = false;
         this.isWin = false;
+        this.type = "ennemi";
+        this.genre = "mob";
+        this.name = "MiniCerise";
+        this.pointValue = 2;
         this.ajouterTexture(TextureCerise1);
         this.ajouterTexture(TextureCerise2);
         this.ajouterTexture(TextureCerise3);
@@ -30,7 +35,7 @@ class miniCerise extends ElementMobile {
         this.ajouterTexture(ceriseFlaque_80);
         this.ajouterTexture(ceriseFlaque_90);
         this.activerTexture(0);
-        this.setVitesse(3);
+        this.setVitesse(5);
         this.setTaille(20);
         this.setDirection(Math.floor((Math.random() * 360) + 1) * 0.0174533);
     }
