@@ -59,6 +59,9 @@ class Controleur extends Observateur
 		$("#label-combo").hide();
 		$("#label-superScore").hide();
 		$("#label-Pseudo").hide();
+		$("#infos").hide();
+		$("#head-weapon").hide();
+		
 
 
 		this._Move = 0;
