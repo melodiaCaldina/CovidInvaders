@@ -56,4 +56,31 @@ class MainController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route ("/ajax/save/score", name="game")
+     * @param Request $request
+     * @return Response
+     */
+    public function newScore(Request $request)
+    {
+        dd('dfhcshik');
+
+        $manager = $this->getDoctrine()->getManager();
+        $name = $request->get('name');
+        $score = $request->get('score');
+
+        $user = $this->getDoctrine()->getRepository(Joueur::class)->findBy(['nom' => $name]);
+        /** @var Joueur $user */
+        if ($user !== null) {
+            $user->addScore($score);
+        } else {
+            $newUser = new Joueur();
+            $newUser->setNom($name);
+            $newUser->addScore($score);
+            $manager->persist($newUser);
+        }
+        $manager->flush();
+        return new Response();
+    }
 }
