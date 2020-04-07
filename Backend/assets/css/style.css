@@ -54,7 +54,7 @@ table {
 	table-layout: fixed;
 	width: 98%;
 	height: 80%;
-	margin: 15% 0% 0% 0%;
+	margin: 0% 0% 0% 0%;
 	border-collapse: collapse;
 	background-color: #000000;
 	border: 3px solid purple;
@@ -163,7 +163,7 @@ th, td {
 #div_tab
 {
 	position: fixed;
-	top: 10%;
+	top: 2%;
 	left: 0%;
 
 	width: 100%;
