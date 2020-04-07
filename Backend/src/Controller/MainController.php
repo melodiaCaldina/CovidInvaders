@@ -53,7 +53,7 @@ class MainController extends AbstractController
         $niveau = $request->get('niveau');
         $ip = $request->get('ip');
 
-        $user = $this->getDoctrine()->getRepository(Joueur::class)->findBy(['nom' => $name, 'ip' => $ip]);
+        $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['nom' => $name, 'ip' => $ip]);
         /** @var Joueur $user */
         if ($user !== null) {
             if ($user->getScore() > $score) {
