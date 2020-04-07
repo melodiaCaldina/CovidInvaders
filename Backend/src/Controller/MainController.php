@@ -50,7 +50,7 @@ class MainController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $name = $request->get('name');
         $score = $request->get('score');
-        $niveau = $request->get('niveau');
+        $niveau = $request->get('level');
         $ip = $request->get('ip');
 
         $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['nom' => $name, 'ip' => $ip]);
