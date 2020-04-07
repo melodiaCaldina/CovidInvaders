@@ -356,10 +356,8 @@ class Controleur extends Observateur {
         this._animeWeapon = setInterval(function () {
             controleur.updateWeaponLevel();
         }, 100);
-        this._intervalScore =
-            setInterval(function() {
+        this._intervalScore = setInterval(function() {
                 controleur.saveScore();
-
             }, 1000);
 
         $("#label-combo").show();
@@ -382,6 +380,10 @@ class Controleur extends Observateur {
         $("#div_tab").hide();
         this._vue.masquerBandeaux();
         this._jeu.niveauSuivant();
+
+        this._intervalScore = setInterval(function() {
+                controleur.saveScore();
+            }, 1000);
         this.animer();
     }
 
@@ -523,7 +525,7 @@ class Controleur extends Observateur {
             type: 'GET',
             success: function (feature) {
                 var dataAll = feature.split("},{");
-
+                console.log("dataAll length : " + dataAll.length);
                 for(var i = 0; i < dataAll.length; i++){
                     switch(i){
                         case 0:
