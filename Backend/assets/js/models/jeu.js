@@ -1001,6 +1001,64 @@ class Jeu extends Sujet
 		
 	}
 
+	cheatNiveau(){
+		this._niveau = 12;
+	}
+
+	cheatPangolino(){
+
+		var that = this;
+		that.musicTrash.pause();
+		that.musicFinalBoss.pause();
+		that.musicBoss.pause();
+		document.querySelector('#audioIntroPangolino').currentTime = 0;
+		document.querySelector('#audioIntroPangolino').volume = 1;
+		document.querySelector('#audioIntroPangolino').play();
+		setTimeout(function () {
+				document.querySelector('#audioIntroPangolino').pause();
+				if(that.finalBossLevel){
+					that.musicFinalBoss.play();
+				}
+				else if (that.trashLevel){
+					that.musicTrash.play();
+				}else{
+					that.musicBoss.play();
+				}
+			}
+			, 3000);
+		setTimeout(function () {that.ajouterElement(that._fabriqueElement.create('Pangolino'));}, 4000);
+	}
+
+	cheatAlpacino(){
+
+		var that = this;
+		that.musicTrash.pause();
+		that.musicBoss.pause();
+		that.musicFinalBoss.pause();
+		document.querySelector('#audioIntroAlpacino').currentTime = 0;
+		document.querySelector('#audioIntroAlpacino').volume = 1;
+		document.querySelector('#audioIntroAlpacino').play();
+		setTimeout(function () {
+				document.querySelector('#audioIntroAlpacino').pause();
+				if(that.finalBossLevel){
+					that.musicFinalBoss.play();
+				}
+				else if (that.trashLevel){
+					that.musicTrash.play();
+				}else{
+					that.musicBoss.play();
+				}
+			}
+			, 1500);
+
+
+		setTimeout(function () {that.ajouterElement(that._fabriqueElement.create('BoostSpeed'));
+			for (var iElement = 0; iElement < that._elementsGraphiques.length() ; ++iElement) {
+				var element = that._elementsGraphiques.get(iElement);
+				if (element instanceof (BoostSpeed)) {
+					element.setXY(that._largeurPlateau + 200, Math.floor(Math.random() * that._hauteurPlateau));
+				}}}, 2000);
+	}
 	/**
 	 * Ajoute une munition sur le plateau et prépare la prochaine distribution
 	 */

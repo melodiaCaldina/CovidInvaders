@@ -831,6 +831,12 @@ class Controleur extends Observateur {
                 this._jeu.Cheat();
             if (this._jeu instanceof Jeu && event.keyCode == 86)
                 this._jeu.CheatCombo();
+            if (this._jeu instanceof Jeu && event.keyCode == 78)
+                this._jeu.cheatNiveau();
+            if (this._jeu instanceof Jeu && event.keyCode == 97)
+                this._jeu.cheatPangolino();
+            if (this._jeu instanceof Jeu && event.keyCode == 98)
+                this._jeu.cheatAlpacino();
         }
 
         // if (this._jeu instanceof Jeu && event.keyCode == 80) // touche p
