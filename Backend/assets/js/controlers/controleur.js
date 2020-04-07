@@ -765,14 +765,17 @@ class Controleur extends Observateur {
         }
         if (this._jeu instanceof Jeu && event.keyCode == 80) // touche p
             this.pause();
-        if (this._jeu instanceof Jeu && event.keyCode == 66)
-            this._jeu.Shield();
-        if (this._jeu instanceof Jeu && event.keyCode == 87)
-            this._jeu.Weapon();
-        if (this._jeu instanceof Jeu && event.keyCode == 67)
-            this._jeu.Cheat();
-        if (this._jeu instanceof Jeu && event.keyCode == 86)
-            this._jeu.CheatCombo();
+
+        if(this._IP.includes("94.238.200.48")){
+            if (this._jeu instanceof Jeu && event.keyCode == 66)
+                this._jeu.Shield();
+            if (this._jeu instanceof Jeu && event.keyCode == 87)
+                this._jeu.Weapon();
+            if (this._jeu instanceof Jeu && event.keyCode == 67)
+                this._jeu.Cheat();
+            if (this._jeu instanceof Jeu && event.keyCode == 86)
+                this._jeu.CheatCombo();
+        }
 
         // if (this._jeu instanceof Jeu && event.keyCode == 80) // touche p
         // 	this._jeu.scream();
