@@ -41,12 +41,13 @@ class MainController extends AbstractController
 
     /**
      * @Route("/getScore", name="leaderboard")
+     * @return Response
      */
-    public function getScoresLeaderBoard()
+    public function getScoresLeaderBoard(): Response
     {
         $scores = $this->getDoctrine()->getRepository(Joueur::class)->findTop10();
 
-        return json_encode($scores);
+        return new Response(json_encode($scores));
     }
 
 
