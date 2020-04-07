@@ -66,48 +66,24 @@ caption {
 }
 
 thead th:nth-child(1) {
-	width: 30%;
-	color: #AAAAAA;
-}
+	 width: 8%;
+	 color: #AAAAAA;
+ }
 
 thead th:nth-child(2) {
-	width: 20%;
+	width: 25%;
 	color: #AAAAAA;
 }
 
 thead th:nth-child(3) {
-	width: 15%;
-	color: #AAAAAA;
-}
-thead th:nth-child(4) {
-	width: 10%;
-	color: #AAAAAA;
-}
-thead th:nth-child(5) {
-	width: 10%;
-	color: #AAAAAA;
-}
-thead th:nth-child(6) {
-	width: 10%;
-	color: #AAAAAA;
-}
-thead th:nth-child(7) {
-	width: 10%;
-	color: #AAAAAA;
-}
-thead th:nth-child(8) {
-	width: 10%;
-	color: #AAAAAA;
-}
-thead th:nth-child(9) {
-	width: 10%;
-	color: #AAAAAA;
-}
-thead th:nth-child(10) {
-	width: 10%;
+	width: 20%;
 	color: #AAAAAA;
 }
 
+thead th:nth-child(4) {
+	width: 15%;
+	color: #AAAAAA;
+}
 
 th, td {
 	padding: 20px 12%;
