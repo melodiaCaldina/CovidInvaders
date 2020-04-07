@@ -81,7 +81,7 @@ class MainController extends AbstractController
         /** @var Joueur $user */
         $scream = $user->getScream();
 
-        return new Response(json_encode($scream));
+        return new Response($scream);
     }
 
     /**
