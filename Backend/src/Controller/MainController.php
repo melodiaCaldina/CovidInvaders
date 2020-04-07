@@ -3,12 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Joueur;
-use App\Form\JoueurType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,20 +19,6 @@ class MainController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $entityManager)
     {
-//        $joueur = new Joueur();
-//        $form = $this->createForm(JoueurType::class, $joueur);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $entityManager->persist($joueur);
-//            $entityManager->flush();
-////            return $this->render('main/game.html.twig', [
-////                'player' => $joueur,
-////            ]);
-//            header('Location: file://C:/Users/Antoine/Desktop/CESI/COVID-Invaders/CovidInvaders/index.html.twig');
-//
-//        }
-
         return $this->render('index.html.twig');
     }
 
@@ -50,7 +33,6 @@ class MainController extends AbstractController
         return new Response(json_encode($scores));
     }
 
-
     /**
      * @Route ("/saveScore", name="score")
      * @param Request $request
@@ -58,8 +40,6 @@ class MainController extends AbstractController
      */
     public function newScore(Request $request)
     {
-        //dd('dfhcshik');
-
         $manager = $this->getDoctrine()->getManager();
         $name = $request->get('name');
         $score = $request->get('score');
@@ -86,6 +66,60 @@ class MainController extends AbstractController
             $manager->persist($newUser);
         }
         $manager->flush();
+        return new Response();
+    }
+
+    /**
+     * @Route("/getScream", name="get.scream")
+     * @param Request $request
+     * @return Response
+     */
+    public function getScreamInfo(Request $request)
+    {
+        $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['ip' => $request->get('ip')]);
+
+        /** @var Joueur $user */
+        $scream = $user->getScream();
+
+        return new Response(json_encode($scream));
+    }
+
+    /**
+     * @Route("/setScreamAll", name="set.scream.all")
+     * @return Response
+     */
+    public function setScreamToAll()
+    {
+        $manager = $this->getDoctrine()->getManager();
+
+        $users = $this->getDoctrine()->getRepository(Joueur::class)->findAll();
+
+        /** @var Joueur $user */
+        foreach ($users as $user) {
+            $user->setScream(1);
+        }
+        $manager->flush();
+
+        return new Response();
+    }
+
+    /**
+     * @Route("", name="")
+     * @param Request $request
+     * @return Response
+     */
+    public function setSelfScream(Request $request)
+    {
+        $manager = $this->getDoctrine()->getManager();
+
+        $scream = $request->get('scream');
+        $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['ip' => $request->get('ip')]);
+
+        /** @var Joueur $user */
+        $user->setScream($scream);
+
+        $manager->flush();
+
         return new Response();
     }
 }
