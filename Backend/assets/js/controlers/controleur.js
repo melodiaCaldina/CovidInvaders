@@ -406,7 +406,7 @@ class Controleur extends Observateur {
                     'ip': this._IP,
                     'name': this.pseudo,
                     'score': this._jeu.superScore,
-                    'level': this._jeu._niveau,
+                    'level': this._jeu.getNiveau(),
                     'screamer': 0
                 },
                 success: function (feature) {
