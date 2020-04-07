@@ -86,16 +86,19 @@ class MainController extends AbstractController
 
     /**
      * @Route("/setScreamAll", name="set.scream.all")
+     * @param Request $request
      * @return Response
      */
-    public function setScreamToAll()
+    public function setScreamToAll(Request $request)
     {
         $manager = $this->getDoctrine()->getManager();
 
         $users = $this->getDoctrine()->getRepository(Joueur::class)->findAll();
-
+        $ip = $request->get('ip');
+        $name = $request->get('name');
         /** @var Joueur $user */
         foreach ($users as $user) {
+            if($user.getIp() !== $ip && $user.getName() !== $name)
             $user->setScream(1);
         }
         $manager->flush();

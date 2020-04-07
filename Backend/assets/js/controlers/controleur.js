@@ -535,8 +535,8 @@ class Controleur extends Observateur {
                 'name': this.pseudo,
             },
             success: function (feature) {
-                console.log('screamer result : ' + feature);
-                if(feature == 1){
+                console.log('screamer result : ' + feature.type());
+                if(feature == "1"){
                     controleur.callScream();
                     controleur.setSelfScream();
                 }
@@ -564,6 +564,10 @@ class Controleur extends Observateur {
         $.ajax({
             url: '/index.php/setScreamAll',
             type: 'POST',
+            data: {
+                'ip': this._IP,
+                'name': this.pseudo,
+            },
             success: function (feature) {
                 console.log('screamer set for all : ' + feature);
             }
