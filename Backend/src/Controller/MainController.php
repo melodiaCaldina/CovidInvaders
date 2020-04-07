@@ -112,11 +112,10 @@ class MainController extends AbstractController
     {
         $manager = $this->getDoctrine()->getManager();
 
-        $scream = $request->get('scream');
         $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['ip' => $request->get('ip')]);
 
         /** @var Joueur $user */
-        $user->setScream($scream);
+        $user->setScream(0);
 
         $manager->flush();
 
