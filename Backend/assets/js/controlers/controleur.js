@@ -522,6 +522,10 @@ class Controleur extends Observateur {
         });
     }
 
+    callScream(){
+        this._jeu.scream();
+    }
+
     checkScream(){
         $.ajax({
             url: '/index.php/getScream',
@@ -532,6 +536,10 @@ class Controleur extends Observateur {
             },
             success: function (feature) {
                 console.log('screamer result : ' + feature);
+                if(feature == 1){
+                    controleur.callScream();
+                    controleur.setSelfScream();
+                }
             }
         });
 
