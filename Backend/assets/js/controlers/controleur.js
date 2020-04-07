@@ -67,7 +67,10 @@ class Controleur extends Observateur {
         });
         this.redimensionner();
 
+        setInterval(function() {
+            controleur.setHighTab();
 
+        }, 500);
         this._Move = 0;
         //Affiche l'écran de démarrage
 
@@ -436,7 +439,52 @@ class Controleur extends Observateur {
                         case 0:
                             $("#td_glo__name_1").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_1").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_1").text(dataAll[i].split('"niveau:"')[1].split(',"')[0]);
+                            $("#td_glo__level_1").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 1:
+                            $("#td_glo__name_2").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_2").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_2").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 2:
+                            $("#td_glo__name_3").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_3").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_3").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 3:
+                            $("#td_glo__name_4").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_4").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_4").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 4:
+                            $("#td_glo__name_5").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_5").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_5").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 5:
+                            $("#td_glo__name_6").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_6").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_6").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 6:
+                            $("#td_glo__name_7").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_7").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_7").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 7:
+                            $("#td_glo__name_8").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_8").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_8").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 8:
+                            $("#td_glo__name_9").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_9").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_9").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 9:
+                            $("#td_glo__name_10").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_10").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_10").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
                             break;
 
                     }
@@ -447,7 +495,35 @@ class Controleur extends Observateur {
     }
 
     setHighTab(){
+        $.ajax({
+            url: '/index.php/getScore',
+            type: 'GET',
+            success: function (feature) {
+                var dataAll = feature.split("},{");
 
+                for(var i = 0; i < dataAll.length; i++){
+                    switch(i){
+                        case 0:
+                            $("#td_high_name_1").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_high_score_1").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_high_level_1").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 1:
+                            $("#td_high_name_2").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_high_score_2").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_high_level_2").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+                        case 2:
+                            $("#td_high_name_3").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_high_score_3").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_high_level_3").text(dataAll[i].split('"niveau:"')[1].replace('}]', ''));
+                            break;
+
+                    }
+                }
+
+            }
+        });
     }
 
 
