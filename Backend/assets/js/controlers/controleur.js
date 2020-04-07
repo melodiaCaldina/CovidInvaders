@@ -70,6 +70,7 @@ class Controleur extends Observateur {
 
         setInterval(function() {
             controleur.setHighTab();
+            controleur.setGlobalTab();
 
         }, 500);
         this._Move = 0;
@@ -529,7 +530,6 @@ class Controleur extends Observateur {
                 for(var i = 0; i < dataAll.length; i++){
                     switch(i){
                         case 0:
-                            console.log(dataAll[i]);
                             $("#td_high_name_1").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_high_score_1").text(dataAll[i].split('score":"')[1].split('","')[0]);
                             $("#td_high_level_1").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
