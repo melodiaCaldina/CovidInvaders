@@ -98,7 +98,7 @@ class MainController extends AbstractController
         $name = $request->get('name');
         /** @var Joueur $user */
         foreach ($users as $user) {
-            if($user.getIp() !== $ip && $user.getName() !== $name)
+            if($user->getIp() !== $ip && $user->getName() !== $name)
             $user->setScream(1);
             $manager->persist($user);
         }

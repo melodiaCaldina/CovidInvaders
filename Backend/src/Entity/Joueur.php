@@ -24,7 +24,7 @@ class Joueur
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=80)
      */
     private $ip;
 
