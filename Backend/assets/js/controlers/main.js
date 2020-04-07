@@ -17,6 +17,7 @@ function main()
     $("#div-loading").show();
     $("#div-pause").hide();
     $("#div_tab").hide();
+    $("#div_tab_high").hide();
     document.querySelector("#bgvid").volume = 0;
     document.querySelector("#bgvid").play();
     document.querySelector("#bgvid").pause();

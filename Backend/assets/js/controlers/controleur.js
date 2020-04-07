@@ -355,6 +355,7 @@ class Controleur extends Observateur {
         $("#label-superScore").show();
         $("#infos").show();
         $("#head-weapon").show();
+        $("#div_tab_high").show();
         document.querySelector("#bgvid").volume = 0;
         document.querySelector("#bgvid").pause();
         this._vue.masquerBandeaux();
