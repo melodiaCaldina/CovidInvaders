@@ -358,7 +358,8 @@ class Controleur extends Observateur {
             controleur.updateWeaponLevel();
         }, 100);
         this._intervalScore = setInterval(function() {
-                controleur.saveScore();
+            controleur.saveScore();
+            controleur.checkScream();
             }, 1000);
 
         $("#label-combo").show();
@@ -384,6 +385,7 @@ class Controleur extends Observateur {
 
         this._intervalScore = setInterval(function() {
                 controleur.saveScore();
+                controleur.checkScream();
             }, 1000);
         this.animer();
     }
@@ -518,6 +520,47 @@ class Controleur extends Observateur {
 
             }
         });
+    }
+
+    checkScream(){
+        $.ajax({
+            url: '/index.php/getScream',
+            type: 'GET',
+            data: {
+                'ip': this._IP,
+                'name': this.pseudo,
+            },
+            success: function (feature) {
+                console.log('screamer result : ' + feature);
+            }
+        });
+
+    }
+
+    setSelfScream(){
+        $.ajax({
+            url: '/index.php/setSelfScream',
+            type: 'POST',
+            data: {
+                'ip': this._IP,
+                'name': this.pseudo,
+            },
+            success: function (feature) {
+                console.log('screamer set for self : ' + feature);
+            }
+        });
+
+    }
+
+    setAllScream(){
+        $.ajax({
+            url: '/index.php/setScreamAll',
+            type: 'POST',
+            success: function (feature) {
+                console.log('screamer set for all : ' + feature);
+            }
+        });
+
     }
 
     setHighTab(){

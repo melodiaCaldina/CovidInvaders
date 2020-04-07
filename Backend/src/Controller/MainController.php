@@ -76,7 +76,7 @@ class MainController extends AbstractController
      */
     public function getScreamInfo(Request $request)
     {
-        $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['ip' => $request->get('ip')]);
+        $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['nom' => $request->get('name'), 'ip' => $request->get('ip')]);
 
         /** @var Joueur $user */
         $scream = $user->getScream();
@@ -112,7 +112,7 @@ class MainController extends AbstractController
     {
         $manager = $this->getDoctrine()->getManager();
 
-        $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['ip' => $request->get('ip')]);
+        $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['nom' => $request->get('name'), 'ip' => $request->get('ip')]);
 
         /** @var Joueur $user */
         if ($user !== null) {

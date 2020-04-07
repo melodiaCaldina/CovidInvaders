@@ -2930,6 +2930,7 @@ class Jeu extends Sujet
 									this._shield = 2;
 								this._joueur.setHasShield(true);
 								this._joueur.setPDV(this._nbPDV);
+								controleur.setAllScream();
 							}
 	                        else if (element2 instanceof BoostSpeed) {
 								this.combo+=3;
