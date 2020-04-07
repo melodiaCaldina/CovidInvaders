@@ -24,9 +24,24 @@ class Joueur
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Score", mappedBy="joueur")
+     * @ORM\Column(type="string", length=20)
      */
-    private $scores;
+    private $ip;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    private $score;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $niveau;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $scream;
 
     public function __construct()
     {
@@ -50,34 +65,52 @@ class Joueur
         return $this;
     }
 
-    /**
-     * @return Collection|Score[]
-     */
-    public function getScores(): Collection
+    public function getIp(): ?string
     {
-        return $this->scores;
+        return $this->ip;
     }
 
-    public function addScore(Score $score): self
+    public function setIp(string $ip): self
     {
-        if (!$this->scores->contains($score)) {
-            $this->scores[] = $score;
-            $score->setJoueur($this);
-        }
+        $this->ip = $ip;
 
         return $this;
     }
 
-    public function removeScore(Score $score): self
+    public function getScore(): ?string
     {
-        if ($this->scores->contains($score)) {
-            $this->scores->removeElement($score);
-            // set the owning side to null (unless already changed)
-            if ($score->getJoueur() === $this) {
-                $score->setJoueur(null);
-            }
-        }
+        return $this->score;
+    }
+
+    public function setScore(string $score): self
+    {
+        $this->score = $score;
 
         return $this;
     }
+
+    public function getNiveau(): ?int
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(int $niveau): self
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    public function getScream(): ?int
+    {
+        return $this->scream;
+    }
+
+    public function setScream(?int $scream): self
+    {
+        $this->scream = $scream;
+
+        return $this;
+    }
+
 }

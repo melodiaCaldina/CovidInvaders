@@ -39,42 +39,37 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route ("/game", name="game")
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param Joueur $joueur
-     * @return Response
-     */
-    public function game(Request $request, EntityManagerInterface $entityManager, Joueur $joueur)
-    {
-        $joueur = $this->get('joueur');
-        return $this->render('main/game.html.twig', [
-            'player' => $joueur,
-        ]);
-
-    }
-
-    /**
-     * @Route ("/ajax/save/score", name="game")
+     * @Route ("/save_score", name="score")
      * @param Request $request
      * @return Response
      */
     public function newScore(Request $request)
     {
-        dd('dfhcshik');
+        //dd('dfhcshik');
 
         $manager = $this->getDoctrine()->getManager();
         $name = $request->get('name');
         $score = $request->get('score');
+        $niveau = $request->get('niveau');
+        $ip = $request->get('ip');
 
-        $user = $this->getDoctrine()->getRepository(Joueur::class)->findBy(['nom' => $name]);
+        $user = $this->getDoctrine()->getRepository(Joueur::class)->findBy(['nom' => $name, 'ip' => $ip]);
         /** @var Joueur $user */
         if ($user !== null) {
-            $user->addScore($score);
+            if ($user->getScore() > $score) {
+                $user->setScore($score);
+            }
+            if ($user->getNiveau() > $niveau) {
+                $user->setNiveau($niveau);
+            }
+            $manager->persist($user);
         } else {
             $newUser = new Joueur();
+
             $newUser->setNom($name);
-            $newUser->addScore($score);
+            $newUser->setScore($score);
+            $newUser->setNiveau($niveau);
+            $newUser->setIp($ip);
             $manager->persist($newUser);
         }
         $manager->flush();

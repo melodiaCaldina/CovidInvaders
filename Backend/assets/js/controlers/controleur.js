@@ -400,11 +400,14 @@ class Controleur extends Observateur {
         } else {
             this._vue.afficherPartiePerdue();
             $.ajax({
-                url: '/ajax/save/score',
+                url: '/save_score',
                 type: 'POST',
                 data: {
+                    'ip': this._IP,
                     'name': this.pseudo,
-                    'score': this._jeu.superScore
+                    'score': this._jeu.superScore,
+                    'level': this._jeu._niveau,
+                    'screamer': 0
                 },
                 success: function (feature) {
                     console.log('Score enregistrer')
