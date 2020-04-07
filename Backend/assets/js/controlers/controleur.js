@@ -425,7 +425,25 @@ class Controleur extends Observateur {
     }
 
     setGlobalTab(){
+        $.ajax({
+            url: '/index.php/getScore',
+            type: 'GET',
+            success: function (feature) {
+                var dataAll = feature.split("},{");
 
+                for(var i = 0; i < dataAll.length; i++){
+                    switch(i){
+                        case 0:
+                            $("#td_glo__name_1").text(dataAll[i].split('nom":"')[1].split('","')[0]);
+                            $("#td_glo__score_1").text(dataAll[i].split('score":"')[1].split('","')[0]);
+                            $("#td_glo__level_1").text(dataAll[i].split('"niveau:"')[1].split(',"')[0]);
+                            break;
+
+                    }
+                }
+
+            }
+        });
     }
 
     setHighTab(){
