@@ -55,6 +55,7 @@ class Controleur extends Observateur {
         this.hasStart = false;
         this._IP = "";
         this.isInPause = false;
+        this.jeuTermine = false;
         $("#label-combo").hide();
         $("#label-superScore").hide();
         $("#label-Pseudo").hide();
@@ -323,6 +324,7 @@ class Controleur extends Observateur {
      * Démarre une nouvelle partie
      */
     commencerNouveauJeu() {
+        this.jeuTermine = false;
         $("#div_tab").hide();
         this.hasStart = true;
         setInterval(function () {
@@ -399,23 +401,39 @@ class Controleur extends Observateur {
             this._vue.afficherPartieGagnee();
         } else {
             this._vue.afficherPartiePerdue();
-            $.ajax({
-                url: '/index.php/saveScore',
-                type: 'POST',
-                data: {
-                    'ip': this._IP,
-                    'name': this.pseudo,
-                    'score': this._jeu.superScore,
-                    'level': this._jeu.getNiveau(),
-                    'screamer': 0
-                },
-                success: function (feature) {
-                    console.log('Score enregistrer')
-                }
-            });
+            if(!this.jeuTermine){
+                $.ajax({
+                    url: '/index.php/saveScore',
+                    type: 'POST',
+                    data: {
+                        'ip': this._IP,
+                        'name': this.pseudo,
+                        'score': this._jeu.superScore,
+                        'level': this._jeu.getNiveau(),
+                        'screamer': 0
+                    },
+                    success: function (feature) {
+                        console.log('Score enregistrer');
+                        controleur.setGlobalTab();
+                        controleur.setHighTab();
+                    }
+                });
+                this.jeuTermine = true;
+            }
 
         }
     }
+
+    setGlobalTab(){
+
+    }
+
+    setHighTab(){
+
+    }
+
+
+
 
     /**
      * Rafraichissement du jeu toutes les 40 milisecondes
