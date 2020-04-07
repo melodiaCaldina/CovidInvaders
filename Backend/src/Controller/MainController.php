@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Joueur;
 use App\Form\JoueurType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManager;
@@ -37,6 +38,17 @@ class MainController extends AbstractController
 
         return $this->render('index.html.twig');
     }
+
+    /**
+     * @Route("/getScore", name="leaderboard")
+     */
+    public function getScoresLeaderBoard() :Response
+    {
+        $scores = $this->getDoctrine()->getRepository(Joueur::class)->findTop10();
+
+        return new Response($scores);
+    }
+
 
     /**
      * @Route ("/saveScore", name="score")

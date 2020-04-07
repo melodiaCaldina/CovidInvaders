@@ -22,19 +22,17 @@ class JoueurRepository extends ServiceEntityRepository
     // /**
     //  * @return Joueur[] Returns an array of Joueur objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findTop10()
     {
         return $this->createQueryBuilder('j')
-            ->andWhere('j.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('j.id', 'ASC')
+            ->orderBy('j.score', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Joueur
