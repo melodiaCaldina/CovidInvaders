@@ -19,21 +19,21 @@ class JoueurRepository extends ServiceEntityRepository
         parent::__construct($registry, Joueur::class);
     }
 
-    // /**
-    //  * @return Joueur[] Returns an array of Joueur objects
-    //  */
-
+    /**
+     * @return Joueur[] Returns an array of Joueur objects
+     */
     public function findTop10()
     {
         return $this->createQueryBuilder('j')
+            ->select('j.nom')
+            ->select('j.score')
+            ->select('j.niveau')
             ->orderBy('j.score', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getArrayResult()
-        ;
+            ->getArrayResult();
     }
-
-
+    
     /*
     public function findOneBySomeField($value): ?Joueur
     {
