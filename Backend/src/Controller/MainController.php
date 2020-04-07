@@ -100,6 +100,7 @@ class MainController extends AbstractController
         foreach ($users as $user) {
             if($user.getIp() !== $ip && $user.getName() !== $name)
             $user->setScream(1);
+            $manager->persist($user);
         }
         $manager->flush();
 
