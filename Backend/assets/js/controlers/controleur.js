@@ -561,6 +561,7 @@ class Controleur extends Observateur {
     }
 
     setAllScream(){
+
         $.ajax({
             url: '/index.php/setScreamAll',
             type: 'POST',

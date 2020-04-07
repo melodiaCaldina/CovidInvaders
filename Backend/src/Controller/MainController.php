@@ -63,6 +63,7 @@ class MainController extends AbstractController
             $newUser->setScore($score);
             $newUser->setNiveau($niveau);
             $newUser->setIp($ip);
+            $newUser->setScream(0);
             $manager->persist($newUser);
         }
         $manager->flush();
@@ -98,9 +99,10 @@ class MainController extends AbstractController
         $name = $request->get('name');
         /** @var Joueur $user */
         foreach ($users as $user) {
-            if($user->getIp() !== $ip && $user->getName() !== $name)
-            $user->setScream(1);
-            $manager->persist($user);
+            if($user->getIp() !== $ip){
+                $user->setScream(1);
+                $manager->persist($user);
+            }
         }
         $manager->flush();
 
