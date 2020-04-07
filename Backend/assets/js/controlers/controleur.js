@@ -400,7 +400,7 @@ class Controleur extends Observateur {
         } else {
             this._vue.afficherPartiePerdue();
             $.ajax({
-                url: '/save_score',
+                url: '/saveScore',
                 type: 'POST',
                 data: {
                     'ip': this._IP,

@@ -39,7 +39,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route ("/save_score", name="score")
+     * @Route ("/saveScore", name="score")
      * @param Request $request
      * @return Response
      */
