@@ -104,7 +104,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("", name="")
+     * @Route("/setSelfScream", name="")
      * @param Request $request
      * @return Response
      */
