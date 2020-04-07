@@ -49,10 +49,10 @@ class MainController extends AbstractController
         $user = $this->getDoctrine()->getRepository(Joueur::class)->findOneBy(['nom' => $name, 'ip' => $ip]);
         /** @var Joueur $user */
         if ($user !== null) {
-            if ($user->getScore() > $score) {
+            if ($user->getScore() < $score) {
                 $user->setScore($score);
             }
-            if ($user->getNiveau() > $niveau) {
+            if ($user->getNiveau() < $niveau) {
                 $user->setNiveau($niveau);
             }
             $manager->persist($user);

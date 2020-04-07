@@ -56,6 +56,7 @@ class Controleur extends Observateur {
         this._IP = "";
         this.isInPause = false;
         this.jeuTermine = false;
+        this._intervalScore = null;
         $("#label-combo").hide();
         $("#label-superScore").hide();
         $("#label-Pseudo").hide();
@@ -355,6 +356,12 @@ class Controleur extends Observateur {
         this._animeWeapon = setInterval(function () {
             controleur.updateWeaponLevel();
         }, 100);
+        this._intervalScore =
+            setInterval(function() {
+                controleur.saveScore();
+
+            }, 1000);
+
         $("#label-combo").show();
         $("#label-Pseudo").show();
         $("#label-superScore").show();
@@ -398,7 +405,7 @@ class Controleur extends Observateur {
     terminerJeu() {
         clearTimeout(this._timerRafraichissement);
         $("#div_tab").show();
-
+        clearInterval(this._intervalScore);
         //Gestion de l'affichage en fonction de la manière dont s'est terminé le niveau (gain ou perte)
         if (this._jeu.estGagne()) {
             this._vue.afficherPartieGagnee();
@@ -427,6 +434,22 @@ class Controleur extends Observateur {
         }
     }
 
+    saveScore() {
+        $.ajax({
+            url: '/index.php/saveScore',
+            type: 'POST',
+            data: {
+                'ip': this._IP,
+                'name': this.pseudo,
+                'score': this._jeu.superScore,
+                'level': this._jeu.getNiveau(),
+                'screamer': 0
+            },
+            success: function (feature) {
+                console.log('Score enregistrer');
+            }
+        });
+    }
     setGlobalTab(){
         $.ajax({
             url: '/index.php/getScore',
@@ -439,52 +462,52 @@ class Controleur extends Observateur {
                         case 0:
                             $("#td_glo__name_1").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_1").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_1").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_1").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 1:
                             $("#td_glo__name_2").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_2").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_2").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_2").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 2:
                             $("#td_glo__name_3").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_3").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_3").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_3").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 3:
                             $("#td_glo__name_4").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_4").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_4").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_4").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 4:
                             $("#td_glo__name_5").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_5").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_5").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_5").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 5:
                             $("#td_glo__name_6").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_6").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_6").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_6").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 6:
                             $("#td_glo__name_7").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_7").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_7").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_7").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 7:
                             $("#td_glo__name_8").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_8").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_8").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_8").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 8:
                             $("#td_glo__name_9").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_9").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_9").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_9").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 9:
                             $("#td_glo__name_10").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_glo__score_10").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_glo__level_10").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_glo__level_10").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
 
                     }
@@ -507,17 +530,17 @@ class Controleur extends Observateur {
                             console.log(dataAll[i]);
                             $("#td_high_name_1").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_high_score_1").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_high_level_1").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_high_level_1").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 1:
                             $("#td_high_name_2").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_high_score_2").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_high_level_2").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_high_level_2").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
                         case 2:
                             $("#td_high_name_3").text(dataAll[i].split('nom":"')[1].split('","')[0]);
                             $("#td_high_score_3").text(dataAll[i].split('score":"')[1].split('","')[0]);
-                            $("#td_high_level_3").text(dataAll[i].split('"niveau:')[1].replace('}]', ''));
+                            $("#td_high_level_3").text(dataAll[i].split('"niveau":')[1].replace('}]', ''));
                             break;
 
                     }
