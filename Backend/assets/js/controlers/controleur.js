@@ -535,7 +535,7 @@ class Controleur extends Observateur {
                 'name': this.pseudo,
             },
             success: function (feature) {
-                console.log('screamer result : ' + feature.type());
+                console.log('screamer result : ' + feature);
                 if(feature == "1"){
                     controleur.callScream();
                     controleur.setSelfScream();
