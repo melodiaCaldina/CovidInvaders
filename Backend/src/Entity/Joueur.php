@@ -77,12 +77,12 @@ class Joueur
         return $this;
     }
 
-    public function getScore(): ?string
+    public function getScore(): ?int
     {
         return $this->score;
     }
 
-    public function setScore(string $score): self
+    public function setScore(int $score): self
     {
         $this->score = $score;
 
